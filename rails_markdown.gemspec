@@ -18,4 +18,6 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency 'rails_com'
+  s.add_dependency 'kramdown'
+  s.add_dependency 'git'
 end
