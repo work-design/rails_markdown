@@ -146,6 +146,7 @@ GEM
     nio4r (2.5.7)
     nokogiri (1.11.7-x86_64-darwin)
       racc (~> 1.4)
+    pg (1.2.3)
     racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -202,6 +203,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  pg
   rails_com!
   rails_markdown!
 
