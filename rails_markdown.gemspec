@@ -1,24 +1,21 @@
-require_relative "lib/rails_markdown/version"
+require_relative 'lib/rails_markdown/version'
 
-Gem::Specification.new do |spec|
-  spec.name        = "rails_markdown"
-  spec.version     = RailsMarkdown::VERSION
-  spec.authors     = ["MingyuanQin"]
-  spec.email       = ["mingyuan0715@foxmail.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of RailsMarkdown."
-  spec.description = "TODO: Description of RailsMarkdown."
-  spec.license     = "MIT"
+Gem::Specification.new do |s|
+  s.name = 'rails_markdown'
+  s.version = RailsMarkdown::VERSION
+  s.authors = ['MingyuanQin']
+  s.email = ['mingyuan0715@foxmail.com']
+  s.homepage = 'https://github.com/work-design/rails_markdown'
+  s.summary = '加载 Markdown'
+  s.description = 'Description of RailsMarkdown.'
+  s.license = 'MIT'
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  s.files = Dir[
+    '{app,config,db,lib}/**/*',
+    'MIT-LICENSE',
+    'Rakefile',
+    'README.md'
+  ]
 
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
-
-  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
-
-  spec.add_dependency "rails", "~> 6.1.3", ">= 6.1.3.2"
+  s.add_dependency 'rails_com'
 end
