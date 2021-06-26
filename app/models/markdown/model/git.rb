@@ -9,10 +9,16 @@ module Markdown
       attribute :last_commit_at, :datetime
     end
 
+    def real_path
+      Rails.root.join(working_directory)
+    end
 
-
-    def xx
-
+    def repo
+      return @repo if defined? @repo
+      Dir.chdir(real_path) do
+        @repo = Git.open
+      end
+      @repo
     end
 
   end
