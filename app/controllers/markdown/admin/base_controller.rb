@@ -1,4 +1,4 @@
-module Auth
+module Markdown
   class Admin::BaseController < AdminController
 
   end

@@ -1,16 +1,16 @@
 <tr>
-  <td class="has-text-right"><%= Git.human_attribute_name(:working_directory) %></td>
+  <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:working_directory) %></td>
   <td><%= @git.working_directory %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Git.human_attribute_name(:remote_url) %></td>
+  <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:remote_url) %></td>
   <td><%= @git.remote_url %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Git.human_attribute_name(:last_commit_at) %></td>
+  <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:last_commit_at) %></td>
   <td><%= @git.last_commit_at %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Git.human_attribute_name(:last_commit_message) %></td>
+  <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:last_commit_message) %></td>
   <td><%= @git.last_commit_message %></td>
 </tr>
