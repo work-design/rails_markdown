@@ -16,7 +16,7 @@ module Markdown
     def repo
       return @repo if defined? @repo
       Dir.chdir(real_path) do
-        @repo = Git.open
+        @repo = ::Git.open real_path
       end
       @repo
     end
