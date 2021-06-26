@@ -1,5 +1,5 @@
 module Markdown
-  module Git
+  module Model::Git
     extend ActiveSupport::Concern
 
     included do

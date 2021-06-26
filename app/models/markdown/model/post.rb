@@ -1,5 +1,5 @@
 module Markdown
-  module Post
+  module Model::Post
     extend ActiveSupport::Concern
 
     included do
