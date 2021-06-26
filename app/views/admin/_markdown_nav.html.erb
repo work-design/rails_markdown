@@ -1,0 +1,10 @@
+<div class="<%= active_helper(modules: 'auth/admin', active: 'menu ex-accordion is-active', item: 'menu ex-accordion') %>" data-controller="menu">
+  <%= content_tag :div, class: 'menu-list' do %>
+    <%= link_to t('auth.admin.user_tags.index.title'), { controller: 'markdown/admin/gits' }, class: active_helper(controllers: ['gits'], active: 'is-active') -%>
+  <% end %>
+  <a class="menu-label" data-action="menu#toggle">
+    <i class="fas fa-users fa-fw"></i>
+    <span><%= t('auth.admin.title') %></span>
+    <i class="fas dropdown"></i>
+  </a>
+</div>

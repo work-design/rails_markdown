@@ -5,7 +5,7 @@ module Markdown
     included do
       attribute :working_directory, :string
       attribute :remote_url, :string
-      attribute :last_commit_massage, :string
+      attribute :last_commit_message, :string
       attribute :last_commit_at, :datetime
     end
 
