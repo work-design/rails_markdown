@@ -31,7 +31,7 @@ module Markdown
       result = {}
 
       result.merge! current_tree.blobs.select(&->(k, _){ k.end_with?('.md') })
-      current_tree.trees.each do |tree|
+      current_tree.trees.each do |_, tree|
         markdowns(tree)
       end
 
