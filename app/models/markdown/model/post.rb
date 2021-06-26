@@ -7,8 +7,9 @@ module Markdown
       attribute :html, :string
       attribute :layout, :string
       attribute :path, :string
-    end
 
+      belongs_to :git
+    end
 
     def document
       return @document if defined? @document
