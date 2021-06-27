@@ -16,9 +16,9 @@ PATH
   remote: .
   specs:
     rails_markdown (0.1.0)
-      git
       kramdown
       rails_com
+      rugged
 
 GEM
   remote: https://rubygems.org/
@@ -108,8 +108,6 @@ GEM
     faraday-excon (1.1.0)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
-    git (1.8.1)
-      rchardet (~> 1.8)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     http-2-next (0.4.3)
@@ -178,9 +176,9 @@ GEM
       rake (>= 0.13)
       thor (~> 1.0)
     rake (13.0.3)
-    rchardet (1.8.0)
     rexml (3.2.5)
     ruby2_keywords (0.0.4)
+    rugged (1.1.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)

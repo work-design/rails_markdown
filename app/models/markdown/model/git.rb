@@ -15,23 +15,20 @@ module Markdown
       Rails.root.join(working_directory)
     end
 
-    def git
+    def repo
       return @repo if defined? @repo
-      Dir.chdir(real_path) do
-        @repo = ::Git.open real_path
-      end
-      @repo
+      @repo = Rugged::Repository.new real_path
     end
 
     def tree
-      git.gtree 'HEAD'
+      repo.head.target.tree
     end
 
     def markdowns(result = {}, current_tree = tree)
-      result.merge! current_tree.blobs.select(&->(k, _){ k.end_with?('.md') })
-
-      current_tree.trees.each do |_, tree|
-        markdowns(result, tree)
+      current_tree.walk_blobs do |root, entry|
+        if entry[:name].end_with?('.md')
+          result.merge! "#{root}#{entry[:name]}" => repo.lookup(entry[:oid])
+        end
       end
 
       result
