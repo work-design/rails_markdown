@@ -12,6 +12,7 @@ module RailsMarkdown
         fixture: true,
         fixture_replacement: :factory_bot
       }
+      g.resource_route false
       g.templates.unshift File.expand_path('lib/templates', RailsCom::Engine.root)
     end
 
