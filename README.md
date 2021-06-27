@@ -1,6 +1,6 @@
 # RailsMarkdown
 
-用 Markdown 写作，同步到应用，微信公众号，知乎等地方。
+用 Markdown 写作，用 Git 进行管理，同步到应用，微信公众号，知乎等地方。
 
 #### 已支持
 * Application
