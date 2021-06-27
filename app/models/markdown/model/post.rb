@@ -21,6 +21,12 @@ module Markdown
 
     def sync_to_html
       self.html = document.to_html
+      self.title = get_title
+    end
+
+    def get_title
+      h1 = document.root.children.find(&->(i){ i.type == :header && i.options[:level] == 1 })
+      h1.options[:raw_text] if h1
     end
 
   end
