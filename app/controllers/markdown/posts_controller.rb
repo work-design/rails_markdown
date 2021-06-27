@@ -38,7 +38,9 @@ module Markdown
 
     private
     def set_post
-      @post = Post.find(params[:id])
+      path = "#{params[:path]}.#{params[:format]}"
+
+      @post = Post.find_by(path: path)
     end
 
     def post_params
