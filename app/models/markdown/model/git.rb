@@ -35,7 +35,13 @@ module Markdown
     end
 
     def sync
-      tree.blobs
+      markdowns.each do |path, object|
+        post = self.posts.find_or_initialize_by(path: path)
+        post.oid = object.oid
+        post.markdown = object.text
+      end
+
+      self.save
     end
 
   end
