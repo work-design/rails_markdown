@@ -1,0 +1,10 @@
+zh:
+  activerecord:
+    attributes:
+      agential/agency:
+        relation: 关系
+        note: 备注
+        commission_ratio: 抽成比例
+        client_id: 客户
+      agential/agency/client:
+        name: 姓名
