@@ -6,18 +6,6 @@ module Markdown
       @posts = Post.page(params[:page])
     end
 
-    def new
-      @post = Post.new
-    end
-
-    def create
-      @post = Post.new(post_params)
-
-      unless @post.save
-        render :new, locals: { model: @post }, status: :unprocessable_entity
-      end
-    end
-
     def show
     end
 

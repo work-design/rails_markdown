@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :markdown, defaults: { business: 'markdown' } do
-    resources :posts do
+    resources :posts, only: [:index] do
       collection do
         get '*path' => :show
       end
