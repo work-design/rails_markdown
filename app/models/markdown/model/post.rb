@@ -3,6 +3,7 @@ module Markdown
     extend ActiveSupport::Concern
 
     included do
+      attribute :title, :string
       attribute :markdown, :string
       attribute :html, :string
       attribute :layout, :string
