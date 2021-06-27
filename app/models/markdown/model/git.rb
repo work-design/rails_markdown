@@ -27,12 +27,11 @@ module Markdown
       git.gtree 'HEAD'
     end
 
-    def markdowns(current_tree = tree)
-      result = {}
-
+    def markdowns(result = {}, current_tree = tree)
       result.merge! current_tree.blobs.select(&->(k, _){ k.end_with?('.md') })
+
       current_tree.trees.each do |_, tree|
-        markdowns(tree)
+        markdowns(result, tree)
       end
 
       result
