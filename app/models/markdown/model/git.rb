@@ -27,7 +27,13 @@ module Markdown
     def markdowns(result = {}, current_tree = tree)
       current_tree.walk_blobs do |root, entry|
         if entry[:name].end_with?('.md')
-          result.merge! "#{root}#{entry[:name]}" => repo.lookup(entry[:oid])
+          k = "#{root}#{entry[:name]}"
+          result.merge!(
+            k => {
+              rugged: repo.lookup(entry[:oid]),
+              model: posts.find(&->(i){ i.path == k }) || posts.build(path: k)
+            }
+          )
         end
       end
 
@@ -35,13 +41,13 @@ module Markdown
     end
 
     def sync
-      markdowns.each do |path, object|
-        post = self.posts.find_or_initialize_by(path: path)
-        post.oid = object.oid
-        post.markdown = object.text
+      markdowns.each do |_, object|
+        object[:model].oid = object[:rugged].oid
+        object[:model].markdown = object[:rugged].text
+        object[:model].save
       end
 
-      self.save
+      true
     end
 
   end
