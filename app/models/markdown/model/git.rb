@@ -41,13 +41,11 @@ module Markdown
     end
 
     def sync
-      markdowns.each do |_, object|
+      markdowns.map do |_, object|
         object[:model].oid = object[:rugged].oid
         object[:model].markdown = object[:rugged].text
         object[:model].save
       end
-
-      true
     end
 
   end
