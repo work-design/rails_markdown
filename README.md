@@ -1,5 +1,7 @@
 # RailsMarkdown
-Short description and motivation.
+
+用 Markdown 写作，同步到应用，微信公众号，知乎等地方。
+
 
 ## 依赖
 * libgit2
