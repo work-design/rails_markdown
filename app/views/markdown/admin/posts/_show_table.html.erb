@@ -1,16 +1,16 @@
 <tr>
-  <td class="has-text-right"><%= Post.human_attribute_name(:path) %></td>
+  <td class="has-text-right"><%= Markdown::Post.human_attribute_name(:path) %></td>
   <td><%= @post.path %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Post.human_attribute_name(:title) %></td>
+  <td class="has-text-right"><%= Markdown::Post.human_attribute_name(:title) %></td>
   <td><%= @post.title %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Post.human_attribute_name(:markdown) %></td>
+  <td class="has-text-right"><%= Markdown::Post.human_attribute_name(:markdown) %></td>
   <td><%= @post.markdown %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Post.human_attribute_name(:html) %></td>
+  <td class="has-text-right"><%= Markdown::Post.human_attribute_name(:html) %></td>
   <td><%= @post.html %></td>
 </tr>
