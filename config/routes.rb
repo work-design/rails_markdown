@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :admin, defaults: { business: 'admin' } do
+    namespace :admin, defaults: { namespace: 'admin' } do
       resources :gits do
         resources :posts
       end
