@@ -6,3 +6,4 @@ gem 'pg'
 
 gem 'rails_com', github: 'work-design/rails_com'
 
+gem 'nokogiri'
