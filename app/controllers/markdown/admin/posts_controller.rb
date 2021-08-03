@@ -7,6 +7,10 @@ module Markdown
       @posts = @git.posts.page(params[:page])
     end
 
+    def sync
+      @git.sync
+    end
+
     def new
       @post = @git.posts.build
     end
