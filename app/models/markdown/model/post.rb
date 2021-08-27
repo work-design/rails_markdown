@@ -14,7 +14,7 @@ module Markdown
       belongs_to :git
       before_save :sync_to_html, if: -> { markdown_changed? }
 
-      scoped :published, -> { where(published: true) }
+      scope :published, -> { where(published: true) }
     end
 
     def document
