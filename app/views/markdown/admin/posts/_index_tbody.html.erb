@@ -1,5 +1,7 @@
 <td>
-  <p class="has-text-weight-bold"><%= model.title %></p>
+  <p>
+    <%= link_to model.title, { controller: '/markdown/posts', action: 'show', path: model.path }, target: '_blank', class: 'has-text-weight-bold' %>
+  </p>
   <p class="has-text-grey"><%= model.path %></p>
 </td>
 <td><%= model.markdown.truncate(20) %></td>
