@@ -1,3 +1,11 @@
-<td><%= model.path %></td>
-<td><%= model.title %></td>
+<td>
+  <p class="has-text-weight-bold"><%= model.title %></p>
+  <p class="has-text-grey"><%= model.path %></p>
+</td>
 <td><%= model.markdown.truncate(20) %></td>
+<td>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :published, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
+</td>

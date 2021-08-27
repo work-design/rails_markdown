@@ -1,4 +1,7 @@
-<th><%= Markdown::Post.human_attribute_name(:path) %></th>
-<th><%= Markdown::Post.human_attribute_name(:title) %></th>
+<th>
+  <p><%= Markdown::Post.human_attribute_name(:title) %></p>
+  <p><%= Markdown::Post.human_attribute_name(:path) %></p>
+</th>
 <th><%= Markdown::Post.human_attribute_name(:markdown) %></th>
+<th><%= Markdown::Post.human_attribute_name(:published) %></th>
 <th></th>

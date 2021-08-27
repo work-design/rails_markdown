@@ -9,9 +9,12 @@ module Markdown
       attribute :layout, :string
       attribute :path, :string
       attribute :oid, :string
+      attribute :published, :boolean, default: true
 
       belongs_to :git
       before_save :sync_to_html, if: -> { markdown_changed? }
+
+      scoped :published, -> { where(published: true) }
     end
 
     def document

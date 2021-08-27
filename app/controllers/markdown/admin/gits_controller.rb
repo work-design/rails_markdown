@@ -18,24 +18,6 @@ module Markdown
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @git.assign_attributes(git_params)
-
-      unless @git.save
-        render :edit, locals: { model: @git }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @git.destroy
-    end
-
     private
     def set_git
       @git = Git.find(params[:id])

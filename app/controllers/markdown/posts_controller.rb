@@ -1,27 +1,9 @@
 module Markdown
   class PostsController < BaseController
-    before_action :set_post, only: [:show, :edit, :update, :destroy]
+    before_action :set_post, only: [:show]
 
     def index
-      @posts = Post.page(params[:page])
-    end
-
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @post.assign_attributes(post_params)
-
-      unless @post.save
-        render :edit, locals: { model: @post }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @post.destroy
+      @posts = Post.published.page(params[:page])
     end
 
     private
