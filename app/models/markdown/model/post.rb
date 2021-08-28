@@ -10,6 +10,7 @@ module Markdown
       attribute :path, :string
       attribute :oid, :string
       attribute :published, :boolean, default: true
+      attribute :ppt, :boolean, default: false
 
       belongs_to :git
       before_save :sync_to_html, if: -> { markdown_changed? }

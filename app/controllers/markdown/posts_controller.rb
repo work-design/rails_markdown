@@ -6,6 +6,10 @@ module Markdown
       @posts = Post.published.page(params[:page])
     end
 
+    def ppt
+      @post = Post.find params[:id]
+    end
+
     private
     def set_post
       path = "#{params[:path]}.#{params[:format]}"

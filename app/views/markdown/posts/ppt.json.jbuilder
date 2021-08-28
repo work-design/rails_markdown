@@ -1,0 +1,1 @@
+json.markdown @post.markdown

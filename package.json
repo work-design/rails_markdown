@@ -1,0 +1,12 @@
+{
+  "name": "rails_markdown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:work-design/rails_markdown.git",
+  "author": "qinmingyuan <mingyuan0715@foxmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@marp-team/marp-core": "^2.1.1",
+    "stimulus": "^2.0.0"
+  }
+}
