@@ -186,6 +186,8 @@ GEM
     nokogiri (1.12.4-x86_64-linux)
       racc (~> 1.4)
     pg (1.2.3)
+    puma (5.4.0)
+      nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -254,6 +256,7 @@ DEPENDENCIES
   debug
   minitest-hooks
   pg
+  puma
   rails_com!
   rails_design!
   rails_extend!

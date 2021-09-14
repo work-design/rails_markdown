@@ -17,13 +17,5 @@ module Markdown
       @post = Post.find_by(path: path)
     end
 
-    def post_params
-      params.fetch(:post, {}).permit(
-        :title,
-        :markdown,
-        :html
-      )
-    end
-
   end
 end
