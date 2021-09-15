@@ -1,10 +1,9 @@
-import { Controller } from 'stimulus'
-import Marp from '@marp-team/marpit'
+import { Controller } from '@hotwired/stimulus'
+//import Marp from '@marp-team/marpit'
 
 class MarpController extends Controller {
 
   connect() {
-    console.debug('connected:', this.identifier)
     this.link()
   }
 
@@ -42,4 +41,4 @@ class MarpController extends Controller {
 
 }
 
-application.register('marp', MarpController)
+//application.register('marp', MarpController)
