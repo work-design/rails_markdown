@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
+gem 'rails', '7.0.0.alpha2'
 gem 'pg'
 gem 'puma'
 
