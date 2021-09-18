@@ -6,18 +6,6 @@ module Markdown
       @gits = Git.page(params[:page])
     end
 
-    def new
-      @git = Git.new
-    end
-
-    def create
-      @git = Git.new(git_params)
-
-      unless @git.save
-        render :new, locals: { model: @git }, status: :unprocessable_entity
-      end
-    end
-
     private
     def set_git
       @git = Git.find(params[:id])

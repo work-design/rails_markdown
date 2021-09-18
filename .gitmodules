@@ -4,3 +4,6 @@
 [submodule "docker"]
 	path = docker
 	url = https://github.com/work-design/docker.git
+[submodule "posts"]
+	path = posts
+	url = https://github.com/work-design/home.git

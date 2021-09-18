@@ -1,5 +1,13 @@
 zh:
   markdown:
+    admin:
+      title: Markdown
+      gits:
+        index:
+          title: Git 路径
+      posts:
+        index:
+          title: 文章列表
     posts:
       index:
         title: 首页

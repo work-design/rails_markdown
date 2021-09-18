@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 953ef46899c750d41ea6e09aba71c9376363e1ce
+  revision: 2648f2003f88d86ff730d9e478ea4d1e63355280
   specs:
     rails_com (1.2.9)
       acme-client
@@ -30,10 +30,10 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_extend.git
-  revision: ef2aa3492d3d214a8d60cb6322c39d2e568adb74
+  revision: ada7e86e1319e0181221e021e97668075a3910a4
   specs:
     rails_extend (1.0.0)
-      rails (>= 6.0)
+      rails (>= 5.0)
 
 PATH
   remote: .
@@ -236,7 +236,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.1.0)
     timers (4.3.3)
-    turbo-rails (0.7.11)
+    turbo-rails (0.7.14)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
