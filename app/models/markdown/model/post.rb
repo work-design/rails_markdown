@@ -8,13 +8,15 @@ module Markdown
       attribute :html, :string
       attribute :layout, :string
       attribute :path, :string
-      attribute :catalog_path, :string
+      attribute :catalog_path, :string, default: ''
       attribute :oid, :string
       attribute :published, :boolean, default: true
       attribute :ppt, :boolean, default: false
 
       belongs_to :git
       belongs_to :catalog, foreign_key: :catalog_path, primary_key: :path
+
+      before_validation :sure_catalog, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }
 
       scope :published, -> { where(published: true) }
@@ -31,6 +33,13 @@ module Markdown
 
     def sync
 
+    end
+
+    def sure_catalog
+      r = path.split('/')
+
+      self.catalog_path = r[0..-2].join('/')
+      self.catalog || self.create_catalog
     end
 
     def sync_to_html

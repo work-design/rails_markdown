@@ -7,11 +7,18 @@ module Markdown
       attribute :path, :string
       attribute :parent_path, :string
 
-      belongs_to :parent, foreign_key: :parent_path, primary_key: :path
+      belongs_to :parent, foreign_key: :parent_path, primary_key: :path, optional: true
 
       has_many :posts
+
+      before_validation :sync_parent_path, if: -> { path_changed? }
     end
 
+    def sync_parent_path
+      r = path.split('/')
+      self.parent_path = r[0..-2].join('/')
+      self.name = r[-1]
+    end
 
   end
 end
