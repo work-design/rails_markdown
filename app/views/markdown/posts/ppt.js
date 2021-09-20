@@ -20,9 +20,9 @@ class MarpController extends Controller {
       return response.json()
     }).then(body => {
       const { html, css, comments } = this.marp.render(body.results.markdown, { htmlAsArray: true })
-      debugger
       this.installCss(css)
       this.slides = html
+      this.comments = comments
       this.containerTarget.innerHTML = this.slides[0]
     })
   }
@@ -30,6 +30,7 @@ class MarpController extends Controller {
   prev() {
     const page = this.currentPage - 2
     this.containerTarget.innerHTML = this.slides[page]
+    console.log(this.comments[page])
     this.containerTarget.querySelectorAll('code').forEach(el => {
       hljs.highlightElement(el)
     })
@@ -38,9 +39,20 @@ class MarpController extends Controller {
   next() {
     const page = this.currentPage
     this.containerTarget.innerHTML = this.slides[page]
+    console.log(this.comments[page])
     this.containerTarget.querySelectorAll('code').forEach(el => {
       hljs.highlightElement(el)
     })
+  }
+
+  keyboard(e) {
+    switch(e.which) {
+      case 37: // left
+        return this.prev()
+      case 39: // right
+        return this.next()
+      default: return
+    }
   }
 
   installCss(css) {
