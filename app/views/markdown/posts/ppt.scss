@@ -3,6 +3,7 @@ div.marpit {
 
   & > section.invert {
     width: 100%;
+    max-width: 1056px;
   }
   & > section.invert::after {
     content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
