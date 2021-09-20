@@ -23,6 +23,14 @@ module Markdown
       @document = Kramdown::Document.new(markdown)
     end
 
+    def real_path
+      git.real_path.join(path)
+    end
+
+    def sync
+
+    end
+
     def sync_to_html
       self.html = document.to_html
       self.title = get_title

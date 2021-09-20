@@ -1,7 +1,9 @@
 import { Controller } from '@hotwired/stimulus'
-import Marp from '@marp-team/marpit'
+import { Marpit } from '@marp-team/marpit'
+import './marp_item'
 
 class MarpController extends Controller {
+  static targets = ['container']
 
   connect() {
     this.link()
@@ -16,10 +18,21 @@ class MarpController extends Controller {
     }).then(response => {
       return response.json()
     }).then(body => {
-      const { html, css, comments } = this.marp.render(body.results.markdown)
+      const { html, css, comments } = this.marp.render(body.results.markdown, { htmlAsArray: true })
       this.installCss(css)
-      this.element.innerHTML = html
+      this.slides = html
+      this.containerTarget.innerHTML = this.slides[0]
     })
+  }
+
+  prev() {
+    const page = this.currentPage - 2
+    this.containerTarget.innerHTML = this.slides[page]
+  }
+
+  next() {
+    const page = this.currentPage
+    this.containerTarget.innerHTML = this.slides[page]
   }
 
   installCss(css) {
@@ -30,8 +43,20 @@ class MarpController extends Controller {
     document.head.insertBefore(element, document.head.lastChild)
   }
 
+  set slides(arr) {
+    this.slices = arr
+  }
+
+  get slides() {
+    return this.slices
+  }
+
+  get currentPage() {
+    return this.containerTarget.firstChild.dataset.marpitPagination
+  }
+
   get marp() {
-    return new Marp({
+    return new Marpit({
       markdown: {
         html: true,
         breaks: true

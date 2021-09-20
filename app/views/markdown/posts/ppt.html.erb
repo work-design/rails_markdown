@@ -1,1 +1,9 @@
-<div data-controller="marp"></div>
+<div data-controller="marp" class="wrapper">
+  <div class="left-pointer">
+    <label for="slide1" data-action="click->marp#prev"></label>
+  </div>
+  <div class="marpit main-block" data-marp-target="container"></div>
+  <div class="right-pointer">
+    <label for="slide1" data-action="click->marp#next"></label>
+  </div>
+</div>
