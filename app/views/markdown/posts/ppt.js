@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import { Marpit } from '@marp-team/marpit'
 import './marp_item'
+import hljs from 'highlight.js'
 
 class MarpController extends Controller {
   static targets = ['container']
@@ -28,11 +29,17 @@ class MarpController extends Controller {
   prev() {
     const page = this.currentPage - 2
     this.containerTarget.innerHTML = this.slides[page]
+    this.containerTarget.querySelectorAll('code').forEach(el => {
+      hljs.highlightElement(el)
+    })
   }
 
   next() {
     const page = this.currentPage
     this.containerTarget.innerHTML = this.slides[page]
+    this.containerTarget.querySelectorAll('code').forEach(el => {
+      hljs.highlightElement(el)
+    })
   }
 
   installCss(css) {
