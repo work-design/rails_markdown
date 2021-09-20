@@ -6,6 +6,9 @@ module Markdown
       @posts = Post.published.page(params[:page])
     end
 
+    def show
+    end
+
     def ppt
       @post = Post.find params[:id]
     end

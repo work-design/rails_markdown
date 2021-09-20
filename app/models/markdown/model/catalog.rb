@@ -9,7 +9,7 @@ module Markdown
 
       belongs_to :parent, foreign_key: :parent_path, primary_key: :path, optional: true
 
-      has_many :posts
+      has_many :posts, foreign_key: :catalog_path, primary_key: :path
 
       before_validation :sync_parent_path, if: -> { path_changed? }
     end
