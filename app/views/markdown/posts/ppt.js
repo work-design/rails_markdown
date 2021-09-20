@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import { Marpit } from '@marp-team/marpit'
+import { Marp } from '@marp-team/marp-core'
 import './marp_item'
 import hljs from 'highlight.js'
 
@@ -20,6 +20,7 @@ class MarpController extends Controller {
       return response.json()
     }).then(body => {
       const { html, css, comments } = this.marp.render(body.results.markdown, { htmlAsArray: true })
+      debugger
       this.installCss(css)
       this.slides = html
       this.containerTarget.innerHTML = this.slides[0]
@@ -59,11 +60,11 @@ class MarpController extends Controller {
   }
 
   get currentPage() {
-    return this.containerTarget.firstChild.dataset.marpitPagination
+    return this.containerTarget.querySelector('section').dataset.marpitPagination
   }
 
   get marp() {
-    return new Marpit({
+    return new Marp({
       markdown: {
         html: true,
         breaks: true
