@@ -1,6 +1,9 @@
 <td>
-  <%= link_to model.title, { action: 'show', path: model.path } %>
+<% if model.ppt %>
   <%= link_to model.title, { action: 'ppt', id: model.id } %>
+<% else %>
+  <%= link_to model.title, { action: 'show', path: model.path } %>
+<% end %>
 </td>
 <td>
   <span data-show-target="item" style="visibility: hidden"></span>

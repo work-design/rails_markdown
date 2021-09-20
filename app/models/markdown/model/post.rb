@@ -33,7 +33,12 @@ module Markdown
 
     def sync_to_html
       self.html = document.to_html
+      self.ppt = is_ppt
       self.title = get_title
+    end
+
+    def is_ppt
+      markdown.start_with?("---\n")
     end
 
     def get_title

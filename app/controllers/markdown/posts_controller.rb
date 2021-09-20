@@ -10,6 +10,14 @@ module Markdown
       @post = Post.find params[:id]
     end
 
+    def asset
+      path = params[:path].match(/assets\/.+/).to_s
+      file = "#{path}.#{params[:format]}"
+      real_path = RailsMarkdown::Engine.root.join('posts', file)
+
+      send_file real_path
+    end
+
     private
     def set_post
       path = "#{params[:path]}.#{params[:format]}"
