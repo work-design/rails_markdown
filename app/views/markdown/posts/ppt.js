@@ -29,6 +29,9 @@ class MarpController extends Controller {
 
   prev() {
     const page = this.currentPage - 2
+    if (page < 0) {
+      return
+    }
     this.containerTarget.innerHTML = this.slides[page]
     console.log(this.comments[page])
     this.containerTarget.querySelectorAll('code').forEach(el => {
@@ -38,6 +41,9 @@ class MarpController extends Controller {
 
   next() {
     const page = this.currentPage
+    if (page >= this.slides.length) {
+      return
+    }
     this.containerTarget.innerHTML = this.slides[page]
     console.log(this.comments[page])
     this.containerTarget.querySelectorAll('code').forEach(el => {
@@ -71,8 +77,18 @@ class MarpController extends Controller {
     return this.slices
   }
 
+  get script() {
+    const content = this.slices[this.slices.length - 1]
+    const doc = this.parser.parseFromString(content, 'text/html')
+    return doc.querySelector('script')
+  }
+
   get currentPage() {
     return this.containerTarget.querySelector('section').dataset.marpitPagination
+  }
+
+  get parser() {
+    return new DOMParser
   }
 
   get marp() {
