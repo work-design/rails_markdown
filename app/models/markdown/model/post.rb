@@ -8,11 +8,13 @@ module Markdown
       attribute :html, :string
       attribute :layout, :string
       attribute :path, :string
+      attribute :catalog_path, :string
       attribute :oid, :string
       attribute :published, :boolean, default: true
       attribute :ppt, :boolean, default: false
 
       belongs_to :git
+      belongs_to :catalog, foreign_key: :catalog_path, primary_key: :path
       before_save :sync_to_html, if: -> { markdown_changed? }
 
       scope :published, -> { where(published: true) }

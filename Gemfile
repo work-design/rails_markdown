@@ -15,6 +15,6 @@ gem 'amazing_print'
 
 group :development, :test do
   gem 'debug'
-  gem 'minitest-hooks'
+  gem 'localhost'
   gem 'sdoc'
 end
