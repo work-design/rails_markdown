@@ -1,7 +1,9 @@
 import { Controller } from '@hotwired/stimulus'
 import { Marp } from '@marp-team/marp-core'
-import './marp_item'
 import hljs from 'highlight.js'
+
+import './marp_item'
+import './ppt.scss'
 
 class MarpController extends Controller {
   static targets = ['container']
