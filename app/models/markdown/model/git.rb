@@ -8,6 +8,8 @@ module Markdown
       attribute :last_commit_message, :string
       attribute :last_commit_at, :datetime
 
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+
       has_many :posts
     end
 
