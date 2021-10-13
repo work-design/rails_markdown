@@ -3,7 +3,10 @@ module Markdown
     before_action :set_git, only: [:show, :edit, :update, :destroy]
 
     def index
-      @gits = Git.page(params[:page])
+      q_params = {}
+      q_params.merge! default_params
+
+      @gits = Git.default_where(q_params).page(params[:page])
     end
 
     private
