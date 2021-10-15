@@ -2,6 +2,13 @@ require 'rails_com'
 module RailsMarkdown
   class Engine < ::Rails::Engine
 
+    config.autoload_paths += Dir[
+      "#{config.root}/app/models/git"
+    ]
+    config.eager_load_paths += Dir[
+      "#{config.root}/app/models/git"
+    ]
+
     config.generators do |g|
       g.rails = {
         assets: false,

@@ -3,6 +3,7 @@ module Markdown
     extend ActiveSupport::Concern
 
     included do
+      attribute :type, :string
       attribute :working_directory, :string
       attribute :remote_url, :string
       attribute :last_commit_message, :string
