@@ -16,6 +16,7 @@ module Markdown
 
     def git_permit_params
       [
+        :type,
         :working_directory,
         :remote_url,
         :last_commit_at,

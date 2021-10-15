@@ -1,6 +1,6 @@
 zh:
   activerecord:
     enum:
-      agential/agency:
-        relation:
-          unknown: 未知
+      markdown/git:
+        type:
+          Markdown::GithubGit: Github
