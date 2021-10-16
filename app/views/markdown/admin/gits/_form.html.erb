@@ -1,4 +1,5 @@
 <%= render 'error_messages', target: f.object %>
+<%= f.select :type, options_for_select(Markdown::Git.options_i18n(:type), f.object.type) %>
 <%= f.text_field :working_directory %>
 <%= f.text_field :remote_url %>
 <%= f.text_field :last_commit_at %>
