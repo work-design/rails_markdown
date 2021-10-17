@@ -14,7 +14,7 @@ module Markdown
       attribute :ppt, :boolean, default: false
 
       belongs_to :git
-      belongs_to :catalog, foreign_key: :catalog_path, primary_key: :path
+      belongs_to :catalog, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
 
       before_validation :sure_catalog, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }

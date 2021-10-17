@@ -8,6 +8,7 @@ module Markdown
       attribute :parent_path, :string
 
       belongs_to :parent, foreign_key: :parent_path, primary_key: :path, optional: true
+      belongs_to :git
 
       has_many :posts, foreign_key: :catalog_path, primary_key: :path
 
