@@ -3,7 +3,11 @@ module Markdown
     before_action :set_post, only: [:show]
 
     def index
-      @posts = Post.published.page(params[:page])
+      q_params = {
+        'git.organ_id': current_organ.id
+      }
+
+      @posts = Post.published.default_where(q_params).page(params[:page])
     end
 
     def show
