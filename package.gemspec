@@ -17,6 +17,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails_com'
   s.add_dependency 'kramdown'
-  s.add_dependency 'rugged'
   s.add_dependency 'nokogiri'
 end
