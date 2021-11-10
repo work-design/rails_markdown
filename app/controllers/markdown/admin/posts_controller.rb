@@ -9,7 +9,7 @@ module Markdown
     end
 
     def sync
-      @git.sync
+      @git.sync(current_github_user)
     end
 
     private
