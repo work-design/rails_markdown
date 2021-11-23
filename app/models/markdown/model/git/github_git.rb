@@ -6,20 +6,18 @@ module Markdown
 
       if r.is_a?(Array)
         r.each do |entry|
-          if entry[:type] == 'dir'
-            markdowns(result, entry[:path], client)
-          end
+          markdowns(result, entry[:path], client)
         end
-      elsif r[:type] == 'file' && r[:name].end_with('.md')
+      elsif r[:type] == 'file' && r[:name].end_with?('.md')
         detail = { model: posts.find(&->(i){ i.path == r[:path] }) || posts.build(path: r[:path]) }
         if r[:content]
           detail[:model].markdown = Base64.decode64(r[:content]).force_encoding('utf-8')
         end
         result.merge! r[:path] => detail
       elsif r[:type] == 'file' && r[:path].start_with?('assets/')
-        detail = { model: assets.find(&->(i){ i.path == entry[:path] }) || assets.build(path: entry[:path]) }
+        detail = { model: assets.find(&->(i){ i.path == r[:path] }) || assets.build(path: r[:path]) }
         detail[:model].name = r[:name]
-        detail[:name].download_url = r[:download_url]
+        detail[:model].download_url = r[:download_url]
         result.merge! r[:path] => detail
       end
 

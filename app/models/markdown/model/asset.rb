@@ -14,7 +14,7 @@ module Markdown
     end
 
     def sync_file_later
-      AssetFileJob.perform_later
+      AssetFileJob.perform_later(self)
     end
 
   end
