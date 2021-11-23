@@ -19,9 +19,9 @@ module Markdown
     def asset
       path = params[:path].match(/assets\/.+/).to_s
       file = "#{path}.#{params[:format]}"
-      real_path = RailsMarkdown::Engine.root.join('posts', file)
+      asset = Asset.find(path: file)
 
-      send_file real_path
+      redirect_to asset.file.url
     end
 
     private
