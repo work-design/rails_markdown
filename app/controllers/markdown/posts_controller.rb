@@ -4,7 +4,7 @@ module Markdown
 
     def index
       q_params = {}
-      q_params.merge 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
+      q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
 
       @posts = Post.published.default_where(q_params).page(params[:page])
     end
