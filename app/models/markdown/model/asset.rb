@@ -1,5 +1,5 @@
 module Markdown
-  module Model::Catalog
+  module Model::Asset
     extend ActiveSupport::Concern
 
     included do
