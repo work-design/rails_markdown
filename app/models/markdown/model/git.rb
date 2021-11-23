@@ -12,6 +12,7 @@ module Markdown
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
       has_many :posts
+      has_many :assets
     end
 
     def real_path

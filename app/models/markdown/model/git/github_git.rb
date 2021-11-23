@@ -6,16 +6,21 @@ module Markdown
 
       if r.is_a?(Array)
         r.each do |entry|
-          if entry[:name].end_with?('.md') || entry[:type] == 'dir'
+          if entry[:type] == 'dir'
             markdowns(result, entry[:path], client)
           end
         end
-      elsif r.is_a?(Sawyer::Resource)
+      elsif r[:type] == 'file' && r[:name].end_with('.md')
         detail = { model: posts.find(&->(i){ i.path == r[:path] }) || posts.build(path: r[:path]) }
         if r[:content]
-          detail.merge! content: Base64.decode64(r[:content]).force_encoding('utf-8')
+          detail[:model].markdown = Base64.decode64(r[:content]).force_encoding('utf-8')
         end
-        result.merge!(r[:path] => detail)
+        result.merge! r[:path] => detail
+      elsif r[:type] == 'file' && r[:path].start_with?('assets/')
+        detail = { model: assets.find(&->(i){ i.path == entry[:path] }) || assets.build(path: entry[:path]) }
+        detail[:model].name = r[:name]
+        detail[:name].download_url = r[:download_url]
+        result.merge! r[:path] => detail
       end
 
       result
@@ -24,7 +29,6 @@ module Markdown
     def sync(github_user)
       client = github_user.client
       markdowns(client).map do |_, object|
-        object[:model].markdown = object[:content]
         object[:model].save
       end
     end
