@@ -1,6 +1,6 @@
 <div class="<%= active_helper(modules: 'markdown/admin', active: 'menu ex-accordion is-active', item: 'menu ex-accordion') %>" data-controller="menu">
   <%= content_tag :div, class: 'menu-list' do %>
-    <%= link_to t('markdown.admin.gits.index.title'), { controller: 'markdown/admin/gits' }, class: active_helper(controllers: ['gits', 'posts'], active: 'is-active') -%>
+    <%= link_to t('markdown.admin.gits.index.title'), { controller: 'markdown/admin/gits' }, class: active_helper(controllers: ['gits', 'posts', 'catalogs'], active: 'is-active') -%>
   <% end %>
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-users fa-fw"></i>

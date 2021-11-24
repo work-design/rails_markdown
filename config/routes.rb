@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
     namespace :admin, defaults: { namespace: 'admin' } do
       resources :gits do
+        resources :catalogs
         resources :posts do
           collection do
             post :sync

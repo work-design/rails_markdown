@@ -8,6 +8,9 @@ zh:
       posts:
         index:
           title: 文章列表
+      catalogs:
+        index:
+          title: 分类
     posts:
       index:
         title: 首页
