@@ -1,10 +1,24 @@
 module Markdown
   class Admin::CatalogsController < Admin::BaseController
     before_action :set_git
-    before_action :set_catalog, only: [:show, :edit, :update, :catalog]
+    before_action :set_catalog, only: [:show, :edit, :update, :reorder, :catalog]
 
     def index
-      @catalogs = @git.catalogs.order(id: :asc)
+      @catalogs = @git.catalogs.order(position: :asc)
+    end
+
+    def reorder
+      sort_array = params[:sort_array].select { |i| i.integer? }
+
+      if params[:new_index] > params[:old_index]
+        prev_one = @catalog.class.find(sort_array[params[:new_index].to_i - 1])
+        @catalog.insert_at prev_one.position
+      else
+        next_ones = @catalog.class.find(sort_array[(params[:new_index].to_i + 1)..params[:old_index].to_i])
+        next_ones.each do |next_one|
+          next_one.insert_at @catalog.position
+        end
+      end
     end
 
     private
@@ -13,7 +27,7 @@ module Markdown
     end
 
     def set_catalog
-      @git.catalogs.find params[:id]
+      @catalog = @git.catalogs.find params[:id]
     end
   end
 end
