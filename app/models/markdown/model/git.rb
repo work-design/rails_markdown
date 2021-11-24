@@ -13,6 +13,7 @@ module Markdown
 
       has_many :posts
       has_many :assets
+      has_many :catalogs
     end
 
     def real_path

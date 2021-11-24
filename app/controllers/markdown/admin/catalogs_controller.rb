@@ -3,6 +3,10 @@ module Markdown
     before_action :set_git
     before_action :set_catalog, only: [:show, :edit, :update, :catalog]
 
+    def index
+      @catalogs = @git.catalogs.order(id: :asc)
+    end
+
     private
     def set_git
       @git = Git.find params[:git_id]
