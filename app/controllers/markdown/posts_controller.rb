@@ -1,10 +1,12 @@
 module Markdown
   class PostsController < BaseController
+    before_action :set_catalogs, only: [:index]
     before_action :set_post, only: [:show]
 
     def index
       q_params = {}
       q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
+      q_params.merge! params.permit(:catalog_path)
 
       @posts = Post.published.default_where(q_params).page(params[:page])
     end
@@ -25,6 +27,13 @@ module Markdown
     end
 
     private
+    def set_catalogs
+      q_params = {}
+      q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
+
+      @catalogs = Catalog.default_where(q_params).where.not(path: [nil, ''])
+    end
+
     def set_post
       path = "#{params[:path]}.#{params[:format]}"
 
