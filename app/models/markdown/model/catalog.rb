@@ -7,12 +7,14 @@ module Markdown
       attribute :path, :string
       attribute :parent_path, :string
       attribute :position, :integer
+      attribute :nav, :boolean, default: false, comment: '是否导航菜单'
 
       belongs_to :parent, foreign_key: :parent_path, primary_key: :path, optional: true
       belongs_to :git
 
       has_many :posts, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
 
+      scope :nav, -> { where(nav: true) }
       acts_as_list
 
       before_validation :sync_parent_path, if: -> { path_changed? }
