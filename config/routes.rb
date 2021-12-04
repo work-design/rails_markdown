@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         get :ppt
       end
       collection do
+        get :list
         get '*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
         get '*path' => :show
         # get 'ppt/*path' => :ppt

@@ -11,6 +11,14 @@ module Markdown
       @posts = Post.published.default_where(q_params).page(params[:page])
     end
 
+    def list
+      q_params = {}
+      q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
+      q_params.merge! params.permit(:catalog_path)
+
+      @posts = Post.published.default_where(q_params).page(params[:page])
+    end
+
     def show
     end
 
