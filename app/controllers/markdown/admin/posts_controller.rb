@@ -10,7 +10,7 @@ module Markdown
     end
 
     def sync
-      @git.sync(@github_user)
+      @git.sync_later(@github_user)
     end
 
     private

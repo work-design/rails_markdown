@@ -35,5 +35,9 @@ module Markdown
       end
     end
 
+    def sync_later(github_user)
+      GithubGitJob.perform_later(self, github_user)
+    end
+
   end
 end
