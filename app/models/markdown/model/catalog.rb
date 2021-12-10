@@ -16,6 +16,8 @@ module Markdown
       has_many :posts, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
 
       scope :nav, -> { where(nav: true) }
+      default_scope -> { order(position: :asc) }
+
       acts_as_list
 
       before_validation :sync_parent_path, if: -> { path_changed? }
