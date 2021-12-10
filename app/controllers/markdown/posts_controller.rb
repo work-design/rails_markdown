@@ -37,7 +37,7 @@ module Markdown
     private
     def set_catalogs
       q_params = {}
-      q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
+      q_params.merge! default_params
 
       @catalogs = Catalog.default_where(q_params).where.not(path: [nil, ''])
     end
