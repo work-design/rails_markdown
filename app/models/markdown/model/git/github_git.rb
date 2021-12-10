@@ -1,7 +1,7 @@
 module Markdown
   module Model::Git::GithubGit
 
-    def markdowns(result = {}, path = nil, client)
+    def markdowns(result = {}, path = 'markdowns', client)
       r = client.contents working_directory, path: path
 
       if r.is_a?(Array)
