@@ -18,7 +18,7 @@ module Markdown
       scope :nav, -> { where(nav: true) }
       default_scope -> { order(position: :asc) }
 
-      acts_as_list
+      acts_as_list scope: :git_id
 
       before_validation :sync_parent_path, if: -> { path_changed? }
       before_validation :sync_organ, if: -> { git_id_changed? }
