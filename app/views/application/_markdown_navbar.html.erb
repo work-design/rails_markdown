@@ -2,5 +2,5 @@
   <%= link_to catalog.name, { controller: '/markdown/posts', action: 'list', catalog_path: catalog.path }, class: active_params(catalog_path: catalog.path, active: 'navbar-item is-active', item: 'navbar-item') %>
 <% end %>
 <% Markdown::Post.default_where(default_params).nav.each do |post| %>
-  <%= link_to post.title, { controller: '/markdown/posts', action: 'show', path: model.path }, class: active_params(catalog_path: post.catalog_path, active: 'navbar-item is-active', item: 'navbar-item') %>
+  <%= link_to post.title, { controller: '/markdown/posts', action: 'show', path: model.path }, class: active_params(path: post.path, active: 'navbar-item is-active', item: 'navbar-item') %>
 <% end %>
