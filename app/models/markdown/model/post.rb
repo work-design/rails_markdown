@@ -21,6 +21,7 @@ module Markdown
       before_save :sync_to_html, if: -> { markdown_changed? }
 
       scope :published, -> { where(published: true) }
+      scope :nav, -> { where(nav: true) }
     end
 
     def document
