@@ -12,6 +12,7 @@ module Markdown
       attribute :oid, :string
       attribute :published, :boolean, default: true
       attribute :ppt, :boolean, default: false
+      attribute :nav, :boolean, default: false, comment: '是否导航菜单'
 
       belongs_to :git
       belongs_to :catalog, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path

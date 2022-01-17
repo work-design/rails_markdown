@@ -36,7 +36,8 @@ module Markdown
         :title,
         :markdown,
         :html,
-        :published
+        :published,
+        :nav
       ]
     end
 
