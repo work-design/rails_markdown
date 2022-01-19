@@ -15,6 +15,7 @@ module Markdown
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
 
       belongs_to :git
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :catalog, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
 
       before_validation :sure_catalog, if: -> { path_changed? }
