@@ -27,7 +27,7 @@ module Markdown
 
       respond_to do |format|
         format.html
-        format.json { @ppt = @post.ppt_content }
+        format.json(layout: false) { @ppt = @post.ppt_content }
       end
     end
 
