@@ -24,6 +24,11 @@ module Markdown
 
     def ppt
       @post = Post.find params[:id]
+
+      respond_to do |format|
+        format.html
+        format.json { @ppt = @post.ppt_content }
+      end
     end
 
     def asset

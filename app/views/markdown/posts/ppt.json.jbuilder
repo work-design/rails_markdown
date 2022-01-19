@@ -1,1 +1,3 @@
-json.markdown @post.markdown
+json.html @ppt['html']
+json.css @ppt['css']
+json.comments @ppt['comments']
