@@ -34,7 +34,7 @@ module Markdown
       git.real_path.join(path)
     end
 
-    def ppt
+    def ppt_content
       Marp.parse(markdown)
     end
 

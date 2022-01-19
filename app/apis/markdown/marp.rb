@@ -7,6 +7,9 @@ module Markdown
     def parse(markdown)
       r = HTTPX.post(
         BASE_URL + '/marp',
+        headers: {
+          'Content-Type': 'application/text'
+        },
         body: markdown
       )
 
