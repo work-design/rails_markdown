@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index] do
       member do
         get :ppt
+        get :content
       end
       collection do
         get :list

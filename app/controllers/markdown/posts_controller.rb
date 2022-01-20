@@ -2,6 +2,7 @@ module Markdown
   class PostsController < BaseController
     before_action :set_catalogs, only: [:index]
     before_action :set_post, only: [:show]
+    before_action :set_post_by_id, only: [:show]
 
     def index
       q_params = {}
@@ -23,15 +24,11 @@ module Markdown
     end
 
     def ppt
-      @post = Post.find params[:id]
+    end
 
-      respond_to do |format|
-        format.html
-        format.json {
-          @ppt = @post.ppt_content
-          render layout: false
-        }
-      end
+    def content
+      @ppt = @post.ppt_content
+      render layout: false
     end
 
     def asset
@@ -48,6 +45,10 @@ module Markdown
       q_params.merge! default_params
 
       @catalogs = Catalog.default_where(q_params).where.not(path: [nil, ''])
+    end
+
+    def set_post_by_id
+      @post = Post.find params[:id]
     end
 
     def set_post

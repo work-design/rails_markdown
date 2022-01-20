@@ -1,4 +1,4 @@
-<div data-controller="marp" class="wrapper" data-action="keydown@document->marp#keyboard">
+<div data-controller="marp" data-marp-url-value="<%= url_for(action: 'content') %>" data-action="keydown@document->marp#keyboard" class="wrapper">
   <div class="left-pointer">
     <label for="slide1" data-action="click->marp#prev"></label>
   </div>
