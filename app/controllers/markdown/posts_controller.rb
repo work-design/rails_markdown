@@ -3,6 +3,7 @@ module Markdown
     before_action :set_catalogs, only: [:index]
     before_action :set_post, only: [:show]
     before_action :set_post_by_id, only: [:ppt, :content]
+    before_action :set_catalog, only: [:list]
 
     def index
       q_params = {}
@@ -15,7 +16,7 @@ module Markdown
     def list
       q_params = {}
       q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
-      q_params.merge! params.permit(:catalog_path)
+      q_params.merge! catalog_path: @catalog.children.pluck(:path)
 
       @posts = Post.published.default_where(q_params).page(params[:page])
     end
@@ -45,6 +46,10 @@ module Markdown
       q_params.merge! default_params
 
       @catalogs = Catalog.default_where(q_params).where.not(path: [nil, ''])
+    end
+
+    def set_catalog
+      @catalog = Catalog.find_by catalog_path: params[:catalog_path]
     end
 
     def set_post_by_id

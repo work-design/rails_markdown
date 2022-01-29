@@ -14,6 +14,7 @@ module Markdown
       belongs_to :organ, optional: true
 
       has_many :posts, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
+      has_many :children, class_name: self.name, foreign_key: :parent_path, primary_key: :path
 
       scope :nav, -> { where(nav: true) }
       default_scope -> { order(position: :asc) }
