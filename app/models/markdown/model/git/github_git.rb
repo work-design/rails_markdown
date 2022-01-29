@@ -28,10 +28,22 @@ module Markdown
       result
     end
 
-    def sync(github_user)
+    def sync_fresh(github_user)
       client = github_user.client
       markdowns(client).map do |_, object|
         object[:model].save
+      end
+    end
+
+    def sync(github_user)
+      sync_fresh(github_user)
+      prune(github_user)
+    end
+
+    def prune(github_user)
+      fresh_posts = markdowns(github_user.client).keys
+      posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
+        post.destroy
       end
     end
 
