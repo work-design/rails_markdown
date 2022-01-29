@@ -14,7 +14,19 @@ module Markdown
           detail[:model].markdown = Base64.decode64(r[:content]).force_encoding('utf-8')
         end
         result.merge! r[:path] => detail
-      elsif r[:type] == 'file' && r[:path].start_with?('assets/')
+      end
+
+      result
+    end
+
+    def assets(result = {}, path = 'assets', client)
+      r = client.contents working_directory, path: path
+
+      if r.is_a?(Array)
+        r.each do |entry|
+          assets(result, entry[:path], client)
+        end
+      elsif r[:type] == 'file'
         detail = { model: assets.find(&->(i){ i.path == r[:path] }) || assets.build(path: r[:path]) }
         detail[:model].name = r[:name]
         blob = client.blob working_directory, r[:sha]
@@ -31,6 +43,9 @@ module Markdown
     def sync_fresh(github_user)
       client = github_user.client
       markdowns(client).map do |_, object|
+        object[:model].save
+      end
+      assets(client).map do |_, object|
         object[:model].save
       end
     end
