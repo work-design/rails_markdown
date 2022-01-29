@@ -49,7 +49,7 @@ module Markdown
     end
 
     def set_catalog
-      @catalog = Catalog.find_by catalog_path: params[:catalog_path]
+      @catalog = Catalog.find_by path: params[:catalog_path]
     end
 
     def set_post_by_id
