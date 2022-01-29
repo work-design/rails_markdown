@@ -19,7 +19,7 @@ module Markdown
       result
     end
 
-    def assets(result = {}, path = 'assets', client)
+    def sync_assets(result = {}, path = 'assets', client)
       r = client.contents working_directory, path: path
 
       if r.is_a?(Array)
@@ -45,7 +45,7 @@ module Markdown
       markdowns(client).map do |_, object|
         object[:model].save
       end
-      assets(client).map do |_, object|
+      sync_assets(client).map do |_, object|
         object[:model].save
       end
     end
