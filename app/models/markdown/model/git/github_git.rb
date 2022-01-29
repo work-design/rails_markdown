@@ -1,12 +1,12 @@
 module Markdown
   module Model::Git::GithubGit
 
-    def markdowns(result = {}, path = 'markdowns', client)
+    def sync_markdowns(result = {}, path = 'markdowns', client)
       r = client.contents working_directory, path: path
 
       if r.is_a?(Array)
         r.each do |entry|
-          markdowns(result, entry[:path], client)
+          sync_markdowns(result, entry[:path], client)
         end
       elsif r[:type] == 'file' && r[:name].end_with?('.md')
         detail = { model: posts.find(&->(i){ i.path == r[:path] }) || posts.build(path: r[:path]) }
@@ -24,7 +24,7 @@ module Markdown
 
       if r.is_a?(Array)
         r.each do |entry|
-          assets(result, entry[:path], client)
+          sync_assets(result, entry[:path], client)
         end
       elsif r[:type] == 'file'
         detail = { model: assets.find(&->(i){ i.path == r[:path] }) || assets.build(path: r[:path]) }
@@ -42,7 +42,7 @@ module Markdown
 
     def sync_fresh(github_user)
       client = github_user.client
-      markdowns(client).map do |_, object|
+      sync_markdowns(client).map do |_, object|
         object[:model].save
       end
       sync_assets(client).map do |_, object|
