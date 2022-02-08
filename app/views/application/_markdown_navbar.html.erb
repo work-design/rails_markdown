@@ -1,5 +1,16 @@
 <% Markdown::Catalog.default_where(default_params).nav.each do |catalog| %>
-  <%= link_to catalog.name, { controller: '/markdown/posts', action: 'list', catalog_path: catalog.path }, class: active_params(catalog_path: catalog.path, active: 'navbar-item is-active', item: 'navbar-item') %>
+  <% if catalog.children.present? %>
+    <div class="navbar-item has-dropdown is-hoverable is-hidden-touch">
+      <div class="navbar-link"><%= catalog.name %></div>
+      <div class="navbar-dropdown is-right">
+      <% catalog.children.each do |child| %>
+        <%= link_to child.name, { controller: '/markdown/posts', action: 'list', catalog_path: child.path }, class: active_params(catalog_path: child.path, active: 'navbar-item is-active', item: 'navbar-item') %>
+      <% end %>
+      </div>
+    </div>
+  <% else %>
+    <%= link_to catalog.name, { controller: '/markdown/posts', action: 'list', catalog_path: catalog.path }, class: active_params(catalog_path: catalog.path, active: 'navbar-item is-active', item: 'navbar-item') %>
+  <% end %>
 <% end %>
 <% Markdown::Post.default_where(default_params).nav.each do |post| %>
   <%= link_to post.title, { controller: '/markdown/posts', action: 'show', path: post.path }, class: active_params(path: post.path, active: 'navbar-item is-active', item: 'navbar-item') %>
