@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do
+      root 'home#index'
       resources :gits do
         resources :catalogs do
           member do
