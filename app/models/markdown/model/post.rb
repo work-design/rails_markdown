@@ -18,12 +18,12 @@ module Markdown
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :catalog, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
 
+      scope :published, -> { where(published: true) }
+      scope :nav, -> { where(nav: true) }
+
       before_validation :sync_organ, if: -> { catalog_path_changed? }
       before_validation :sure_catalog, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }
-
-      scope :published, -> { where(published: true) }
-      scope :nav, -> { where(nav: true) }
     end
 
     def document
@@ -40,7 +40,7 @@ module Markdown
     end
 
     def sync_organ
-      self.organ_id = catalog.organ_id
+      self.organ_id = catalog&.organ_id
     end
 
     def sure_catalog
