@@ -1,9 +1,11 @@
 <%= render layout: 'layouts/application_head' do %>
   <%= render 'nav_bar' %>
+  <div class="container py-2">
+    <%= render 'breadcrumb' %>
+  </div>
   <main class="columns container">
     <%= render 'nav' %>
     <div class="column">
-      <%= render 'breadcrumb' %>
       <%= yield %>
     </div>
   </main>
