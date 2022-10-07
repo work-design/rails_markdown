@@ -56,7 +56,7 @@ module Markdown
     end
 
     def prune(github_user)
-      fresh_posts = markdowns(github_user.client).keys
+      fresh_posts = sync_markdowns(github_user.client).keys
       posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
         post.destroy
       end
