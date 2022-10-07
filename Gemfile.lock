@@ -36,6 +36,7 @@ PATH
       kramdown
       nokogiri
       rails_com
+      rugged
 
 GEM
   remote: https://rubygems.org/
@@ -222,6 +223,7 @@ GEM
       io-console (~> 0.5)
     rexml (3.2.5)
     ruby2_keywords (0.0.5)
+    rugged (1.5.0.1)
     sdoc (2.4.0)
       rdoc (>= 5.0)
     stringio (3.0.2)
