@@ -45,7 +45,7 @@ module Markdown
       q_params = {}
       q_params.merge! default_params
 
-      @catalogs = Catalog.default_where(q_params).where.not(path: [nil, ''])
+      @catalogs = Catalog.default_where(q_params).roots
     end
 
     def set_catalog
