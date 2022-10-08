@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: f5cd5cff4c550e499433b3b743b390eaebf1dd48
+  revision: 27f0386c382f5cc786fb7aa19a08c6ac80078bbe
   specs:
     rails_design (0.0.1)
       rails
@@ -34,6 +34,7 @@ PATH
   specs:
     rails_markdown (0.0.1)
       kramdown
+      kramdown-parser-gfm
       nokogiri
       rails_com
       rouge
@@ -154,6 +155,8 @@ GEM
     kaminari-core (1.2.2)
     kramdown (2.4.0)
       rexml
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     localhost (1.1.9)
     loofah (2.19.0)
       crass (~> 1.0.2)

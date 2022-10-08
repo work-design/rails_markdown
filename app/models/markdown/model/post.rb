@@ -31,6 +31,7 @@ module Markdown
       @document = Kramdown::Document.new(
         markdown,
         input: 'GFM',
+        auto_ids: false,
         syntax_highlighter_opts: {
           line_numbers: true,
           wrap: true
