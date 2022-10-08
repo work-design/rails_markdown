@@ -18,7 +18,7 @@ module Markdown
       has_many :posts, ->(o) { where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
       has_many :children, class_name: self.name, foreign_key: :parent_path, primary_key: :path
 
-      default_scope -> { order(position: :asc) }
+      scope :ordered, -> { order(position: :asc) }
       scope :nav, -> { where(nav: true) }
       scope :roots, -> { where(depth: 2) }
 
@@ -37,6 +37,11 @@ module Markdown
 
     def sync_organ
       self.organ_id = git.organ_id
+    end
+
+    def ancestors
+      r = path.split('/').ancestors[0..-2]
+      self.class.where(organ_id: organ_id).in_order_of(:path, r)
     end
 
   end
