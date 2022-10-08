@@ -24,11 +24,11 @@ module Markdown
 
       acts_as_list scope: [:git_id, :depth]
 
-      before_validation :sync_parent_path, if: -> { path.present? && path_changed? }
+      before_validation :deal_path, if: -> { path.present? && path_changed? }
       before_validation :sync_organ, if: -> { git_id_changed? }
     end
 
-    def sync_parent_path
+    def deal_path
       r = path.split('/')
       self.parent_path = r[0..-2].join('/')
       self.name = r[-1]
