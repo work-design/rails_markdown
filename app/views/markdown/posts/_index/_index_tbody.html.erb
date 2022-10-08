@@ -8,7 +8,9 @@
   <%= link_to model.title, { action: 'show', path: model.path } %>
 <% end %>
 </td>
-<td><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></td>
+<td class="has-text-right"><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></td>
 <td>
-  <span data-show-target="item" style="visibility: hidden"></span>
+  <div data-show-target="item" style="visibility: hidden">
+
+  </div>
 </td>
