@@ -6,7 +6,7 @@ module Markdown
     before_action :set_github_user, only: [:index, :sync]
 
     def index
-      @posts = @git.posts.page(params[:page])
+      @posts = @git.posts.order(id: :desc).page(params[:page])
     end
 
     def sync
