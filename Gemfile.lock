@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 814cd1b3d5e551d683ce5d8f37ef12ef5315ef22
+  revision: f5cd5cff4c550e499433b3b743b390eaebf1dd48
   specs:
     rails_design (0.0.1)
       rails
@@ -36,6 +36,7 @@ PATH
       kramdown
       nokogiri
       rails_com
+      rouge
 
 GEM
   remote: https://rubygems.org/
@@ -221,6 +222,7 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
+    rouge (4.0.0)
     ruby2_keywords (0.0.5)
     sdoc (2.4.0)
       rdoc (>= 5.0)

@@ -28,7 +28,14 @@ module Markdown
 
     def document
       return @document if defined? @document
-      @document = Kramdown::Document.new(markdown)
+      @document = Kramdown::Document.new(
+        markdown,
+        input: 'GFM',
+        syntax_highlighter_opts: {
+          line_numbers: true,
+          wrap: true
+        }
+      )
     end
 
     def real_path
