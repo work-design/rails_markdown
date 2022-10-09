@@ -14,3 +14,11 @@
   <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:last_commit_message) %></td>
   <td><%= @git.last_commit_message %></td>
 </tr>
+<tr>
+  <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:secret) %></td>
+  <td><%= @git.secret %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Markdown::Git.human_attribute_name(:url) %></td>
+  <td><%= @git.url %></td>
+</tr>

@@ -8,6 +8,7 @@ module Markdown
       attribute :remote_url, :string
       attribute :last_commit_message, :string
       attribute :last_commit_at, :datetime
+      attribute :secret, :string, default: -> { SecureRandom.hex }
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 

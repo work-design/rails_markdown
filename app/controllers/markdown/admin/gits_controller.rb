@@ -19,6 +19,7 @@ module Markdown
         :type,
         :working_directory,
         :identity,
+        :host,
         :remote_url,
         :last_commit_at,
         :last_commit_message

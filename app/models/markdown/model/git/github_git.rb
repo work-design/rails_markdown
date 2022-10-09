@@ -4,6 +4,7 @@ module Markdown
 
     included do
       attribute :identity, :string
+      attribute :host, :string
 
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
     end
@@ -76,6 +77,15 @@ module Markdown
     def client
       return @client if defined? @client
       @client = github_user.client
+    end
+
+    def url
+      Rails.application.routes.url_for(
+        controller: 'markdown/gits',
+        action: 'show',
+        id: self.id,
+        host: host
+      ) if host.present?
     end
 
     def sync_commit!

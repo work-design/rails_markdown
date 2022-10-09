@@ -12,6 +12,11 @@ Rails.application.routes.draw do
         get '*path' => :show
       end
     end
+    resources :gits, only: [:show] do
+      member do
+        post '' => :create
+      end
+    end
 
     namespace :admin, defaults: { namespace: 'admin' } do
       root 'home#index'
