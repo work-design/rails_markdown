@@ -1,12 +1,15 @@
 <td>
 <% if model.ppt %>
-  <%= link_to(action: 'ppt', id: model.id) do %>
+  <%= link_to(action: 'ppt', path: model.path) do %>
     <span><%= model.title %></span>
     <i class="fa-light fa-clapperboard-play has-text-grey-dark"></i>
   <% end %>
 <% else %>
-  <%= link_to model.title, { action: 'show', path: model.path } %>
+  <%= link_to model.title, { action: 'raw', path: model.path } %>
 <% end %>
+</td>
+<td class="has-text-right">
+  <time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time>
 </td>
 <td>
   <span data-show-target="item" style="visibility: hidden"></span>

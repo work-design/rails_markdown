@@ -1,7 +1,7 @@
 module Markdown
   class PostsController < BaseController
     before_action :set_catalogs, only: [:index]
-    before_action :set_post, only: [:show]
+    before_action :set_post, only: [:show, :raw]
     before_action :set_post_by_id, only: [:ppt, :content]
     before_action :set_catalog, only: [:list]
 
@@ -30,6 +30,9 @@ module Markdown
     def content
       @ppt = @post.ppt_content
       render layout: false
+    end
+
+    def raw
     end
 
     def asset

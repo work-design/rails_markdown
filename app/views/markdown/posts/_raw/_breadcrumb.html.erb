@@ -1,0 +1,9 @@
+<div class="breadcrumb has-succeeds-separator">
+  <ul>
+    <% @post.catalog.ancestors.each do |catalog| %>
+      <li><%= link_to catalog.name, { action: 'list', catalog_path: catalog.path } %></li>
+    <% end %>
+    <li><%= link_to @post.catalog.name, { action: 'list', catalog_path: @post.catalog_path } %></li>
+    <li class="is-active"><%= @post.title %></li>
+  </ul>
+</div>

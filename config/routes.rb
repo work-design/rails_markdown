@@ -3,14 +3,15 @@ Rails.application.routes.draw do
   namespace :markdown, defaults: { business: 'markdown' } do
     resources :posts, only: [:index] do
       member do
-        get :ppt
         get :content
       end
       collection do
         get :list
+        get 'ppt/*path' => :ppt
+        get 'raw/*path' => :raw
+        get 'ppt/*path' => :ppt
         get '*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
         get '*path' => :show
-        # get 'ppt/*path' => :ppt
       end
     end
 

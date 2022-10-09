@@ -1,6 +1,6 @@
 <td>
 <% if model.ppt %>
-  <%= link_to(action: 'ppt', id: model.id) do %>
+  <%= link_to(action: 'ppt', path: model.path) do %>
     <span><%= model.title %></span>
     <i class="fa-light fa-clapperboard-play has-text-grey-dark"></i>
   <% end %>
