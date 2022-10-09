@@ -7,6 +7,10 @@ module Markdown
       @catalogs = @git.catalogs.roots.order(position: :asc)
     end
 
+    def all
+      @catalogs = @git.catalogs.order(id: :desc)
+    end
+
     def reorder
       sort_array = params[:sort_array].select { |i| i.integer? }
 

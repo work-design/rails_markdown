@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       root 'home#index'
       resources :gits do
         resources :catalogs do
+          collection do
+            get :all
+          end
           member do
             patch :reorder
           end
