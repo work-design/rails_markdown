@@ -15,9 +15,9 @@ module Markdown
       end
 
       verify = OpenSSL::HMAC.hexdigest('sha1', @git.secret, request.body.read)
-      puts verify
-      if digest == verify 
-        payload.dig('head_commit', 'message').to_s
+      if digest == verify
+        @git.last_commit_message = payload.dig('head_commit', 'message').to_s
+        @git.save
       end
 
       head :no_content
