@@ -6,6 +6,7 @@ module Markdown
       attribute :name, :string
       attribute :path, :string
       attribute :download_url, :string
+      attribute :sha, :string
 
       belongs_to :git
       has_one_attached :file

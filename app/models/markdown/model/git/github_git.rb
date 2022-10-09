@@ -39,11 +39,14 @@ module Markdown
       elsif r[:type] == 'file'
         detail = { model: assets.find(&->(i){ i.path == r[:path] }) || assets.build(path: r[:path]) }
         detail[:model].name = r[:name]
-        blob = client.blob working_directory, r[:sha]
-        detail[:model].file.attach(
-          io: StringIO.new(Base64.decode64(blob[:content])),
-          filename: r[:name]
-        )
+        if r[:sha] != detail[:model].sha
+          blob = client.blob working_directory, r[:sha]
+          detail[:model].file.attach(
+            io: StringIO.new(Base64.decode64(blob[:content])),
+            filename: r[:name]
+          )
+          detail[:model].sha = r[:sha]
+        end
         result.merge! r[:path] => detail
       end
 
