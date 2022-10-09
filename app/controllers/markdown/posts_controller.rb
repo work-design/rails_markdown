@@ -1,8 +1,7 @@
 module Markdown
   class PostsController < BaseController
     before_action :set_catalogs, only: [:index]
-    before_action :set_post, only: [:show, :raw]
-    before_action :set_post_by_id, only: [:ppt, :content]
+    before_action :set_post, only: [:show, :raw, :ppt, :content]
     before_action :set_catalog, only: [:list]
 
     def index
@@ -53,10 +52,6 @@ module Markdown
 
     def set_catalog
       @catalog = Catalog.find_by path: params[:catalog_path]
-    end
-
-    def set_post_by_id
-      @post = Post.find params[:id]
     end
 
     def set_post
