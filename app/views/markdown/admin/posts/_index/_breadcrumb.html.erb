@@ -1,6 +1,7 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
     <li><%= link_to t('markdown.admin.gits.index.title'), { controller: 'gits' } %></li>
-    <li class="is-active"><%= @git.working_directory %></li>
+    <li><span class="px-3"><%= @git.working_directory %></span></li>
+    <li class="is-active"><%= t('.title') %></li>
   </ul>
 </div>
