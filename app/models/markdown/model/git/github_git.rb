@@ -7,6 +7,8 @@ module Markdown
       attribute :host, :string
 
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
+
+      after_save_commit :sync_later, if: -> { saved_change_to_last_commit_at? }
     end
 
     def sync_markdowns(result = {}, path = 'markdowns', client)
