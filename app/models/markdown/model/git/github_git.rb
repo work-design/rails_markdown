@@ -48,7 +48,6 @@ module Markdown
     end
 
     def sync_fresh
-      client = github_user.client
       sync_markdowns(client).map do |_, object|
         object[:model].save
       end
@@ -64,7 +63,7 @@ module Markdown
     end
 
     def prune
-      fresh_posts = sync_markdowns(github_user.client).keys
+      fresh_posts = sync_markdowns(client).keys
       posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
         post.destroy
       end
@@ -72,6 +71,20 @@ module Markdown
 
     def sync_later
       GithubGitJob.perform_later(self)
+    end
+
+    def client
+      return @client if defined? @client
+      @client = github_user.client
+    end
+
+    def sync_commit!
+      r = client.commits(working_directory)
+      last_commit = r[0]
+      self.last_commit_message = last_commit.dig :commit, :message
+      self.last_commit_at = last_commit.dig :commit, :author, :date
+      self.save
+      last_commit
     end
 
   end
