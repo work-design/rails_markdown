@@ -8,15 +8,11 @@ module Markdown
     def create
       digest = request.headers['X-Hub-Signature'].to_s
       digest.sub!('sha1=', '')
-      if params[:payload]
-        payload = JSON.parse(params[:payload])
-      else
-        payload = {}
-      end
-
       verify = OpenSSL::HMAC.hexdigest('sha1', @git.secret, request.body.read)
+
       if digest == verify
-        @git.last_commit_message = payload.dig('head_commit', 'message').to_s
+        @git.last_commit_message = params.dig 'head_commit', 'message'
+        @git.last_commit_at = params.dig 'head_commit', 'timestamp'
         @git.save
       end
 
