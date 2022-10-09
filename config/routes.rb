@@ -31,6 +31,11 @@ Rails.application.routes.draw do
             post :sync
           end
         end
+        resources :assets do
+          collection do
+            post :sync
+          end
+        end
       end
     end
   end
