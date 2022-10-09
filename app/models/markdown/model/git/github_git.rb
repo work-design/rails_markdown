@@ -1,5 +1,12 @@
 module Markdown
   module Model::Git::GithubGit
+    extend ActiveSupport::Concern
+
+    included do
+      attribute :identity, :string
+
+      has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
+    end
 
     def sync_markdowns(result = {}, path = 'markdowns', client)
       r = client.contents working_directory, path: path
@@ -40,7 +47,7 @@ module Markdown
       result
     end
 
-    def sync_fresh(github_user)
+    def sync_fresh
       client = github_user.client
       sync_markdowns(client).map do |_, object|
         object[:model].save
@@ -50,20 +57,21 @@ module Markdown
       end
     end
 
-    def sync(github_user)
-      sync_fresh(github_user)
-      prune(github_user)
+    def sync
+      return unless github_user
+      sync_fresh
+      prune
     end
 
-    def prune(github_user)
+    def prune
       fresh_posts = sync_markdowns(github_user.client).keys
       posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
         post.destroy
       end
     end
 
-    def sync_later(github_user)
-      GithubGitJob.perform_later(self, github_user)
+    def sync_later
+      GithubGitJob.perform_later(self)
     end
 
   end

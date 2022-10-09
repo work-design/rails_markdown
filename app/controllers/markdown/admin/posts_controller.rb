@@ -3,21 +3,16 @@ module Markdown
     before_action :set_git
     before_action :set_new_post, only: [:new, :create]
     before_action :set_post, only: [:show, :edit, :update, :destroy]
-    before_action :set_github_user, only: [:index, :sync]
 
     def index
       @posts = @git.posts.order(id: :desc).page(params[:page])
     end
 
     def sync
-      @git.sync_later(@github_user)
+      @git.sync_later
     end
 
     private
-    def set_github_user
-      @github_user = current_github_user
-    end
-
     def set_git
       @git = Git.find params[:git_id]
     end

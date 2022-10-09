@@ -1,6 +1,6 @@
 module Markdown
   class Admin::GitsController < Admin::BaseController
-    before_action :set_git, only: [:show, :edit, :update, :destroy]
+    before_action :set_git, only: [:show, :edit, :update, :destroy, :actions]
 
     def index
       q_params = {}
@@ -18,6 +18,7 @@ module Markdown
       [
         :type,
         :working_directory,
+        :identity,
         :remote_url,
         :last_commit_at,
         :last_commit_message

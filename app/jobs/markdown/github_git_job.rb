@@ -1,8 +1,8 @@
 module Markdown
   class GithubGitJob < ApplicationJob
 
-    def perform(git, github_user)
-      git.sync(github_user)
+    def perform(git)
+      git.sync
     end
 
   end
