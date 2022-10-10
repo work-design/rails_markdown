@@ -1,4 +1,12 @@
 <div data-id="<%= @post.id %>" class="content p-4">
   <h1><%= @post.title %></h1>
+  <p class="is-flex is-justify-content-end has-text-grey">
+    <span>
+      <span><%= Markdown::Post.human_attribute_name(:created_at) %>：</span><time data-controller="time"><%= @post.created_at.to_fs(:iso8601) %></time>
+    </span>
+    <span class="pl-5">
+      <span><%= Markdown::Post.human_attribute_name(:updated_at) %>：</span><time data-controller="time"><%= @post.updated_at.to_fs(:iso8601) %></time>
+    </span>
+  </p>
   <%= @post.html.html_safe %>
 </div>
