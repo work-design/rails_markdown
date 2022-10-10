@@ -17,3 +17,6 @@
     <label data-action="click->input#check"></label>
   <% end %>
 </td>
+<td>
+  <time data-controller="time"><%= model.last_commit_at.to_fs(:iso8601) %></time>
+</td>

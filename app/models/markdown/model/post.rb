@@ -40,6 +40,10 @@ module Markdown
       )
     end
 
+    def last_commit_at
+      super || created_at
+    end
+
     def real_path
       git.real_path.join(path)
     end

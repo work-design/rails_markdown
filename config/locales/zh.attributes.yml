@@ -6,3 +6,5 @@ zh:
         note: 备注
         commission_ratio: 抽成比例
         client_id: 客户
+      markdown/post:
+        last_commit_at: 更新时间
