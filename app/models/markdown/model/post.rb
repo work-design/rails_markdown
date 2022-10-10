@@ -13,6 +13,7 @@ module Markdown
       attribute :published, :boolean, default: true
       attribute :ppt, :boolean, default: false
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
+      attribute :last_commit_at, :datetime
 
       belongs_to :git
       belongs_to :organ, class_name: 'Org::Organ', optional: true

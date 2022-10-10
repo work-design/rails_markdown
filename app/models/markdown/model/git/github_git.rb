@@ -102,5 +102,16 @@ module Markdown
       last_commit
     end
 
+    def sync_head_commit!(params)
+      return unless params.blank?
+      self.last_commit_message = params['message']
+      self.last_commit_at = params['timestamp']
+
+      self.class.transaction do
+        posts.where(path: params['modified']).update_all(last_commit_at: params['timestamp'])
+        self.save!
+      end
+    end
+
   end
 end
