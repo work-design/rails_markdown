@@ -77,7 +77,7 @@ module Markdown
         self.title = h1.options[:raw_text]
         contents.delete(h1)
       end
-      while contents[0].type == :blank do
+      while contents[0]&.type == :blank do
         contents.delete_at(0)
       end
 
