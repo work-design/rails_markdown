@@ -103,7 +103,7 @@ module Markdown
     end
 
     def sync_head_commit!(params)
-      return unless params.blank?
+      return if params.blank?
       self.last_commit_message = params['message']
       self.last_commit_at = params['timestamp']
 
