@@ -59,18 +59,29 @@ module Markdown
     end
 
     def sync_to_html
-      self.html = document.to_html
       self.ppt = is_ppt
-      self.title = get_title
+      self.set_title
+      self.html = document.to_html
+      self
     end
 
     def is_ppt
       markdown.start_with?("---\n")
     end
 
-    def get_title
-      h1 = document.root.children.find(&->(i){ i.type == :header && i.options[:level] == 1 })
-      h1.options[:raw_text] if h1
+    def set_title
+      contents = document.root.children
+
+      h1 = contents.find(&->(i){ i.type == :header && i.options[:level] == 1 })
+      if h1
+        self.title = h1.options[:raw_text]
+        contents.delete(h1)
+      end
+      while contents[0].type == :blank do
+        contents.delete_at(0)
+      end
+
+      title
     end
 
   end
