@@ -41,6 +41,7 @@ module Markdown
 
     def ancestors
       r = path.split('/').ancestors[0..-2]
+      r.delete 'markdowns'
       self.class.where(organ_id: organ_id).in_order_of(:path, r)
     end
 
