@@ -11,44 +11,20 @@ module Markdown
       after_save_commit :sync_later, if: -> { saved_change_to_last_commit_at? }
     end
 
-    def init_markdowns(result = {}, path = 'markdowns', client)
-      r = client.contents working_directory, path: path
+    def init_files(result = {}, path = 'markdowns')
+      git = client.contents working_directory, path: path
 
-      if r.is_a?(Array)
-        r.each do |entry|
-          init_markdowns(result, entry[:path], client)
-        end
-      elsif r[:type] == 'file' && r[:name].end_with?('.md')
-        result.merge! r[:path] => { model: deal_md(git) }
-      end
-
-      result
-    end
-
-    def init_assets(result = {}, path = 'assets', client)
-      r = client.contents working_directory, path: path
-
-      if r.is_a?(Array)
-        r.each do |entry|
-          init_assets(result, entry[:path], client)
-        end
-      elsif r[:type] == 'file'
-        result.merge! r[:path] => { model: deal_asset(git) }
-      end
-
-      result
-    end
-
-    def deal_file(git)
       if git.is_a?(Array)
         git.each do |entry|
-          init_markdowns(result, entry[:path], client)
+          init_files(result, entry[:path])
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
-        result.merge! r[:path] => { model: deal_md(git) }
+        result.merge! git[:path] => { model: deal_md(git) }
       elsif git[:type] == 'file'
-        result.merge! r[:path] => { model: deal_asset(git) }
+        result.merge! git[:path] => { model: deal_asset(git) }
       end
+
+      result
     end
 
     def deal_md(git)
@@ -73,11 +49,10 @@ module Markdown
     end
 
     def sync_fresh
-      init_markdowns(client).map do |_, object|
-        object[:model].save
-      end
-      init_assets(client).map do |_, object|
-        object[:model].save
+      ['markdowns', 'assets'].each do |path|
+        init_files({}, path).map do |_, object|
+          object[:model].save
+        end
       end
     end
 
@@ -88,7 +63,7 @@ module Markdown
     end
 
     def prune
-      fresh_posts = init_markdowns(client).keys
+      fresh_posts = init_files.keys
       posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
         post.destroy
       end
