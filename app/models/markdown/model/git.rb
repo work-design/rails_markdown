@@ -12,7 +12,7 @@ module Markdown
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      has_many :posts
+      has_many :posts, -> { includes(:catalog) }
       has_many :assets
       has_many :catalogs
     end
