@@ -11,53 +11,60 @@ module Markdown
       after_save_commit :sync_later, if: -> { saved_change_to_last_commit_at? }
     end
 
-    def sync_markdowns(result = {}, path = 'markdowns', client)
+    def init_markdowns(result = {}, path = 'markdowns', client)
       r = client.contents working_directory, path: path
 
       if r.is_a?(Array)
         r.each do |entry|
-          sync_markdowns(result, entry[:path], client)
+          init_markdowns(result, entry[:path], client)
         end
       elsif r[:type] == 'file' && r[:name].end_with?('.md')
-        detail = { model: posts.find(&->(i){ i.path == r[:path] }) || posts.build(path: r[:path]) }
-        if r[:content]
-          detail[:model].markdown = Base64.decode64(r[:content]).force_encoding('utf-8')
-        end
-        result.merge! r[:path] => detail
+        result.merge! r[:path] => { model: deal_md(git) }
       end
 
       result
     end
 
-    def sync_assets(result = {}, path = 'assets', client)
+    def init_assets(result = {}, path = 'assets', client)
       r = client.contents working_directory, path: path
 
       if r.is_a?(Array)
         r.each do |entry|
-          sync_assets(result, entry[:path], client)
+          init_assets(result, entry[:path], client)
         end
       elsif r[:type] == 'file'
-        detail = { model: assets.find(&->(i){ i.path == r[:path] }) || assets.build(path: r[:path]) }
-        detail[:model].name = r[:name]
-        if r[:sha] != detail[:model].sha
-          blob = client.blob working_directory, r[:sha]
-          detail[:model].file.attach(
-            io: StringIO.new(Base64.decode64(blob[:content])),
-            filename: r[:name]
-          )
-          detail[:model].sha = r[:sha]
-        end
-        result.merge! r[:path] => detail
+        result.merge! r[:path] => { model: deal_asset(git) }
       end
 
       result
+    end
+
+    def deal_md(git)
+      model = posts.find(&->(i){ i.path == git[:path] }) || posts.build(path: git[:path])
+      if git[:content]
+        model.markdown = Base64.decode64(git[:content]).force_encoding('utf-8')
+      end
+    end
+
+    def deal_asset(git)
+      model = assets.find(&->(i){ i.path == git[:path] }) || assets.build(path: git[:path])
+      model.name = git[:name]
+      if git[:sha] != model.sha
+        blob = client.blob working_directory, git[:sha]
+        model.file.attach(
+          io: StringIO.new(Base64.decode64(blob[:content])),
+          filename: git[:name]
+        )
+        model.sha = git[:sha]
+      end
+      model
     end
 
     def sync_fresh
-      sync_markdowns(client).map do |_, object|
+      init_markdowns(client).map do |_, object|
         object[:model].save
       end
-      sync_assets(client).map do |_, object|
+      init_assets(client).map do |_, object|
         object[:model].save
       end
     end
@@ -69,7 +76,7 @@ module Markdown
     end
 
     def prune
-      fresh_posts = sync_markdowns(client).keys
+      fresh_posts = init_markdowns(client).keys
       posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
         post.destroy
       end
