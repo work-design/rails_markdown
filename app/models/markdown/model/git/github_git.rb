@@ -18,7 +18,7 @@ module Markdown
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         result << deal_md(git)
-      elsif git[:type] == 'file' && git[:name].end_with?('.jpg', '.png', '.webp')
+      elsif git[:type] == 'file' && git[:name].end_with?('.jpg', '.jpeg', '.png', '.webp')
         result << deal_asset(git)
       end
 
