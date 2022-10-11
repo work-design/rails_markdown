@@ -4,7 +4,10 @@ module Markdown
     before_action :set_post, only: [:show, :edit, :update, :destroy]
 
     def index
-      @posts = @git.posts.order(id: :desc).page(params[:page])
+      q_params = {}
+      q_params.merge! params.permit(:title, 'path-rl')
+
+      @posts = @git.posts.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def sync
