@@ -9,17 +9,17 @@ module Markdown
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
     end
 
-    def sync_files(result = {}, path = 'markdowns')
+    def sync_files(path = 'markdowns', result = [])
       git = client.contents working_directory, path: path
 
       if git.is_a?(Array)
         git.each do |entry|
-          sync_files(result, entry[:path])
+          sync_files(entry[:path], result)
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
-        result.merge! git[:path] => { model: deal_md(git) }
+        result << deal_md(git)
       elsif git[:type] == 'file'
-        result.merge! git[:path] => { model: deal_asset(git) }
+        result << deal_asset(git)
       end
 
       result
@@ -27,9 +27,12 @@ module Markdown
 
     def deal_md(git)
       model = posts.find(&->(i){ i.path == git[:path] }) || posts.build(path: git[:path])
+
       if git[:content]
         model.markdown = Base64.decode64(git[:content]).force_encoding('utf-8')
       end
+
+      model
     end
 
     def deal_asset(git)
@@ -43,13 +46,14 @@ module Markdown
         )
         model.sha = git[:sha]
       end
+
       model
     end
 
     def sync_fresh
       ['markdowns', 'assets'].each do |path|
-        sync_files({}, path).map do |_, object|
-          object[:model].save
+        sync_files(path).map do |model|
+          model.save
         end
       end
     end
@@ -103,10 +107,11 @@ module Markdown
       self.last_commit_message = params['message']
       self.last_commit_at = params['timestamp']
 
-      r = params['modified'].map do |path|
-        sync_files({}, path).map do |_, object|
-          object[:model].last_commit_at = params['timestamp']
-          object[:model]
+      r = []
+      params['modified'].each do |path|
+        r += sync_files(path).map do |model|
+          model.last_commit_at = params['timestamp']
+          model
         end
       end
 
