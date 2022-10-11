@@ -51,7 +51,7 @@ module Markdown
     end
 
     def sync_fresh
-      ['markdowns', 'assets'].each do |path|
+      ['markdowns', 'assets', 'README.md'].each do |path|
         sync_files(path).map do |model|
           model.save
         end
