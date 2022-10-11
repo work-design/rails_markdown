@@ -7,16 +7,14 @@ module Markdown
       attribute :host, :string
 
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
-
-      after_save_commit :sync_later, if: -> { saved_change_to_last_commit_at? }
     end
 
-    def init_files(result = {}, path = 'markdowns')
+    def sync_files(result = {}, path = 'markdowns')
       git = client.contents working_directory, path: path
 
       if git.is_a?(Array)
         git.each do |entry|
-          init_files(result, entry[:path])
+          sync_files(result, entry[:path])
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         result.merge! git[:path] => { model: deal_md(git) }
@@ -50,9 +48,16 @@ module Markdown
 
     def sync_fresh
       ['markdowns', 'assets'].each do |path|
-        init_files({}, path).map do |_, object|
+        sync_files({}, path).map do |_, object|
           object[:model].save
         end
+      end
+    end
+
+    def prune
+      fresh_posts = sync_files.keys
+      posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
+        post.destroy
       end
     end
 
@@ -60,13 +65,6 @@ module Markdown
       return unless github_user
       sync_fresh
       prune
-    end
-
-    def prune
-      fresh_posts = init_files.keys
-      posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
-        post.destroy
-      end
     end
 
     def sync_later
@@ -96,13 +94,24 @@ module Markdown
       last_commit
     end
 
+    def sync_head_commit_later!(params)
+      GithubGitHeadJob.perform_later(self, params)
+    end
+
     def sync_head_commit!(params)
       return if params.blank?
       self.last_commit_message = params['message']
       self.last_commit_at = params['timestamp']
 
+      r = params['modified'].map do |path|
+        sync_files({}, path).map do |_, object|
+          object[:model].last_commit_at = params['timestamp']
+          object[:model]
+        end
+      end
+
       self.class.transaction do
-        posts.where(path: params['modified']).update_all(last_commit_at: params['timestamp'])
+        r.each(&:save!)
         self.save!
       end
     end
