@@ -50,25 +50,27 @@ module Markdown
       model
     end
 
-    def sync_fresh
-      ['markdowns', 'assets', 'README.md'].each do |path|
-        sync_files(path).map do |model|
-          model.save
-        end
-      end
-    end
-
-    def prune_posts
-      paths = sync_files.pluck(:path)
-      posts.where.not(path: paths).each do |post|
-        post.destroy
-      end
-    end
-
     def sync
       return unless github_user
-      sync_fresh
-      prune_posts
+
+      synced_posts = []
+      ['markdowns', 'README.md'].each do |path|
+        synced_posts += sync_files(path).map do |model|
+          model.save
+          model
+        end
+      end
+      posts.where.not(path: synced_posts.pluck(:path)).each do |post|
+        post.destroy
+      end
+
+      synced_assets = sync_files('assets').map do |model|
+        model.save
+        model
+      end
+      assets.where.not(path: synced_assets.pluck(:path)).each do |asset|
+        asset.destroy
+      end
     end
 
     def sync_later
