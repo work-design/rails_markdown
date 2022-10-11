@@ -13,5 +13,5 @@
   <% end %>
 <% end %>
 <% Markdown::Post.default_where(default_params).nav.each do |post| %>
-  <%= link_to post.title, { controller: '/markdown/posts', action: 'show', path: post.path }, class: active_params(path: post.path, active: 'navbar-item is-active', item: 'navbar-item') %>
+  <%= link_to post.title, { controller: '/markdown/posts', action: 'raw', path: post.path }, class: active_params(path: post.path, active: 'navbar-item is-active', item: 'navbar-item') %>
 <% end %>
