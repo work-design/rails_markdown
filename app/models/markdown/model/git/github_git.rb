@@ -58,9 +58,9 @@ module Markdown
       end
     end
 
-    def prune
-      fresh_posts = sync_files.keys
-      posts.select(&->(i){ !fresh_posts.include?(i.path) }).each do |post|
+    def prune_posts
+      paths = sync_files.pluck(:path)
+      posts.where.not(path: paths).each do |post|
         post.destroy
       end
     end
@@ -68,7 +68,7 @@ module Markdown
     def sync
       return unless github_user
       sync_fresh
-      prune
+      prune_posts
     end
 
     def sync_later
