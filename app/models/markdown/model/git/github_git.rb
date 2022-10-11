@@ -39,6 +39,18 @@ module Markdown
       result
     end
 
+    def deal_file(git)
+      if git.is_a?(Array)
+        git.each do |entry|
+          init_markdowns(result, entry[:path], client)
+        end
+      elsif git[:type] == 'file' && git[:name].end_with?('.md')
+        result.merge! r[:path] => { model: deal_md(git) }
+      elsif git[:type] == 'file'
+        result.merge! r[:path] => { model: deal_asset(git) }
+      end
+    end
+
     def deal_md(git)
       model = posts.find(&->(i){ i.path == git[:path] }) || posts.build(path: git[:path])
       if git[:content]
