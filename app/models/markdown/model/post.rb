@@ -64,7 +64,6 @@ module Markdown
       self.catalog_path = r[0..-2].join('/')
       self.home = is_home? # 只要遇到符合 is_home? 判断的，有限设置为 home, 后续可以再在后台修改配置
       self.catalog || self.create_catalog
-      catalog.home = self.path if self.home
     end
 
     def sync_to_html
@@ -99,6 +98,8 @@ module Markdown
 
     def set_home
       self.class.where(catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
+      catalog.home = self.path
+      catalog.save
     end
 
   end
