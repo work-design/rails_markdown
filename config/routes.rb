@@ -17,6 +17,9 @@ Rails.application.routes.draw do
         post '' => :create
       end
     end
+    controller :assets do
+      get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
+    end
 
     namespace :admin, defaults: { namespace: 'admin' } do
       root 'home#index'
