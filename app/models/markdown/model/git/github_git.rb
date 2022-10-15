@@ -110,7 +110,7 @@ module Markdown
       self.last_commit_at = params['timestamp']
 
       r = []
-      params['modified'].each do |path|
+      (params['modified'] + params['added']).each do |path|
         r += sync_files(path).map do |model|
           model.last_commit_at = params['timestamp']
           model
