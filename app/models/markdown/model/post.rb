@@ -23,7 +23,7 @@ module Markdown
       scope :published, -> { where(published: true) }
       scope :nav, -> { where(nav: true) }
 
-      before_validation :sync_organ, if: -> { catalog_path_changed? }
+      before_validation :sync_organ, if: -> { git_id_changed? }
       before_validation :sure_catalog, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }
       after_save :set_home!, if: -> { home && saved_change_to_home? }
@@ -56,7 +56,7 @@ module Markdown
     end
 
     def sync_organ
-      self.organ_id = catalog&.organ_id
+      self.organ_id = git.organ_id
     end
 
     def sure_catalog
@@ -98,14 +98,14 @@ module Markdown
     end
 
     def set_home!
-      catalog.home = self.path
+      catalog.home_path = self.path
 
       self.class.where(catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
       catalog.save
     end
 
     def clear_home!
-      catalog.update home: nil
+      catalog.update home_path: nil
     end
 
   end

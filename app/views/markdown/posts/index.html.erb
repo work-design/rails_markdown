@@ -1,6 +1,13 @@
+<% if @catalog.home.present? %>
+  <div data-id="<%= @catalog.home.id %>" class="content p-4">
+    <h1><%= @catalog.home.title %></h1>
+    <%= render partial: 'time', locals: { post: @catalog.home } %>
+    <%= @catalog.home.html.html_safe %>
+  </div>
+<% else %>
+  <%= render layout: 'index_table' do %>
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: @posts, as: :model %>
+  <% end %>
 
-<%= render layout: 'index_table' do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @posts, as: :model %>
+  <%= paginate @posts %>
 <% end %>
-
-<%= paginate @posts %>
