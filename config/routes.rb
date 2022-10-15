@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   namespace :markdown, defaults: { business: 'markdown' } do
+    controller :assets do
+      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
+      get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
+    end
     resources :posts, only: [:index] do
       collection do
         get :list
@@ -16,10 +20,6 @@ Rails.application.routes.draw do
       member do
         post '' => :create
       end
-    end
-    controller :assets do
-      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
-      get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do
