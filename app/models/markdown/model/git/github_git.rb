@@ -1,6 +1,7 @@
 module Markdown
   module Model::Git::GithubGit
     extend ActiveSupport::Concern
+    ASSETS = ['.jpg', '.jpeg', '.png', '.webp']
 
     included do
       attribute :identity, :string
@@ -18,7 +19,7 @@ module Markdown
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         result << deal_md(git)
-      elsif git[:type] == 'file' && git[:name].end_with?('.jpg', '.jpeg', '.png', '.webp')
+      elsif git[:type] == 'file' && git[:name].end_with?(*ASSETS)
         result << deal_asset(git)
       end
 
@@ -115,6 +116,14 @@ module Markdown
           model.last_commit_at = params['timestamp']
           model
         end
+      end
+
+      assets.where(path: params['removed'].select(&->(i){ i.end_with?(*ASSETS) })).each do |asset|
+        asset.destroy
+      end
+
+      posts.where(path: params['removed'].select(&->(i){ i.end_with?('.md') })).each do |asset|
+        asset.destroy
       end
 
       self.class.transaction do
