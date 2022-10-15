@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       end
     end
     controller :assets do
+      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
       get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
     end
 
