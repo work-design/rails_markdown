@@ -4,7 +4,7 @@
 </td>
 <td>
   <p><%= model.path %></p>
-  <p><%= model.home %></p>
+  <p class="has-text-success"><%= model.home %></p>
 </td>
 <td>
   <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
