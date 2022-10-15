@@ -26,7 +26,8 @@ module Markdown
       before_validation :sync_organ, if: -> { catalog_path_changed? }
       before_validation :sure_catalog, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }
-      after_save :set_home, if: -> { home && saved_change_to_home? }
+      after_save :set_home!, if: -> { home && saved_change_to_home? }
+      after_save :clear_home!, if: -> { !home && saved_change_to_home? }
     end
 
     def document
@@ -96,10 +97,15 @@ module Markdown
       title
     end
 
-    def set_home
-      self.class.where(catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
+    def set_home!
       catalog.home = self.path
+
+      self.class.where(catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
       catalog.save
+    end
+
+    def clear_home!
+      catalog.update home: nil
     end
 
   end

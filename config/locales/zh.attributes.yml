@@ -10,4 +10,5 @@ zh:
         last_commit_at: 更新时间
         published: 是否发布
         ppt: 是否 PPT
+        nav: 是否主菜单
         home: 是否首页
