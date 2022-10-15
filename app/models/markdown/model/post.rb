@@ -100,7 +100,7 @@ module Markdown
     def set_home!
       catalog.home_path = self.path
 
-      self.class.where(catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
+      self.class.where(organ_id: self.organ_id, catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
       catalog.save
     end
 
