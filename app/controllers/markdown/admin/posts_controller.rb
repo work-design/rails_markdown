@@ -30,7 +30,8 @@ module Markdown
         :markdown,
         :html,
         :published,
-        :nav
+        :nav,
+        :home
       ]
     end
 

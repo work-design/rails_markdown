@@ -9,6 +9,7 @@ module Markdown
       attribute :position, :integer
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
       attribute :depth, :integer
+      attribute :home, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 

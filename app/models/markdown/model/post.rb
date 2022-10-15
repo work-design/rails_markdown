@@ -13,6 +13,7 @@ module Markdown
       attribute :published, :boolean, default: true
       attribute :ppt, :boolean, default: false
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
+      attribute :home, :boolean, default: false, comment: '是否首页，默认为 README.md'
       attribute :last_commit_at, :datetime
 
       belongs_to :git
@@ -25,6 +26,7 @@ module Markdown
       before_validation :sync_organ, if: -> { catalog_path_changed? }
       before_validation :sure_catalog, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }
+      after_save :set_home, if: -> { home && saved_change_to_home? }
     end
 
     def document
@@ -60,18 +62,24 @@ module Markdown
       r = path.split('/')
 
       self.catalog_path = r[0..-2].join('/')
+      self.home = is_home? # 只要遇到符合 is_home? 判断的，有限设置为 home, 后续可以再在后台修改配置
       self.catalog || self.create_catalog
+      catalog.home = self.path if self.home
     end
 
     def sync_to_html
-      self.ppt = is_ppt
+      self.ppt = is_ppt?
       self.set_title
       self.html = document.to_html
       self
     end
 
-    def is_ppt
+    def is_ppt?
       markdown.start_with?("---\n")
+    end
+
+    def is_home?
+      path.end_with?('README.md', 'readme.md')
     end
 
     def set_title
@@ -87,6 +95,10 @@ module Markdown
       end
 
       title
+    end
+
+    def set_home
+      self.class.where(catalog_path: self.catalog_path).where.not(id: self.id).update_all(home: false)
     end
 
   end
