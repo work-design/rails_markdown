@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       get 'posts/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
       get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
     end
+    controller :posts do
+      get 'markdowns/*path' => :show, constraints: ->(req) { [:md].include? req.format.symbol }
+    end
     resources :posts, only: [:index] do
       collection do
         get :list
