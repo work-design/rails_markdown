@@ -6,9 +6,6 @@ Rails.application.routes.draw do
       get 'posts/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
       get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
     end
-    controller :posts do
-      get 'markdowns/*path' => :show, constraints: ->(req) { [:md].include? req.format.symbol }
-    end
     resources :posts, only: [:index] do
       collection do
         get :list
@@ -17,6 +14,10 @@ Rails.application.routes.draw do
         get 'content/*path' => :content
         get '*path' => :show
       end
+    end
+    controller :posts do
+      # 这个定义必须在 resources :posts 后面，不然会影响 url_for action: 'show' 的参数解析
+      get 'markdowns/*path' => :show, defaults: { prefix: 'markdowns' }
     end
     resources :gits, only: [:show] do
       member do

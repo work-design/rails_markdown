@@ -47,7 +47,8 @@ module Markdown
     end
 
     def set_post
-      path = "#{params[:path]}.#{params[:format]}"
+      params_path = [params[:prefix], params[:path]].compact.join('/')
+      path = "#{params_path}.#{params[:format]}"
 
       @post = Post.find_by(path: path)
     end
