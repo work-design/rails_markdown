@@ -4,6 +4,7 @@ module Markdown
     before_action :set_catalog, only: [:show, :edit, :update, :reorder, :catalog]
 
     def index
+      @catalog = @git.catalogs.find_by(depth: 0)
       @catalogs = @git.catalogs.roots.order(position: :asc)
     end
 

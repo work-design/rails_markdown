@@ -8,6 +8,7 @@ module Markdown
       attribute :parent_path, :string
       attribute :position, :integer
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
+      attribute :list, :boolean, default: false, comment: '是否子菜单'
       attribute :depth, :integer
       attribute :home_path, :string
 

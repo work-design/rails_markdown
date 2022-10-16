@@ -1,5 +1,5 @@
 <% Markdown::Catalog.default_where(default_params).nav.each do |catalog| %>
-  <% if catalog.children.present? %>
+  <% if catalog.list %>
     <div class="navbar-item has-dropdown is-hoverable is-hidden-touch">
       <div class="navbar-link"><%= catalog.name %></div>
       <div class="navbar-dropdown is-right">

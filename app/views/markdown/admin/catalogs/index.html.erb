@@ -1,3 +1,4 @@
 <%= render layout: 'index_sortable_table' do %>
+  <%= render partial: 'root_tbody', layout: 'index_tr', locals: { model: @catalog } %>
   <%= render partial: 'index_tbody', layout: 'index_sortable_tr', collection: @catalogs, as: :model %>
 <% end %>
