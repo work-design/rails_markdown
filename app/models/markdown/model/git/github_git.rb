@@ -14,16 +14,16 @@ module Markdown
       git = client.contents working_directory, path: path
 
       if git.is_a?(Array)
+        logger.debug 'sync from folder'
         git.each do |entry|
           sync_files(entry[:path], result)
         end
-        logger.debug "sync from folder"
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
-        result << deal_md(git)
         logger.debug "sync md: #{git[:path]}"
+        result << deal_md(git)
       elsif git[:type] == 'file' && git[:name].end_with?(*ASSETS)
-        result << deal_asset(git)
         logger.debug "sync asset: #{git[:path]}"
+        result << deal_asset(git)
       else
         logger.debug "please check: #{git}"
       end
