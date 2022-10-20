@@ -16,7 +16,7 @@ module Markdown
       if git.is_a?(Array)
         logger.debug "sync from folder: #{git.map(&->(i){ i[:path] })}"
         git.each do |entry|
-          sync_files(entry[:path], result)
+          sync_files(ERB::Util.url_encode(entry[:path]), result)
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         logger.debug "sync md: #{git[:path]}"
