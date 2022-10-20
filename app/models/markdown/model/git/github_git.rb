@@ -17,6 +17,7 @@ module Markdown
         git.each do |entry|
           sync_files(entry[:path], result)
         end
+        logger.debug "sync from folder"
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         result << deal_md(git)
         logger.debug "sync md: #{git[:path]}"
