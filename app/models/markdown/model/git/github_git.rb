@@ -19,8 +19,10 @@ module Markdown
         end
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         result << deal_md(git)
+        logger.debug "sync md: #{git[:path]}"
       elsif git[:type] == 'file' && git[:name].end_with?(*ASSETS)
         result << deal_asset(git)
+        logger.debug "sync asset: #{git[:path]}"
       end
 
       result
