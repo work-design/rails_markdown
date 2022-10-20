@@ -31,6 +31,8 @@ module Markdown
       end
     rescue Octokit::NotFound => e
       result
+    ensure
+      result
     end
 
     def deal_md(git)
