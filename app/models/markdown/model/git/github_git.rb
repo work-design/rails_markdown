@@ -24,6 +24,8 @@ module Markdown
       elsif git[:type] == 'file' && git[:name].end_with?(*ASSETS)
         result << deal_asset(git)
         logger.debug "sync asset: #{git[:path]}"
+      else
+        logger.debug "please check: #{git}"
       end
 
       result
