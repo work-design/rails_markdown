@@ -11,7 +11,9 @@ module Markdown
       verify = OpenSSL::HMAC.hexdigest('sha1', @git.secret, request.body.read)
 
       if digest == verify
-        @git.sync_head_commit_later!(params.fetch('head_commit', {}).permit!)
+        if params.key?('head_commit')
+          @git.sync_head_commit_later!(params.fetch('head_commit', {}).permit!)
+        end
       end
 
       head :no_content
