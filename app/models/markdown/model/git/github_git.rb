@@ -1,7 +1,7 @@
 module Markdown
   module Model::Git::GithubGit
     extend ActiveSupport::Concern
-    ASSETS = ['.jpg', '.jpeg', '.png', '.webp']
+    ASSETS = ['.jpg', '.jpeg', '.png', '.webp', '.svg']
 
     included do
       attribute :identity, :string
@@ -15,9 +15,10 @@ module Markdown
 
       if git.is_a?(Array)
         git.each do |entry|
-          logger.debug "sync from folder: #{ERB::Util.url_encode(entry[:path])}"
+          logger.debug "sync: #{ERB::Util.url_encode(entry[:path])}"
           sync_files(ERB::Util.url_encode(entry[:path]), result)
         end
+        result
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         logger.debug "sync md: #{git[:path]}"
         result << deal_md(git)
@@ -26,10 +27,9 @@ module Markdown
         result << deal_asset(git)
       else
         logger.debug "please check: #{git}"
+        result
       end
     rescue Octokit::NotFound => e
-      result
-    ensure
       result
     end
 
@@ -79,6 +79,8 @@ module Markdown
       assets.where.not(path: synced_assets.pluck(:path)).each do |asset|
         asset.destroy
       end
+
+      [synced_posts, synced_assets]
     end
 
     def sync_later
