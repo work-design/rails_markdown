@@ -27,7 +27,9 @@ module Markdown
       else
         logger.debug "please check: #{git}"
       end
-
+    rescue Octokit::NotFound => e
+      
+    ensure
       result
     end
 
