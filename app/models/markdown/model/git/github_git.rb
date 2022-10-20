@@ -14,7 +14,7 @@ module Markdown
       git = client.contents working_directory, path: path
 
       if git.is_a?(Array)
-        logger.debug 'sync from folder'
+        logger.debug "sync from folder: #{git.map(&->(i){ i[:path] })}"
         git.each do |entry|
           sync_files(entry[:path], result)
         end
