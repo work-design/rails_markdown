@@ -1,4 +1,4 @@
-<% if @catalog.home.present? %>
+<% if @catalog&.home.present? %>
   <div data-id="<%= @catalog.home.id %>" class="content p-4">
     <h1><%= @catalog.home.title %></h1>
     <%= render partial: 'time', locals: { post: @catalog.home } %>
