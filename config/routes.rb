@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
   namespace :markdown, defaults: { business: 'markdown' } do
     controller :assets do
-      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
-      get 'posts/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :png, :webp].include? req.format.symbol }
-      get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp].include? req.format.symbol }
+      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp, :svg].include? req.format.symbol }
+      get 'posts/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp, :svg].include? req.format.symbol }
+      get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp, :svg].include? req.format.symbol }
     end
     resources :posts, only: [:index] do
       collection do
@@ -12,12 +12,12 @@ Rails.application.routes.draw do
         get 'ppt/*path' => :ppt
         get 'raw/*path' => :raw
         get 'content/*path' => :content
-        get '*path' => :show
+        get '*slug' => :show
       end
     end
     controller :posts do
       # 这个定义必须在 resources :posts 后面，不然会影响 url_for action: 'show' 的参数解析
-      get 'markdowns/*path' => :show, defaults: { prefix: 'markdowns' }
+      get 'markdowns/*slug' => :show, defaults: { prefix: 'markdowns' }
     end
     resources :gits, only: [:show] do
       member do

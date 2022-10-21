@@ -8,6 +8,7 @@ module Markdown
       attribute :html, :string
       attribute :layout, :string
       attribute :path, :string
+      attribute :slug, :string
       attribute :catalog_path, :string, default: ''
       attribute :oid, :string
       attribute :published, :boolean, default: true
@@ -24,7 +25,7 @@ module Markdown
       scope :nav, -> { where(nav: true) }
 
       before_validation :sync_organ, if: -> { git_id_changed? }
-      before_validation :sure_catalog, if: -> { path_changed? }
+      before_validation :sync_from_path, if: -> { path_changed? }
       before_save :sync_to_html, if: -> { markdown_changed? }
       after_save :set_home!, if: -> { home && saved_change_to_home? }
       after_save :clear_home!, if: -> { !home && saved_change_to_home? }
@@ -59,10 +60,11 @@ module Markdown
       self.organ_id = git.organ_id
     end
 
-    def sure_catalog
+    def sync_from_path
       r = path.split('/')
 
       self.catalog_path = r[0..-2].join('/')
+      self.slug = path.delete_suffix('.md')
       self.home = is_home? # 只要遇到符合 is_home? 判断的，有限设置为 home, 后续可以再在后台修改配置
       self.catalog || self.create_catalog
     end

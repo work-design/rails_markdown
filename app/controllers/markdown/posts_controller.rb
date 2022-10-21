@@ -47,10 +47,9 @@ module Markdown
     end
 
     def set_post
-      params_path = [params[:prefix], params[:path]].compact.join('/')
-      path = "#{params_path}.#{params[:format]}"
+      slug = [params[:prefix], params[:slug]].compact.join('/')
 
-      @post = Post.find_by(path: path)
+      @post = Post.find_by(slug: slug)
     end
 
   end
