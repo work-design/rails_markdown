@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-
+  FORMATS = [:jpeg, :jpg, :png, :webp, :svg, :mp4]
   namespace :markdown, defaults: { business: 'markdown' } do
     controller :assets do
-      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp, :svg].include? req.format.symbol }
-      get 'posts/assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp, :svg].include? req.format.symbol }
-      get 'assets/*path' => :asset, constraints: ->(req) { [:jpeg, :jpg, :png, :webp, :svg].include? req.format.symbol }
+      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { FORMATS.include? req.format.symbol }
+      get 'posts/assets/*path' => :asset, constraints: ->(req) { FORMATS.include? req.format.symbol }
+      get 'assets/*path' => :asset, constraints: ->(req) { FORMATS.include? req.format.symbol }
     end
     resources :posts, only: [:index] do
       collection do

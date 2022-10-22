@@ -1,7 +1,7 @@
 module Markdown
   module Model::Git::GithubGit
     extend ActiveSupport::Concern
-    ASSETS = ['.jpg', '.jpeg', '.png', '.webp', '.svg']
+    ASSETS = ['.jpg', '.jpeg', '.png', '.webp', '.svg', '.mp4']
 
     included do
       attribute :identity, :string
