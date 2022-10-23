@@ -49,7 +49,7 @@ module Markdown
     def set_post
       slug = [params[:prefix], params[:slug]].compact.join('/')
 
-      @post = Post.find_by(slug: slug)
+      @post = Post.find_by!(slug: slug)
     end
 
   end
