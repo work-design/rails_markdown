@@ -9,9 +9,9 @@ Rails.application.routes.draw do
     resources :posts, only: [:index] do
       collection do
         get :list
-        get 'ppt/*path' => :ppt
-        get 'raw/*path' => :raw
-        get 'content/*path' => :content
+        get 'ppt/*slug' => :ppt
+        get 'raw/*slug' => :raw
+        get 'content/*slug' => :content
         get '*slug' => :show
       end
     end
