@@ -15,9 +15,9 @@ module Markdown
 
       if git.is_a?(Array)
         git.each do |entry|
-          logger.debug "sync: #{ERB::Util.url_encode(entry[:path])}"
-          sync_files(ERB::Util.url_encode(entry[:path]))
+          sync_files(ERB::Util.url_encode(entry[:path]), mds: mds, files: files)
         end
+        [mds, files]
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         logger.debug "sync md: #{git[:path]}"
         mds << deal_md(git)
