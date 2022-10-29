@@ -61,19 +61,17 @@ module Markdown
 
     def sync
       return unless github_user
+      synced_posts, synced_assets = sync_files
 
-      synced_posts = []
-      synced_posts += sync_files.map do |model|
+      synced_posts.each do |model|
         model.save
-        model
       end
       posts.where.not(path: synced_posts.pluck(:path)).each do |post|
         post.destroy
       end
 
-      synced_assets = sync_files('assets').map do |model|
+      synced_assets.each do |model|
         model.save
-        model
       end
       assets.where.not(path: synced_assets.pluck(:path)).each do |asset|
         asset.destroy
