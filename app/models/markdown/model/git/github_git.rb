@@ -10,29 +10,28 @@ module Markdown
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
     end
 
-    def sync_files(path = 'markdowns', result = [])
+    def sync_files(path = nil, mds: [], files: [])
       git = client.contents working_directory, path: path
 
       if git.is_a?(Array)
         git.each do |entry|
           logger.debug "sync: #{ERB::Util.url_encode(entry[:path])}"
-          sync_files(ERB::Util.url_encode(entry[:path]), result)
+          sync_files(ERB::Util.url_encode(entry[:path]))
         end
-        result
       elsif git[:type] == 'file' && git[:name].end_with?('.md')
         logger.debug "sync md: #{git[:path]}"
-        result << deal_md(git)
+        mds << deal_md(git)
       elsif git[:type] == 'file' && git[:name].end_with?(*ASSETS)
         logger.debug "sync asset: #{git[:path]}"
-        result << deal_asset(git)
+        files << deal_asset(git)
       else
-        logger.debug "please check: #{git}"
-        result
+        logger.debug "please check: #{git[:path]}"
+        [mds, files]
       end
     rescue Octokit::NotFound => e
-      result
+      [mds, files]
     ensure
-      result
+      [mds, files]
     end
 
     def deal_md(git)
@@ -64,11 +63,9 @@ module Markdown
       return unless github_user
 
       synced_posts = []
-      ['markdowns', 'README.md'].each do |path|
-        synced_posts += sync_files(path).map do |model|
-          model.save
-          model
-        end
+      synced_posts += sync_files.map do |model|
+        model.save
+        model
       end
       posts.where.not(path: synced_posts.pluck(:path)).each do |post|
         post.destroy
