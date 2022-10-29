@@ -22,7 +22,7 @@ module Markdown
 
       scope :ordered, -> { order(position: :asc) }
       scope :nav, -> { where(nav: true) }
-      scope :roots, -> { where(depth: 2) }
+      scope :roots, -> { where(depth: 1) }
 
       acts_as_list scope: [:git_id, :depth]
 
