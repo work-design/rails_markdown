@@ -1,8 +1,8 @@
 module Markdown
   class PostsController < BaseController
-    before_action :set_catalogs, only: [:index]
     before_action :set_post, only: [:show, :raw, :ppt, :content]
     before_action :set_catalog, only: [:index, :list]
+    before_action :set_catalogs, only: [:index]
 
     def index
       q_params = {}
@@ -36,10 +36,14 @@ module Markdown
 
     private
     def set_catalogs
-      q_params = {}
-      q_params.merge! default_params
+      if @catalog
+        @catalogs = @catalog.children
+      else
+        q_params = {}
+        q_params.merge! default_params
 
-      @catalogs = Catalog.default_where(q_params).roots
+        @catalogs = Catalog.default_where(q_params).roots
+      end
     end
 
     def set_catalog

@@ -1,6 +1,5 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
-    <li><%= link_to t('markdown.posts.index.title'), { action: 'index' } %></li>
     <% @post.catalog.ancestors.each do |catalog| %>
       <li><%= link_to catalog.name, { action: 'index', catalog_path: catalog.path } %></li>
     <% end %>

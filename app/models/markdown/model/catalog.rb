@@ -41,9 +41,13 @@ module Markdown
       self.organ_id = git.organ_id
     end
 
+    def root?
+      depth == 0
+    end
+
     def ancestors
       r = path.split('/').ancestors[0..-2]
-      r.delete 'markdowns'
+      r.prepend '' unless self.root?
       self.class.where(organ_id: organ_id).in_order_of(:path, r)
     end
 

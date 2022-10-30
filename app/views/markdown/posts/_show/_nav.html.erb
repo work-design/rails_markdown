@@ -2,6 +2,9 @@
   <div class="menu">
     <span class="menu-label"><%= @post.catalog.name %></span>
     <div class="menu-list">
+    <% @post.catalog.children.each do |catalog| %>
+      <%= link_to catalog.name, { action: 'index', catalog_path: catalog.path }, class: active_params(catalog_path: catalog.path, active: 'is-active') %>
+    <% end %>
     <% @post.catalog.posts.published.each do |post| %>
       <%= link_to post.title, { action: 'show', slug: post.slug }, data: { id: post.id }, class: post.id == @post.id ? 'is-active' : '' %>
     <% end %>
