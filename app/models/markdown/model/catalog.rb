@@ -18,7 +18,7 @@ module Markdown
       belongs_to :home, class_name: 'Post', foreign_key: :home_path, primary_key: :path, optional: true
 
       has_many :posts, ->(o) { where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
-      has_many :children, class_name: self.name, foreign_key: :parent_path, primary_key: :path
+      has_many :children, ->(o) { where(depth: o.depth + 1) }, class_name: self.name, foreign_key: :parent_path, primary_key: :path
 
       scope :ordered, -> { order(position: :asc) }
       scope :nav, -> { where(nav: true) }
