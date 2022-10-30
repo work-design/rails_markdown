@@ -26,7 +26,7 @@ module Markdown
 
       acts_as_list scope: [:git_id, :depth]
 
-      before_validation :deal_path, if: -> { path_changed? }
+      before_validation :deal_path, if: -> { path && path_changed? }
       before_validation :sync_organ, if: -> { git_id_changed? }
     end
 
