@@ -21,6 +21,13 @@ module Markdown
     end
 
     def show
+      unless @post
+        @catalog = Catalog.default_where(default_params).find_by path: params[:slug]
+        if @catalog
+          @posts = @catalog.posts.page(params[:page])
+          render 'index'
+        end
+      end
     end
 
     def ppt
@@ -53,7 +60,7 @@ module Markdown
     def set_post
       slug = [params[:prefix], params[:slug]].compact.join('/')
 
-      @post = Post.find_by!(slug: slug)
+      @post = Post.find_by(slug: slug)
     end
 
   end
