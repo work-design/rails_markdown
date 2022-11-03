@@ -42,6 +42,15 @@ module Markdown
           wrap: true
         }
       )
+      deal_links
+      @document
+    end
+
+    def deal_links
+      links = document.root.links
+      links.each do |link|
+        link.attr['href'].prepend('/markdown/posts/') unless link.attr['href'].start_with?('http', '/')
+      end
     end
 
     def last_commit_at
