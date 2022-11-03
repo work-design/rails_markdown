@@ -1,10 +1,9 @@
-<div class="column is-narrow has-background-light is-radius" style="width: 260px;">
+<div class="column is-narrow has-background-light is-fullheight is-radius" style="width: 260px;">
   <div class="menu">
-    <span class="menu-label"></span>
-    <div class="menu-list">
-    <% @catalogs.each do |catalog| %>
-      <%= link_to catalog.name, { action: 'index', catalog_path: catalog.path }, class: active_params(catalog_path: catalog.path, active: 'is-active') %>
-    <% end %>
-    </div>
+  <% if @post %>
+    <%= render 'post_nav' %>
+  <% else %>
+    <%= render 'catalog_nav' %>
+  <% end %>
   </div>
 </div>

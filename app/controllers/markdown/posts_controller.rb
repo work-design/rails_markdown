@@ -24,6 +24,7 @@ module Markdown
       unless @post
         @catalog = Catalog.default_where(default_params).find_by path: params[:slug]
         if @catalog
+          set_catalogs
           @posts = @catalog.posts.page(params[:page])
           render :index
         end
