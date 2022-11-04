@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :assets, only: [:show], constraints: { id: /.+/ }
     resources :posts, only: [:index] do
       collection do
-        get :list
+        get 'list/*slug' => :list
         get 'ppt/*slug' => :ppt
         get 'raw/*slug' => :raw
         get 'content/*slug' => :content

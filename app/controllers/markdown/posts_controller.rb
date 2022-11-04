@@ -1,7 +1,7 @@
 module Markdown
   class PostsController < BaseController
     before_action :set_post, only: [:show, :raw, :ppt, :content]
-    before_action :set_catalog, only: [:index, :list]
+    before_action :set_catalog, only: [:index, :show, :list]
     before_action :set_catalogs, only: [:index]
 
     def index
@@ -14,20 +14,19 @@ module Markdown
 
     def list
       q_params = {}
-      q_params.merge! 'git.organ_id': current_organ.id if defined?(current_organ) && current_organ
+      q_params.merge! default_params
       q_params.merge! catalog_path: (@catalog.children.pluck(:path) << params[:catalog_path])
 
       @posts = Post.published.default_where(q_params).page(params[:page])
     end
 
     def show
-      unless @post
-        @catalog = Catalog.default_where(default_params).find_by path: params[:slug]
-        if @catalog
-          set_catalogs
-          @posts = @catalog.posts.page(params[:page])
-          render :index
-        end
+      if @post
+        render 'show'
+      elsif @catalog
+        set_catalogs
+        @posts = @catalog.posts.page(params[:page])
+        render :index
       end
     end
 
@@ -55,7 +54,7 @@ module Markdown
     end
 
     def set_catalog
-      @catalog = Catalog.default_where(default_params).find_by path: params[:catalog_path].to_s
+      @catalog = Catalog.default_where(default_params).find_by path: params[:slug].to_s
     end
 
     def set_post

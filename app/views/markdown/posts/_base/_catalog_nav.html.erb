@@ -1,6 +1,6 @@
 <span class="menu-label"></span>
 <div class="menu-list">
 <% @catalogs.each do |catalog| %>
-  <%= link_to catalog.name, { action: 'index', catalog_path: catalog.path }, class: active_params(catalog_path: catalog.path, active: 'is-active') %>
+  <%= link_to catalog.name, { action: 'show', slug: catalog.path }, class: active_params(slug: catalog.path, active: 'is-active') %>
 <% end %>
 </div>
