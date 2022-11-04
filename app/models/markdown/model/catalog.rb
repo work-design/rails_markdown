@@ -36,6 +36,7 @@ module Markdown
       self.name = r[-1]
       self.depth = r.size
       self.home_path = "#{path}/README.md"
+      self.changes
     end
 
     def sync_organ
