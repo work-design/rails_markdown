@@ -1,8 +1,8 @@
 <% if @catalog %>
   <% @catalog.ancestors.each do |catalog| %>
-    <li><%= link_to catalog.name, { action: 'index', catalog_path: catalog.path } %></li>
+    <li><%= link_to catalog.name, { action: 'show', slug: catalog.path } %></li>
   <% end %>
-  <li class="is-active"><%= @catalog.name %></li>
+  <li data-id="<%= @catalog.id %>" class="is-active"><%= @catalog.name %></li>
 <% else %>
   <li><%= link_to t('markdown.posts.index.title'), { action: 'index' } %></li>
 <% end %>
