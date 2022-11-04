@@ -12,9 +12,9 @@ module Markdown
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      has_many :posts, -> { includes(:catalog) }
-      has_many :assets
-      has_many :catalogs
+      has_many :posts, -> { includes(:catalog) }, dependent: :destroy
+      has_many :assets, dependent: :destroy
+      has_many :catalogs, dependent: :destroy
     end
 
     def real_path
