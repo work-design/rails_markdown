@@ -47,7 +47,7 @@ module Markdown
     end
 
     def deal_links
-      links = document.root.group_elements
+      links = document.root.group_elements(a: [], img: [])
       links[:a].each do |link|
         if link.attr['href'].start_with?('http', '/')
           link.attr['target'] = '_blank'
