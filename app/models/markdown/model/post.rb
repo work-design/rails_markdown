@@ -47,12 +47,17 @@ module Markdown
     end
 
     def deal_links
-      links = document.root.links
-      links.each do |link|
+      links = document.root.group_elements
+      links[:a].each do |link|
         if link.attr['href'].start_with?('http', '/')
           link.attr['target'] = '_blank'
         else
           link.attr['href'].prepend("/markdown/posts/#{catalog_path}/")
+        end
+      end
+      links[:img].each do |link|
+        unless link.attr['src'].start_with?('http', '/')
+          link.attr['src'].prepend("/markdown/assets/#{catalog_path}")
         end
       end
     end

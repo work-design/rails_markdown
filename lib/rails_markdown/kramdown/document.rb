@@ -3,17 +3,20 @@ require 'kramdown-parser-gfm'
 
 module Kramdown
   class Element
+    GROUP = [:a, :img] # 注意，这里 a, img 的 children 是忽略了的
 
-    def links(result = [])
-      if type == :a
-        result << self
+    def group_elements(result = {})
+      if [:a, :img].include?(type)
+        result[type] ||= []
+        result[type] << self
       elsif children.present?
         children.each do |ele|
-          ele.links(result)
+          ele.group_elements(result)
         end
         result
+      else
+        result
       end
-      result
     end
 
   end
