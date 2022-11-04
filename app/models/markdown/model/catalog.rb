@@ -35,7 +35,7 @@ module Markdown
       self.parent_path = r[0..-2].join('/')
       self.name = r[-1]
       self.depth = r.size
-      self.home_path = "#{path}/README.md"
+      self.home_path = [path, 'README.md'].compact_blank.join('/')
       self.changes
     end
 
