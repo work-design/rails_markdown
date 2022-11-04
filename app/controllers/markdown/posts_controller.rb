@@ -15,7 +15,8 @@ module Markdown
     def list
       q_params = {}
       q_params.merge! default_params
-      q_params.merge! catalog_path: (@catalog.children.pluck(:path) << params[:catalog_path])
+      q_params.merge! params.permit(:catalog_path)
+      # q_params.merge! catalog_path: (@catalog.children.pluck(:path) << params[:catalog_path])
 
       @posts = Post.published.default_where(q_params).page(params[:page])
     end
