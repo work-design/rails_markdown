@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
-  FORMATS = [:jpeg, :jpg, :png, :webp, :svg, :mp4]
   namespace :markdown, defaults: { business: 'markdown' } do
-    controller :assets do
-      get 'posts/raw/assets/*path' => :asset, constraints: ->(req) { FORMATS.include? req.format.symbol }
-      get 'posts/assets/*path' => :asset, constraints: ->(req) { FORMATS.include? req.format.symbol }
-      get 'assets/*path' => :asset, constraints: ->(req) { FORMATS.include? req.format.symbol }
-    end
+    resources :assets, only: [:show], constraints: { id: /.+/ }
     resources :posts, only: [:index] do
       collection do
         get :list
@@ -14,10 +9,6 @@ Rails.application.routes.draw do
         get 'content/*slug' => :content
         get '*slug' => :show
       end
-    end
-    controller :posts do
-      # 这个定义必须在 resources :posts 后面，不然会影响 url_for action: 'show' 的参数解析
-      get 'markdowns/*slug' => :show, defaults: { prefix: 'markdowns' }
     end
     resources :gits, only: [:show] do
       member do

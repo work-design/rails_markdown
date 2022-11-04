@@ -52,12 +52,12 @@ module Markdown
         if link.attr['href'].start_with?('http', '/')
           link.attr['target'] = '_blank'
         else
-          link.attr['href'].prepend("/markdown/posts/#{catalog_path}/")
+          link.attr['href'].prepend("/markdown/posts/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
         end
       end
       links[:img].each do |link|
         unless link.attr['src'].start_with?('http', '/')
-          link.attr['src'].prepend("/markdown/assets/#{catalog_path}")
+          link.attr['src'].prepend("/markdown/assets/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
         end
       end
     end
