@@ -71,6 +71,11 @@ module Markdown
       Marp.parse(markdown)
     end
 
+    def fresh!
+      r = git.sync_files path
+      r.each(&:save!)
+    end
+
     def sync_organ
       self.organ_id = git.organ_id
     end
