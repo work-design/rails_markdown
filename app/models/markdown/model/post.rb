@@ -49,7 +49,11 @@ module Markdown
     def deal_links
       links = document.root.links
       links.each do |link|
-        link.attr['href'].prepend('/markdown/posts/') unless link.attr['href'].start_with?('http', '/')
+        if link.attr['href'].start_with?('http', '/')
+          link.attr['target'] = '_blank'
+        else
+          link.attr['href'].prepend("/markdown/posts/#{catalog_path}/")
+        end
       end
     end
 
