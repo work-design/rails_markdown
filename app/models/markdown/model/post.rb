@@ -39,8 +39,6 @@ module Markdown
           wrap: true
         }
       )
-      deal_links
-      @document
     end
 
     def deal_links
@@ -91,6 +89,7 @@ module Markdown
     def sync_to_html
       self.ppt = is_ppt?
       self.set_title
+      self.deal_links
       self.html = document.to_html
       self
     end
