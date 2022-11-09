@@ -14,8 +14,8 @@ module Markdown
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :git
-      belongs_to :parent, class_name: self.name, foreign_key: :parent_path, primary_key: :path, optional: true
-      belongs_to :home, class_name: 'Post', foreign_key: :home_path, primary_key: :path, optional: true
+      belongs_to :parent, ->(o) { where(git_id: o.git_id) }, class_name: self.name, foreign_key: :parent_path, primary_key: :path, optional: true
+      belongs_to :home, ->(o) { where(git_id: o.git_id) }, class_name: 'Post', foreign_key: :home_path, primary_key: :path, optional: true
 
       has_many :posts, ->(o) { where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
       has_many :children, ->(o) { where(git_id: o.git_id, depth: o.depth + 1) }, class_name: self.name, foreign_key: :parent_path, primary_key: :path
