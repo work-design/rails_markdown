@@ -10,7 +10,7 @@ module Markdown
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
     end
 
-    def sync_files(path = nil, mds: [], files: [])
+    def sync_files(path = nil, mds: [], files: [], tries: 3)
       git = client.contents working_directory, path: path
 
       if git.is_a?(Array)
@@ -30,6 +30,8 @@ module Markdown
       end
     rescue Octokit::NotFound => e
       [mds, files]
+    rescue Faraday::ConnectionFailed => e
+      retry unless (tries -= 1).zero?
     ensure
       [mds, files]
     end
