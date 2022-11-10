@@ -2,7 +2,7 @@
   <% if catalog.root? %>
     <%= link_to catalog.name.presence || t('markdown.posts.index.title'), { controller: '/markdown/posts' }, class: active_helper(controller: '/markdown/posts', action: 'index', active: 'navbar-item is-active', item: 'navbar-item') %>
   <% elsif catalog.home %>
-    <%= link_to catalog.name, { controller: '/markdown/posts', action: 'show', slug: catalog.path.presence }, class: active_helper(controller: '/markdown/posts', catalog_path: catalog.path, active: 'navbar-item is-active', item: 'navbar-item') %>
+    <%= link_to catalog.name, { controller: '/markdown/posts', action: 'show', slug: catalog.path.presence }, class: active_helper(controller: '/markdown/posts', action: 'show', slug: catalog.path, active: 'navbar-item is-active', item: 'navbar-item') %>
   <% elsif catalog.children.present? %>
     <div class="navbar-item has-dropdown is-hoverable is-hidden-touch">
       <div class="navbar-link"><%= catalog.name %></div>
