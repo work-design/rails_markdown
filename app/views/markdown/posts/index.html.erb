@@ -4,6 +4,7 @@
     <%= render partial: 'time', locals: { post: @catalog.home } %>
     <%= @catalog.home.html.html_safe %>
   </div>
+  <% content_for :title do %><%= @catalog.home.title %><% end %>
 <% else %>
   <%= render layout: 'index_table' do %>
     <%= render partial: 'catalog_tbody', layout: 'index_tr', collection: @catalog.children, as: :model if @catalog %>
@@ -11,4 +12,6 @@
   <% end %>
 
   <%= paginate @posts %>
+
+  <% content_for :title do %><%= @catalog.name %><% end %>
 <% end %>
