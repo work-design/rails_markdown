@@ -48,6 +48,7 @@ module Markdown
           link.attr['target'] = '_blank'
         else
           link.attr['href'].prepend("/markdown/posts/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
+          link.attr['href'].delete_suffix!('.md')
         end
       end
       links[:img].each do |link|
