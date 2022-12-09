@@ -2,7 +2,7 @@ module Markdown
   class PostsController < BaseController
     before_action :set_post, only: [:show, :raw, :ppt, :content]
     before_action :set_catalog, only: [:index, :show, :list]
-    before_action :set_catalogs, only: [:index]
+    before_action :set_catalogs, only: [:index, :ppt]
 
     def index
       q_params = {}
