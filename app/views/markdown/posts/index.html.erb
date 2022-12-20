@@ -13,5 +13,5 @@
 
   <%= paginate @posts %>
 
-  <% content_for :title do %><%= @catalog.name %><% end %>
+  <% content_for :title do %><%= @catalog.name %><% end if @catalog %>
 <% end %>
