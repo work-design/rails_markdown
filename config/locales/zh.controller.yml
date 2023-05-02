@@ -2,6 +2,9 @@ zh:
   markdown:
     admin:
       title: Markdown
+      home:
+        index:
+          title: 文档管理
       gits:
         index:
           title: Git 路径
