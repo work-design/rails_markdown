@@ -45,7 +45,7 @@ module Markdown
     private
     def set_catalogs
       if @catalog
-        @catalogs = @catalog.parent.children
+        @catalogs = @catalog.siblings
       else
         q_params = {}
         q_params.merge! default_params
