@@ -21,10 +21,6 @@ module Markdown
       Rails.root.join(working_directory)
     end
 
-    def url
-      Rails.application.routes.url_for(controller: 'markdown/gits', action: 'create', id: self.id, host: organ.host)
-    end
-
     def repo
       return @repo if defined? @repo
       @repo = Rugged::Repository.new real_path

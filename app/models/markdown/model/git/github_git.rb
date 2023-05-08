@@ -5,7 +5,6 @@ module Markdown
 
     included do
       attribute :identity, :string
-      attribute :host, :string
 
       has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
     end
@@ -96,8 +95,8 @@ module Markdown
         controller: 'markdown/gits',
         action: 'show',
         id: self.id,
-        host: host
-      ) if host.present?
+        host: organ.host
+      ) if organ.host.present?
     end
 
     def sync_commit!
