@@ -41,6 +41,11 @@ module Markdown
       )
     end
 
+    def converter
+      return @converter if defined? @converter
+      @converter = Kramdown::Converter::Html.send :new, document.root, document.options
+    end
+
     def deal_links
       links = document.root.group_elements(a: [], img: [])
       links[:a].each do |link|
