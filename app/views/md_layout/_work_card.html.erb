@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-content">
+    <h3>
+      <i class="fa-solid fa-quote-left has-text-danger-light pr-2"></i>
+      <span><%= item[:h3] %></span>
+    </h3>
+    <%= item[:content].html_safe %>
+  </div>
+  <div class="card-footer has-text-centered">
+    <%= item[:link].html_safe %>
+  </div>
+</div>
