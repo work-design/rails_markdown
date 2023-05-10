@@ -2,10 +2,10 @@
   <div class="hero-body container">
     <h3 class="title has-text-centered">
       <i class="fa-solid fa-person-circle-question has-text-danger-dark"></i>
-      <span>我们能做什么</span>
+      <span><%= item[:h2] %></span>
     </h3>
     <div class="cards">
-      <%= render 'do_cards' %>
+      <%= render 'work_card', collection: item.contents, as: :item %>
     </div>
   </div>
 </section>
