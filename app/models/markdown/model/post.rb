@@ -46,6 +46,17 @@ module Markdown
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
     end
 
+    def blocks
+      result = []
+
+      r = document.root.children.split_with { |i| i.type == :header }
+      r.map do |i|
+        if i.size > 0
+          i.map { |j| converter.convert(j, 0) }
+        end
+      end
+    end
+
     def deal_links
       links = document.root.group_elements(a: [], img: [])
       links[:a].each do |link|

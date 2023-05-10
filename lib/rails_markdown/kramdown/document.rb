@@ -18,18 +18,5 @@ module Kramdown
       end
     end
 
-    def blocks
-      result = []
-
-      r = children.index { |i| i.type == :header }
-      r.to_a.each do |i|
-        if i[0] == true
-          result << i[1]
-        end
-      end
-
-      result
-    end
-
   end
 end
