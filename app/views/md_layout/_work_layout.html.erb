@@ -5,7 +5,7 @@
       <span><%= item[:h2] %></span>
     </h3>
     <div class="cards">
-      <%= render 'work_card', collection: item.contents, as: :item %>
+      <%= render 'work_card', collection: item[:contents], as: :item %>
     </div>
   </div>
 </section>

@@ -46,15 +46,40 @@ module Markdown
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
     end
 
-    def blocks
-      result = []
+    def blocks(items = document.root.children.dup, result: {})
+      header_idx = items.rindex { |i| i.type == :header }
+      return result unless header_idx
+      arr = []
 
-      r = document.root.children.split_with { |i| i.type == :header }
-      r.map do |i|
-        if i.size > 0
-          i.map { |j| converter.convert(j, 0) }
-        end
+      while header_idx
+        title = items[header_idx]
+        r = items.slice!(header_idx .. -1)
+        arr.prepend({ title => r })
+        header_idx = items.rindex { |i| i.type == :header && i.options[:level] == title.options[:level] }
       end
+
+      if items.size > 0
+        header_idx = items.rindex { |i| i.type == :header }
+
+        if header_idx
+          super_title = items[header_idx]
+          result.merge! super_title => arr
+        else
+          result.merge! root: arr
+        end
+
+        blocks(items, result: result)
+      else
+        result
+      end
+    end
+
+    def xx
+      # r.map do |i|
+      #   if i.size > 0
+      #     i.map { |j| converter.convert(j, 0) }
+      #   end
+      # end
     end
 
     def deal_links
