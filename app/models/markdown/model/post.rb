@@ -49,7 +49,12 @@ module Markdown
     def blocks(items = document.root.children, level = 2)
       r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).to_a
       r.map do |i|
-        i.slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).to_a
+        if i[0].type == :header && i[0].options[:level] == level
+          r = i.slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).to_a
+          r[0].concat(r[1..])
+        else
+          i
+        end
       end
     end
 
