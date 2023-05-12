@@ -62,12 +62,16 @@ module Markdown
 
     def block_texts(_blocks = blocks, text = '')
       _blocks.map do |block|
-        block.each do |k, v|
-          if v.is_a?(Array)
-            block_texts(v, text)
-          else
-            block[k] = converter.convert(v, 0)
+        if block.is_a?(Hash)
+          block.each do |k, v|
+            if v.is_a?(Array)
+              block[k] = block_texts(v, text)
+            else
+              block[k] = converter.convert(v, 0)
+            end
           end
+        else
+          converter.convert(block, 0)
         end
       end
     end
