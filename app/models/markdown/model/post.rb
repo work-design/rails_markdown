@@ -47,11 +47,13 @@ module Markdown
     end
 
     def blocks(items = document.root.children, level = 2)
-      r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).to_a
-      r.map do |i|
-        if i[0].type == :header && i[0].options[:level] == level
-          r = i.slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).to_a
-          r[0].concat(r[1..])
+      block = ->(i){ i[0].type == :header ? { header: i[0], items: i[1..] } : { items: i } }
+      r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map(&block)
+      r.map! do |i|
+        if i[:header]&.type == :header && i[:header].options[:level] == level
+          i[:items] = i[:items].slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).map(&block)
+          i
+          #r_inner[0].concat(r_inner[1..])
         else
           i
         end
@@ -59,11 +61,13 @@ module Markdown
     end
 
     def block_texts(_blocks = blocks, text = '')
-      _blocks.map do |j|
-        if j.is_a?(Array)
-          block_texts(j, text)
-        else
-          converter.convert(j, 0)
+      _blocks.map do |block|
+        block.each do |k, v|
+          if v.is_a?(Array)
+            block_texts(v, text)
+          else
+            block[k] = converter.convert(v, 0)
+          end
         end
       end
     end
