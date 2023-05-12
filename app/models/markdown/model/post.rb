@@ -58,12 +58,8 @@ module Markdown
       end
     end
 
-    def xx
-      # r.map do |i|
-      #   if i.size > 0
-      #     i.map { |j| converter.convert(j, 0) }
-      #   end
-      # end
+    def block_texts
+      blocks.map(&->(j){ converter.convert(j, 0) }).join
     end
 
     def deal_links
