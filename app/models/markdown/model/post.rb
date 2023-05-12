@@ -58,8 +58,15 @@ module Markdown
       end
     end
 
-    def block_texts
-      blocks.map(&->(j){ converter.convert(j, 0) }).join
+    def block_texts(_blocks = blocks, text = '')
+      _blocks.each do |j|
+        if j.is_a?(Array)
+          block_texts(j, text)
+        else
+          text.concat converter.convert(j, 0)
+        end
+      end
+      text
     end
 
     def deal_links
