@@ -65,7 +65,6 @@ module Markdown
             ).compact_blank
           end
           i
-          #r_inner[0].concat(r_inner[1..])
         else
           i
         end
