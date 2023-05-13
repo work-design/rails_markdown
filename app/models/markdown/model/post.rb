@@ -47,17 +47,29 @@ module Markdown
     end
 
     def blocks(items = document.root.children, level = 2)
-      block = ->(i){ i[0].type == :header ? { header: i[0], items: i[1..] } : { items: i } }
-      r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map(&block)
+      r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map do |m|
+        arr = {}
+        idx = m.index(&->(j){ j.type == :header })
+        arr.merge! header: m.delete_at(idx) if idx
+        arr.merge!(items: m.compact_blank).compact_blank
+      end.compact_blank
       r.map! do |i|
         if i[:header]&.type == :header && i[:header].options[:level] == level
-          i[:items] = i[:items].slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).map(&block)
+          i[:items] = i[:items].slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).map do |m|
+            arr = {}
+            idx = m.index(&->(j){ j.type == :header })
+            arr.merge! header: m.delete_at(idx) if idx
+            arr.merge!(
+              link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) }),
+              items: m.compact_blank
+            ).compact_blank
+          end
           i
           #r_inner[0].concat(r_inner[1..])
         else
           i
         end
-      end
+      end.compact_blank
     end
 
     def block_texts(_blocks = blocks, text = '')
