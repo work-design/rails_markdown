@@ -66,6 +66,7 @@ module Markdown
           end
           i
         else
+          i[:items] = [{ items: i[:items] }]
           i
         end
       end.compact_blank

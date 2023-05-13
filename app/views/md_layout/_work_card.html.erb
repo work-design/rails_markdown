@@ -2,11 +2,13 @@
   <div class="card-content">
     <h3>
       <i class="fa-solid fa-quote-left has-text-danger-light pr-2"></i>
-      <span><%= item[:header].html_safe %></span>
+      <span><%= item[:header].html_safe if item[:header] %></span>
     </h3>
     <%= item[:items].join.html_safe %>
   </div>
+  <% if item[:link] %>
   <div class="card-footer has-text-centered">
-    <%= item[:link].html_safe %>
+    <%= item[:link].join.html_safe %>
   </div>
+  <% end %>
 </div>

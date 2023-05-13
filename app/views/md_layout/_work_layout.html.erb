@@ -5,8 +5,7 @@
       <span><%= item[:header] %></span>
     </h3>
     <div class="cards">
-      <% binding.b %>
-      <%= render 'md_layout/work_card', collection: item[:items], as: :item %>
+      <%= render partial: 'md_layout/work_card', collection: item[:items], as: :item %>
     </div>
   </div>
 </section>
