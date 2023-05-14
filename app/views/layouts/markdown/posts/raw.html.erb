@@ -1,6 +1,6 @@
 <%= render layout: 'layouts/application_head' do %>
   <%= render 'nav_bar' %>
-  <main>
+  <main class="<%= @post.layout %>">
     <%= yield %>
   </main>
   <%= render 'footer' %>
