@@ -25,10 +25,7 @@ module Markdown
 
     def post_permit_params
       [
-        :path,
-        :title,
-        :markdown,
-        :html,
+        :layout,
         :published,
         :nav
       ]

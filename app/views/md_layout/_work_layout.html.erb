@@ -4,7 +4,7 @@
       <i class="fa-solid fa-person-circle-question has-text-danger-dark"></i>
       <span><%= item[:header] %></span>
     </h3>
-    <div class="cards">
+    <div class="cards is-animate-scale">
       <%= render partial: 'md_layout/work_card', collection: item[:items], as: :item %>
     </div>
   </div>
