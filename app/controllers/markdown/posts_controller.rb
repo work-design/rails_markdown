@@ -40,6 +40,7 @@ module Markdown
     end
 
     def raw
+      render layout: 'markdown/posts/raw' if @post.layout.present?
     end
 
     private
