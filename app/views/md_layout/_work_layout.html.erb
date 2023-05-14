@@ -1,10 +1,7 @@
 <section class="hero is-medium">
   <div class="hero-body container">
-    <h3 class="title has-text-centered">
-      <i class="fa-solid fa-person-circle-question has-text-danger-dark"></i>
-      <span><%= item[:header] %></span>
-    </h3>
-    <div class="cards is-animate-scale">
+    <%= item[:header]&.html_safe %>
+    <div class="cards is-animate-scale is-4">
       <%= render partial: 'md_layout/work_card', collection: item[:items], as: :item %>
     </div>
   </div>
