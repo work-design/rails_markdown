@@ -54,7 +54,9 @@ module Markdown
         arr.merge!(items: m.compact_blank).compact_blank
       end.compact_blank
       r.map! do |i|
-        if i[:header]&.type == :header && i[:header].options[:level] == level
+        if i[:items].nil?
+          i[:items] = []
+        elsif i[:header]&.type == :header && i[:header].options[:level] == level
           i[:items] = i[:items].slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).map do |m|
             arr = {}
             idx = m.index(&->(j){ j.type == :header })
