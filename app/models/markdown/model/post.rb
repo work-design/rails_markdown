@@ -75,6 +75,10 @@ module Markdown
       end.compact_blank
     end
 
+    def raw_blocks
+      blocks.delete_if { |i| i[:header].options[:level] == 1 }
+    end
+
     def block_texts(_blocks = blocks, text = '')
       _blocks.map do |block|
         if block.is_a?(Hash)
@@ -89,6 +93,10 @@ module Markdown
           converter.convert(block, 0)
         end
       end
+    end
+
+    def raw_block_texts
+      block_texts(raw_blocks)
     end
 
     def deal_links
