@@ -53,6 +53,7 @@ module Markdown
         arr.merge! header: m.delete_at(idx) if idx
         arr.merge!(items: m.compact_blank).compact_blank
       end.compact_blank
+
       r.map! do |i|
         if i[:items].nil?
           i[:items] = []
