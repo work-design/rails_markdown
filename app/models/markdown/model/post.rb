@@ -46,7 +46,7 @@ module Markdown
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
     end
 
-    def blocks(items = document.root.children, level = 2)
+    def blocks(items = items_with_deal_links, level = 2)
       r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map do |m|
         arr = {}
         idx = m.index(&->(j){ j.type == :header })
@@ -99,7 +99,7 @@ module Markdown
       block_texts(raw_blocks)
     end
 
-    def deal_links
+    def items_with_deal_links
       links = document.root.group_elements(a: [], img: [])
       links[:a].each do |link|
         if link.attr['href'].start_with?('http', '//')
@@ -115,6 +115,7 @@ module Markdown
           link.attr['src'].prepend("/markdown/assets/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
         end
       end
+      document.root.children
     end
 
     def last_commit_at
@@ -149,7 +150,7 @@ module Markdown
     def sync_to_html
       self.ppt = is_ppt?
       self.set_title
-      self.deal_links
+      self.items_with_deal_links
       self.html = document.to_html
       self
     end
