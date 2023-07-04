@@ -4,7 +4,10 @@ module Markdown
     before_action :set_asset, only: [:show, :edit, :update, :destroy]
 
     def index
-      @assets = @git.assets.order(id: :desc).page(params[:page])
+      q_params = {}
+      q_params.merge! params.permit(:catalog_path)
+
+      @assets = @git.assets.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def sync

@@ -5,7 +5,7 @@ module Markdown
 
     def index
       q_params = {}
-      q_params.merge! params.permit(:title, 'path-rl')
+      q_params.merge! params.permit(:title, :catalog_path, 'path-rl')
 
       @posts = @git.posts.default_where(q_params).order(id: :desc).page(params[:page])
     end
