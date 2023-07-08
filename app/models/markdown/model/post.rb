@@ -155,6 +155,10 @@ module Markdown
       self
     end
 
+    def paths
+      catalog.ancestors.reject { |i| i.name.blank? }
+    end
+
     def is_ppt?
       markdown.start_with?("---\n")
     end
