@@ -60,7 +60,7 @@ module Markdown
     end
 
     def set_post
-      @post = Post.find_by(slug: params[:slug])
+      @post = Post.default_where(default_params).find_by(slug: params[:slug])
     end
 
   end
