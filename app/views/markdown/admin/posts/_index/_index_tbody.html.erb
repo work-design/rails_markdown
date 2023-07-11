@@ -1,6 +1,6 @@
 <td>
   <p>
-    <%= link_to model.title, { controller: '/markdown/posts', action: 'raw', slug: model.slug }, target: '_blank', class: 'has-text-weight-bold' %>
+    <%= link_to model.title, { controller: '/markdown/posts', action: 'raw', base_name: model.git.base_name, slug: model.slug }, target: '_blank', class: 'has-text-weight-bold' %>
   </p>
   <p class="has-text-grey"><%= model.path %></p>
 </td>

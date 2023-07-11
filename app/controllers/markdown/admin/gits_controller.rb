@@ -18,6 +18,7 @@ module Markdown
       [
         :type,
         :working_directory,
+        :base_name,
         :identity,
         :host,
         :remote_url,

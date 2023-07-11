@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   namespace :markdown, defaults: { business: 'markdown' } do
     resources :assets, only: [:show], constraints: { id: /.+/ }
-    resources :posts, only: [:index] do
-      collection do
-        get 'list/*slug' => :list
-        get 'ppt/*slug' => :ppt
-        get 'raw/*slug' => :raw
-        get 'content/*slug' => :content
-        get '*slug' => :show
+    scope '(:base_name)' do
+      resources :posts, only: [:index] do
+        collection do
+          get 'list/*slug' => :list
+          get 'ppt/*slug' => :ppt
+          get 'raw/*slug' => :raw
+          get 'content/*slug' => :content
+          get '*slug' => :show
+        end
       end
     end
     resources :gits, only: [:show] do

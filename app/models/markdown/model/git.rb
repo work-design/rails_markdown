@@ -4,6 +4,7 @@ module Markdown
 
     included do
       attribute :type, :string
+      attribute :base_name, :string
       attribute :working_directory, :string
       attribute :remote_url, :string
       attribute :last_commit_message, :string
@@ -15,6 +16,8 @@ module Markdown
       has_many :posts, -> { includes(:catalog) }, dependent: :destroy
       has_many :assets, dependent: :destroy
       has_many :catalogs, dependent: :destroy
+
+      validates :base_name, uniqueness: { scope: :organ_id }
     end
 
     def real_path
