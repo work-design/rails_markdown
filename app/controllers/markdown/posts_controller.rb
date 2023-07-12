@@ -1,5 +1,6 @@
 module Markdown
   class PostsController < BaseController
+    before_action :set_git
     before_action :set_post, only: [:show, :raw, :ppt, :content]
     before_action :set_catalog, only: [:index, :show, :list]
     before_action :set_catalogs, only: [:index, :ppt]
@@ -9,7 +10,7 @@ module Markdown
       q_params.merge! default_params
       q_params.merge! params.permit(:catalog_path)
 
-      @posts = Post.published.default_where(q_params).page(params[:page])
+      @posts = @git.posts.published.default_where(q_params).page(params[:page])
     end
 
     def list
@@ -18,7 +19,7 @@ module Markdown
       q_params.merge! params.permit(:catalog_path)
       # q_params.merge! catalog_path: (@catalog.children.pluck(:path) << params[:catalog_path])
 
-      @posts = Post.published.default_where(q_params).page(params[:page])
+      @posts = @git.posts.published.default_where(q_params).page(params[:page])
     end
 
     def show
@@ -44,6 +45,10 @@ module Markdown
     end
 
     private
+    def set_git
+      @git = Git.find_by(base_name: params[:base_name])
+    end
+
     def set_catalogs
       if @catalog
         @catalogs = @catalog.siblings
@@ -60,7 +65,7 @@ module Markdown
     end
 
     def set_post
-      @post = Post.default_where(default_params).find_by(slug: params[:slug])
+      @post = @git.posts.default_where(default_params).find_by(slug: params[:slug])
     end
 
   end
