@@ -51,7 +51,7 @@ module Markdown
     def ancestors
       r = path.split('/').ancestors[0..-2]
       r.prepend '' unless self.root?
-      self.class.where(organ_id: organ_id).in_order_of(:path, r)
+      self.class.where(git_id: git_id).in_order_of(:path, r)
     end
 
   end
