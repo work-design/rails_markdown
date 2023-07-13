@@ -56,12 +56,12 @@ module Markdown
         q_params = {}
         q_params.merge! default_params
 
-        @catalogs = Catalog.default_where(q_params).roots
+        @catalogs = @git.catalogs.default_where(q_params).roots
       end
     end
 
     def set_catalog
-      @catalog = Catalog.default_where(default_params).find_by path: params[:slug].to_s
+      @catalog = @git.catalogs.default_where(default_params).find_by path: params[:slug].to_s
     end
 
     def set_post
