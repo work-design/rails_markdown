@@ -1,0 +1,7 @@
+<%= render layout: 'layouts/phone_head' do %>
+  <%= render 'nav_bar' %>
+  <main class="<%= @post.layout %>">
+    <%= yield %>
+  </main>
+  <%= render 'footer' %>
+<% end %>
