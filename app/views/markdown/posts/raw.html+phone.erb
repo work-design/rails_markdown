@@ -1,0 +1,12 @@
+<% content_for :title do %><%= @post.title %><% end %>
+
+<% if @post.layout %>
+  <h1 class="title has-text-centered has-background-light py-5 mb-0"><%= @post.title %></h1>
+  <%= render partial: "md_layout/#{@post.layout}", collection: @post.raw_block_texts, as: :item %>
+<% else %>
+  <div data-id="<%= @post.id %>" class="content p-4">
+    <h1><%= @post.title %></h1>
+    <%= render partial: 'time', locals: { post: @post } %>
+    <%= @post.html.html_safe %>
+  </div>
+<% end %>
