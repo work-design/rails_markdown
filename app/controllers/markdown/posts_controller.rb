@@ -65,7 +65,7 @@ module Markdown
     end
 
     def set_post
-      @post = @git.posts.default_where(default_params).find_by(slug: params[:slug])
+      @post = @git.posts.default_where(default_params).find_by!(slug: params[:slug])
     end
 
   end
