@@ -1,0 +1,11 @@
+<div data-controller="enter-section" data-enter-section-threshold-value="0.15" class="card has-fade-start">
+  <div class="card-content">
+    <%= item[:header].html_safe if item[:header] %>
+    <%= item[:items].join.html_safe %>
+  </div>
+  <% if item[:link] %>
+  <div class="card-footer is-justify-content-center">
+    <%= item[:link].join.html_safe %>
+  </div>
+  <% end %>
+</div>

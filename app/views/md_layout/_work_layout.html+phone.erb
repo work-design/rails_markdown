@@ -1,7 +1,7 @@
 <section class="hero is-medium">
   <div class="hero-body container is-fullwidth">
     <%= item[:header]&.html_safe %>
-    <div data-controller="enter-section" class="cards">
+    <div class="cards">
       <%= render partial: 'md_layout/work_card', collection: item[:items], as: :item %>
     </div>
   </div>
