@@ -16,6 +16,13 @@ module Markdown
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
       attribute :last_commit_at, :datetime
 
+      enum target: {
+        self: 'self',
+        blank: 'blank',
+        parent: 'parent',
+        top: 'top'
+      }, default: 'self', prefix: true
+
       belongs_to :git
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :catalog, ->(o){ where(git_id: o.git_id) }, foreign_key: :catalog_path, primary_key: :path
@@ -105,6 +112,7 @@ module Markdown
         if link.attr['href'].start_with?('http', '//')
           link.attr['target'] = '_blank'
         elsif link.attr['href'].start_with?('/')
+          link.attr['target'] = '_blank' if target_blank?
         else
           link.attr['href'].prepend("/markdown/posts/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
           link.attr['href'].delete_suffix!('.md')
