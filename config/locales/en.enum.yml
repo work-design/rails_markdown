@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    enum:
+      markdown/git:
+        type:
+          Markdown::GithubGit: Github
