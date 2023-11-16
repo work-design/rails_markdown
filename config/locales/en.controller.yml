@@ -1,0 +1,22 @@
+en:
+  markdown:
+    admin:
+      title: Markdown
+      home:
+        index:
+          title: Documents
+      gits:
+        index:
+          title: Gits
+      posts:
+        index:
+          title: Posts
+      assets:
+        index:
+          title: Assets
+      catalogs:
+        index:
+          title: Catalogs
+    posts:
+      index:
+        title: 首页
