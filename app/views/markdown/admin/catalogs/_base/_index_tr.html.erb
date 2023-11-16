@@ -8,10 +8,10 @@
       <%= link_to({ controller: 'assets', catalog_path: model.path, git_id: model.git_id }, aria: { label: t('markdown.admin.assets.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-images has-text-success"></i>
       <% end %>
-      <%= link_to({ action: 'show', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-circle-info has-text-info"></i>
       <% end %>
-      <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil has-text-link"></i>
       <% end %>
       <%= button_to({ action: 'destroy', id: model.id }, method: :delete, data: { confirm: t('.confirm') }, aria: { label: t('.destroy.title') }, class: 'button is-small is-rounded is-light') do %>
