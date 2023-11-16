@@ -17,11 +17,11 @@ module Markdown
       attribute :last_commit_at, :datetime
 
       enum target: {
-        self: 'self',
-        blank: 'blank',
-        parent: 'parent',
-        top: 'top'
-      }, default: 'self', prefix: true
+        target_self: 'target_self',
+        target_blank: 'target_blank',
+        target_parent: 'target_parent',
+        target_top: 'target_top'
+      }, _default: 'target_self'
 
       belongs_to :git
       belongs_to :organ, class_name: 'Org::Organ', optional: true

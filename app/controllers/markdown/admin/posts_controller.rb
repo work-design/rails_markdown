@@ -27,7 +27,8 @@ module Markdown
       [
         :layout,
         :published,
-        :nav
+        :nav,
+        :target
       ]
     end
 

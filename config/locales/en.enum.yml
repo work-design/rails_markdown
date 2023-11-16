@@ -4,3 +4,9 @@ en:
       markdown/git:
         type:
           Markdown::GithubGit: Github
+      markdown/post:
+        target:
+          target_self: _self
+          target_blank: _blank
+          target_parent: _parent
+          target_top: _top

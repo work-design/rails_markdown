@@ -1,1 +1,2 @@
 <%= f.text_field :layout %>
+<%= f.select :target, options_for_select(Markdown::Post.options_i18n(:target), f.object.target) %>
