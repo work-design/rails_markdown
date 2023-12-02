@@ -17,6 +17,8 @@ module Markdown
       has_many :assets, dependent: :destroy
       has_many :catalogs, dependent: :destroy
 
+      normalizes :base_name, with: -> base_name { base_name.to_s }
+
       validates :base_name, uniqueness: { scope: :organ_id }
     end
 
