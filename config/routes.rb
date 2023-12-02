@@ -8,7 +8,7 @@ Rails.application.routes.draw do
           get 'ppt/*slug' => :ppt
           get 'raw/*slug' => :raw
           get 'content/*slug' => :content
-          get '*slug' => :show
+          get '(*slug)' => :show
         end
       end
     end
