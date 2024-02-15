@@ -30,7 +30,7 @@ module Markdown
       scope :published, -> { where(published: true) }
       scope :nav, -> { where(nav: true) }
 
-      normalizes :catalog_path, with: -> path { path.presence }
+      normalizes :catalog_path, with: -> path { path.to_s }
 
       before_validation :sync_organ, if: -> { git_id_changed? }
       before_validation :sync_from_path, if: -> { path_changed? }

@@ -25,7 +25,7 @@ module Markdown
       scope :nav, -> { where(nav: true) }
       scope :roots, -> { where(depth: 1) }
 
-      normalizes :path, with: -> path { path.presence }
+      normalizes :path, with: -> path { path.to_s }
 
       acts_as_list scope: [:git_id, :depth]
 
