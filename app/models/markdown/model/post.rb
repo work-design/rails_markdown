@@ -9,7 +9,7 @@ module Markdown
       attribute :layout, :string
       attribute :path, :string
       attribute :slug, :string
-      attribute :catalog_path, :string, default: ''
+      attribute :catalog_path, :string
       attribute :oid, :string
       attribute :published, :boolean, default: true
       attribute :ppt, :boolean, default: false
@@ -29,6 +29,8 @@ module Markdown
 
       scope :published, -> { where(published: true) }
       scope :nav, -> { where(nav: true) }
+
+      normalizes :catalog_path, with: -> path { path.presence }
 
       before_validation :sync_organ, if: -> { git_id_changed? }
       before_validation :sync_from_path, if: -> { path_changed? }
