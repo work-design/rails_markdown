@@ -25,6 +25,8 @@ module Markdown
       scope :nav, -> { where(nav: true) }
       scope :roots, -> { where(depth: 1) }
 
+      normalizes :path, with: -> path { path.presence }
+
       acts_as_list scope: [:git_id, :depth]
 
       before_validation :deal_path, if: -> { path && path_changed? }
