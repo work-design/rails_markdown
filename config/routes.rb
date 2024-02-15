@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     scope '(:base_name)' do
       resources :posts, only: [:index] do
         collection do
-          get 'list/*slug' => :list
+          get 'list/*catalog_path' => :list
           get 'ppt/*slug' => :ppt
           get 'raw/*slug' => :raw
           get 'content/*slug' => :content
