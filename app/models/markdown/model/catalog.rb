@@ -27,6 +27,8 @@ module Markdown
 
       normalizes :path, with: -> path { path.to_s }
 
+      validates :path, uniqueness: { scope: :git_id }
+
       acts_as_list scope: [:git_id, :depth]
 
       before_validation :deal_path, if: -> { path && path_changed? }
