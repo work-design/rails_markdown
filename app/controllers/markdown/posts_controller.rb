@@ -46,7 +46,7 @@ module Markdown
 
     private
     def set_git
-      @git = Git.default_where(default_params).find_by(base_name: params[:base_name].to_s)
+      @git = Git.default_where(default_params).find_by(base_name: params[:base_name].presence)
     end
 
     def set_catalogs
