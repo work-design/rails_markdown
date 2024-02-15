@@ -17,5 +17,5 @@
   <% end %>
 <% end %>
 <% Markdown::Post.includes(:git).default_where(default_params).nav.each do |post| %>
-  <%= link_to post.title, { controller: '/markdown/posts', action: 'show', base_name: post.git.base_name.presence, slug: post.slug }, class: active_helper(path: post.path, active: 'navbar-item is-active', item: 'navbar-item') %>
+  <%= link_to post.title, { controller: '/markdown/posts', action: 'show', base_name: post.git.base_name.presence, slug: post.slug }, class: active_helper(base_name: post.git.base_name.presence, slug: post.slug, active: 'navbar-item is-active', item: 'navbar-item') %>
 <% end %>
