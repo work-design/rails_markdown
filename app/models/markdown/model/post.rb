@@ -153,6 +153,7 @@ module Markdown
       self.catalog_path = r[0..-2].join('/')
       self.slug = path.delete_suffix('.md')
       self.catalog || self.create_catalog
+      self
     end
 
     def sync_to_html
