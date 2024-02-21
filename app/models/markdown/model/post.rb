@@ -30,6 +30,7 @@ module Markdown
 
       scope :published, -> { where(published: true) }
       scope :nav, -> { where(nav: true) }
+      scope :shared, -> { where(shared: true) }
 
       normalizes :catalog_path, with: -> path { path.to_s }
 
