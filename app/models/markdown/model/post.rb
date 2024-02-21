@@ -12,6 +12,7 @@ module Markdown
       attribute :catalog_path, :string
       attribute :oid, :string
       attribute :published, :boolean, default: true
+      attribute :shared, :boolean, default: false
       attribute :ppt, :boolean, default: false
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
       attribute :last_commit_at, :datetime
