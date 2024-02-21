@@ -2,13 +2,13 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'catalogs', git_id: model.id }, aria: { label: t('markdown.admin.catalogs.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'catalogs', git_id: model.id }, aria: { label: t('.catalogs.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-folder-tree has-text-primary"></i>
       <% end %>
-      <%= link_to({ controller: 'posts', git_id: model.id }, aria: { label: t('markdown.admin.posts.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'posts', git_id: model.id }, aria: { label: t('.posts.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-newspaper has-text-warning-dark"></i>
       <% end %>
-      <%= link_to({ controller: 'assets', git_id: model.id }, aria: { label: t('markdown.admin.assets.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'assets', git_id: model.id }, aria: { label: t('.assets.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-images has-text-success"></i>
       <% end %>
       <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>

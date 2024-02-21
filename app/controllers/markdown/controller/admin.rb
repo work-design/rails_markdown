@@ -1,5 +1,6 @@
 module Markdown
-  class Admin::BaseController < AdminController
+  module Controller::Admin
+    extend ActiveSupport::Concern
 
     def current_github_user
       return @current_github_user if defined? @current_github_user

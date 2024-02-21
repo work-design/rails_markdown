@@ -41,6 +41,30 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :panel, defaults: { namespace: 'panel' } do
+      root 'home#index'
+      resources :gits do
+        resources :catalogs do
+          collection do
+            get :all
+          end
+          member do
+            patch :reorder
+          end
+        end
+        resources :posts do
+          collection do
+            post :sync
+          end
+        end
+        resources :assets do
+          collection do
+            post :sync
+          end
+        end
+      end
+    end
   end
 
 end

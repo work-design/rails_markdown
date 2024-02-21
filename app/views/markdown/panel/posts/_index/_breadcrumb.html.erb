@@ -1,4 +1,4 @@
-<li><%= link_to t('markdown.admin.gits.index.title'), { controller: 'gits' } %></li>
+<li><%= link_to t('.gits.index.title'), { controller: 'gits' } %></li>
 <li><span class="px-3"><%= @git.working_directory %></span></li>
 <% if params[:catalog_path] %>
   <li><%= link_to params[:catalog_path], { controller: 'catalogs' } %></li>

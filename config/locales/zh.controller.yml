@@ -1,6 +1,6 @@
 zh:
   markdown:
-    admin:
+    panel:
       title: Markdown
       home:
         index:
@@ -17,6 +17,8 @@ zh:
       catalogs:
         index:
           title: 分类
+    admin:
+      title: Markdown
     posts:
       index:
         title: 首页
