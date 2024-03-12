@@ -4,7 +4,7 @@
   <% elsif catalog.home %>
     <%= link_to catalog.name, { controller: '/markdown/posts', action: 'show', slug: catalog.path.presence }, class: active_helper(controller: '/markdown/posts', action: 'show', slug: catalog.path, active: 'navbar-item is-active', item: 'navbar-item') %>
   <% elsif catalog.children.present? %>
-    <div class="navbar-item has-dropdown is-hoverable is-hidden-touch">
+    <div class="navbar-item has-dropdown is-hoverable display-none-touch">
       <div class="navbar-link"><%= catalog.name %></div>
       <div class="navbar-dropdown is-right">
       <% catalog.children.each do |child| %>

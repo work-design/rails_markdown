@@ -1,4 +1,4 @@
-<p class="is-flex justify-content-end has-text-grey">
+<p class="flex justify-content-end has-text-grey">
   <span><%= Markdown::Post.human_attribute_name(:last_commit_at) %>：</span>
   <time data-controller="time"><%= post.last_commit_at.to_fs(:iso8601) %></time>
 </p>
