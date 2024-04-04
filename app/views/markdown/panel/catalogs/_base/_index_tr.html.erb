@@ -1,7 +1,7 @@
 <tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
   <%= yield %>
   <td>
-    <div data-show-target="item" style="visibility: hidden">
+    <div data-show-target="item" class="visibility-hidden">
       <%= link_to({ controller: 'posts', catalog_path: model.path, git_id: model.git_id }, aria: { label: t('markdown.admin.posts.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-newspaper has-text-warning-dark"></i>
       <% end %>
