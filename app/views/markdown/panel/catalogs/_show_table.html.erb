@@ -1,8 +1,8 @@
-<tr>
-  <td><%= Markdown::Catalog.human_attribute_name(:name) %></td>
-  <td><%= @catalog.name %></td>
-</tr>
-<tr>
-  <td><%= Markdown::Catalog.human_attribute_name(:path) %></td>
-  <td><%= @catalog.path %></td>
-</tr>
+<div>
+  <dt><%= Markdown::Catalog.human_attribute_name(:name) %></dt>
+  <dd><%= @catalog.name %></dd>
+</div>
+<div>
+  <dt><%= Markdown::Catalog.human_attribute_name(:path) %></dt>
+  <dd><%= @catalog.path %></dd>
+</div>

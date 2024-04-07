@@ -1,12 +1,12 @@
-<tr>
-  <td><%= Markdown::Post.human_attribute_name(:path) %></td>
-  <td><%= @post.path %></td>
-</tr>
-<tr>
-  <td><%= Markdown::Post.human_attribute_name(:title) %></td>
-  <td><%= @post.title %></td>
-</tr>
-<tr>
-  <td><%= Markdown::Post.human_attribute_name(:html) %></td>
-  <td><%= @post.html.html_safe %></td>
-</tr>
+<div>
+  <dt><%= Markdown::Post.human_attribute_name(:path) %></dt>
+  <dd><%= @post.path %></dd>
+</div>
+<div>
+  <dt><%= Markdown::Post.human_attribute_name(:title) %></dt>
+  <dd><%= @post.title %></dd>
+</div>
+<div>
+  <dt><%= Markdown::Post.human_attribute_name(:html) %></dt>
+  <dd><%= @post.html.html_safe %></dd>
+</div>
