@@ -2,7 +2,7 @@
   <p>
     <%= link_to model.title, { controller: '/markdown/posts', action: 'raw', base_name: model.git.base_name, slug: model.slug }, target: '_blank', class: 'has-text-weight-bold' %>
   </p>
-  <p class="has-text-grey"><%= model.path %></p>
+  <p class="color-grey"><%= model.path %></p>
 </td>
 <td><%= model.layout %></td>
 <td>

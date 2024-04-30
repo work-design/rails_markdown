@@ -1,7 +1,7 @@
 <td><%= model.type_i18n %></td>
 <td>
   <p><%= model.working_directory %></p>
-  <p class="has-text-danger"><%= model.base_name %></p>
+  <p class="color-danger"><%= model.base_name %></p>
 </td>
 <td><%= model.organ&.name %></td>
 <td>
@@ -9,5 +9,5 @@
 </td>
 <td>
   <p><%= model.last_commit_message %></p>
-  <p class="has-text-grey"><time data-controller="time" data-format="human"><%= model.last_commit_at&.to_fs(:iso8601) %></time></p>
+  <p class="color-grey"><time data-controller="time" data-format="human"><%= model.last_commit_at&.to_fs(:iso8601) %></time></p>
 </td>
