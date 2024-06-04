@@ -4,7 +4,10 @@
   </p>
   <p class="color-grey"><%= model.path %></p>
 </td>
-<td><%= model.layout %></td>
+<td>
+  <p><%= model.layout %></p>
+  <p><%= model.target %></p>
+</td>
 <td>
   <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
     <%= f.check_box :shared, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>

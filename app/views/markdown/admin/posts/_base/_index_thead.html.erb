@@ -2,7 +2,10 @@
   <p><%= Markdown::Post.human_attribute_name(:title) %></p>
   <p><%= Markdown::Post.human_attribute_name(:path) %></p>
 </th>
-<th><%= Markdown::Post.human_attribute_name(:layout) %></th>
+<th>
+  <p><%= Markdown::Post.human_attribute_name(:layout) %></p>
+  <p><%= Markdown::Post.human_attribute_name(:target) %></p>
+</th>
 <th><%= Markdown::Post.human_attribute_name(:published) %></th>
 <th><%= Markdown::Post.human_attribute_name(:nav) %></th>
 <th><%= Markdown::Post.human_attribute_name(:last_commit_at) %></th>
