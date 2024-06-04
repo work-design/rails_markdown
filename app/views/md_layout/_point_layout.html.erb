@@ -1,7 +1,7 @@
 <section class="hero is-medium">
   <div class="hero-body container is-fullwidth">
     <%= item[:header]&.html_safe %>
-    <div class="cards is-animate-scale is-2">
+    <div data-controller="enter-section" data-enter-section-target="children" class="cards is-animate-scale is-2">
       <%= render partial: 'md_layout/work_card', collection: item[:items], as: :item %>
     </div>
   </div>
