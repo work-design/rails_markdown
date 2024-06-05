@@ -17,7 +17,7 @@ module Markdown
       attribute :nav, :boolean, default: false, comment: '是否导航菜单'
       attribute :last_commit_at, :datetime
 
-      enum target: {
+      enum :target, {
         target_self: 'target_self',
         target_blank: 'target_blank',
         target_parent: 'target_parent',
