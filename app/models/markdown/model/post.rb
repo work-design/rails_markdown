@@ -22,7 +22,7 @@ module Markdown
         target_blank: 'target_blank',
         target_parent: 'target_parent',
         target_top: 'target_top'
-      }, _default: 'target_self'
+      }, default: 'target_self'
 
       belongs_to :git
       belongs_to :organ, class_name: 'Org::Organ', optional: true
