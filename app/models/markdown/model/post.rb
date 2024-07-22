@@ -118,13 +118,13 @@ module Markdown
         elsif link.attr['href'].start_with?('/')
           link.attr['target'] = '_blank' if target_blank?
         else
-          link.attr['href'].prepend("/markdown/posts/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
+          link.attr['href'].prepend("/markdown/posts/#{based_path}")
           link.attr['href'].delete_suffix!('.md')
         end
       end
       links[:img].each do |link|
         unless link.attr['src'].start_with?('http', '//')
-          link.attr['src'].prepend("/markdown/assets/#{catalog_path}#{catalog_path.present? ? '/' : ''}")
+          link.attr['src'].prepend("/markdown/assets/#{based_path}")
         end
       end
       document.root.children
@@ -158,6 +158,14 @@ module Markdown
       self.slug = path.delete_suffix('.md')
       self.catalog || self.create_catalog
       self
+    end
+
+    def based_path
+      if git.base_name.present?
+        "#{git.base_name}/#{catalog_path}#{catalog_path.present? ? '/' : ''}"
+      else
+        "#{catalog_path}#{catalog_path.present? ? '/' : ''}"
+      end
     end
 
     def sync_to_html
