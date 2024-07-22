@@ -52,12 +52,17 @@ module Markdown
       )
     end
 
+    def contents
+      return @contents if defined? @contents
+      @contents = document.root.children
+    end
+
     def converter
       return @converter if defined? @converter
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
     end
 
-    def blocks(items = items_with_deal_links, level = 2)
+    def blocks(items = contents, level = 2)
       r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map do |m|
         arr = {}
         idx = m.index(&->(j){ j.type == :header })
@@ -127,7 +132,6 @@ module Markdown
           link.attr['src'].prepend("/markdown/assets/#{based_path}")
         end
       end
-      document.root.children
     end
 
     def last_commit_at
@@ -185,8 +189,6 @@ module Markdown
     end
 
     def set_title
-      contents = document.root.children
-
       h1 = contents.find(&->(i){ i.type == :header && i.options[:level] == 1 })
       if h1
         self.title = h1.options[:raw_text]
