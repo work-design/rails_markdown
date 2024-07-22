@@ -66,7 +66,7 @@ module Markdown
       end.compact_blank
 
       r.map! do |i|
-        if i[:items].nil?
+        if i[:items].nil? || i[:items].all? { |_i| _i.type == :blank }
           i[:items] = []
         elsif i[:header]&.type == :header && i[:header].options[:level] == level
           i[:items] = i[:items].slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).map do |m|
