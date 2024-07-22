@@ -72,22 +72,12 @@ module Markdown
           items: m.compact_blank
         ).compact_blank
       end.compact_blank
-
-      binding.b
-
+      
       r.map! do |i|
         if i[:items].nil? || i[:items].all? { |_i| _i.type == :blank }
           i[:items] = []
         elsif i[:header]&.type == :header && i[:header].options[:level] == level
-          i[:items] = i[:items].slice_before(&->(i){ i.type == :header && i.options[:level] == level + 1 }).map do |m|
-            arr = {}
-            idx = m.index(&->(j){ j.type == :header })
-            arr.merge! header: m.delete_at(idx) if idx
-            arr.merge!(
-              link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) }),
-              items: m.compact_blank
-            ).compact_blank
-          end
+          i[:items] = blocks(i[:items], level + 1)
           i
         else
           i[:items] = [{ items: i[:items] }]
