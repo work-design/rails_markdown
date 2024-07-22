@@ -62,28 +62,42 @@ module Markdown
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
     end
 
-    def blocks(items = contents, level = 2)
-      r = items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map do |m|
-        arr = {}
-        idx = m.index(&->(j){ j.type == :header })
-        arr.merge! header: m.delete_at(idx) if idx
-        arr.merge!(
-          link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) }),
-          items: m.compact_blank
-        ).compact_blank
-      end.compact_blank
-      
+    def xx
       r.map! do |i|
-        if i[:items].nil? || i[:items].all? { |_i| _i.type == :blank }
-          i[:items] = []
-        elsif i[:header]&.type == :header && i[:header].options[:level] == level
-          i[:items] = blocks(i[:items], level + 1)
-          i
+        if i.is_a?(Hash)
+          if i[:items].nil? || i[:items].all? { |_i| _i.type == :blank }
+            i[:items] = []
+            i
+          elsif i[:header]&.type == :header && i[:header].options[:level] == level
+            i[:items] = blocks(i[:items], level + 1)
+            i
+          else
+            i
+          end
         else
-          i[:items] = [{ items: i[:items] }]
           i
         end
       end.compact_blank
+    end
+
+    def blocks(items = contents, level = 2)
+      if items.find(&->(i){ i.type == :header && i.options[:level] == level })
+        items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map do |m|
+          idx = m.index(&->(j){ j.type == :header })
+          if idx
+            arr = {}
+            arr.merge! header: m.delete_at(idx)
+            arr.merge!(
+              link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) }),
+              items: blocks(m, level + 1)
+            ).compact_blank
+          else
+            m
+          end
+        end.compact_blank
+      else
+        items
+      end
     end
 
     def raw_blocks
@@ -100,6 +114,8 @@ module Markdown
               block[k] = converter.convert(v, 0)
             end
           end
+        elsif block.is_a?(Array)
+          block_texts(block, text)
         else
           converter.convert(block, 0)
         end
