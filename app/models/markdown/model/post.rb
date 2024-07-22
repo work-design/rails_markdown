@@ -67,8 +67,13 @@ module Markdown
         arr = {}
         idx = m.index(&->(j){ j.type == :header })
         arr.merge! header: m.delete_at(idx) if idx
-        arr.merge!(items: m.compact_blank).compact_blank
+        arr.merge!(
+          link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) }),
+          items: m.compact_blank
+        ).compact_blank
       end.compact_blank
+
+      binding.b
 
       r.map! do |i|
         if i[:items].nil? || i[:items].all? { |_i| _i.type == :blank }
