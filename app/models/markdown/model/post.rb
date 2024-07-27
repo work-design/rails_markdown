@@ -54,6 +54,7 @@ module Markdown
 
     def contents
       return @contents if defined? @contents
+      items_with_deal_links
       @contents = document.root.children
     end
 
@@ -84,7 +85,7 @@ module Markdown
       proc = ->(i){ i.type == :header && i.options[:level] == level }
       if items.find(&proc)
         items.slice_before(&proc).map do |m|
-          idx = m.index(&proc)
+          idx = m.index(&->(i){ i.type == :header })
           if idx
             arr = {}
             arr.merge! header: m.delete_at(idx)
@@ -130,19 +131,27 @@ module Markdown
     def items_with_deal_links
       links = document.root.group_elements(a: [], img: [])
       links[:a].each do |link|
-        if link.attr['href'].start_with?('http', '//')
-          link.attr['target'] = '_blank'
-        elsif link.attr['href'].start_with?('/')
-          link.attr['target'] = '_blank' if target_blank?
-        else
-          link.attr['href'].prepend("/markdown/posts/#{based_path}")
-          link.attr['href'].delete_suffix!('.md')
-        end
+        convert_link(link)
       end
       links[:img].each do |link|
-        unless link.attr['src'].start_with?('http', '//')
-          link.attr['src'].prepend("/markdown/assets/#{based_path}")
-        end
+        convert_img(link)
+      end
+    end
+
+    def convert_img(link)
+      unless link.attr['src'].start_with?('http', '//')
+        link.attr['src'].prepend("/markdown/assets/#{based_path}")
+      end
+    end
+
+    def convert_link(link)
+      if link.attr['href'].start_with?('http', '//')
+        link.attr['target'] = '_blank'
+      elsif link.attr['href'].start_with?('/')
+        link.attr['target'] = '_blank' if target_blank?
+      else
+        link.attr['href'].prepend("/markdown/posts/#{based_path}")
+        link.attr['href'].delete_suffix!('.md')
       end
     end
 
