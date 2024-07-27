@@ -2,7 +2,7 @@
   <div class="hero-body container is-fullwidth">
     <%= item[:header]&.html_safe %>
     <div class="cards">
-      <%= render partial: 'md_layout/work_card', collection: item[:items].delete_if(&->(i){ i.is_a?(Array) }), as: :item %>
+      <%= render partial: 'md_layout/work_card', collection: item[:items], as: :item %>
     </div>
   </div>
 </section>

@@ -63,22 +63,12 @@ module Markdown
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
     end
 
-    def xx
-      r.map! do |i|
-        if i.is_a?(Hash)
-          if i[:items].nil? || i[:items].all? { |_i| _i.type == :blank }
-            i[:items] = []
-            i
-          elsif i[:header]&.type == :header && i[:header].options[:level] == level
-            i[:items] = blocks(i[:items], level + 1)
-            i
-          else
-            i
-          end
-        else
-          i
-        end
-      end.compact_blank
+    def clear_items(items)
+      if items.is_a?(Array) && items.all? { |_i| _i.type == :blank }
+        items.delete_if { |_i| _i.type == :blank }
+      else
+        items
+      end
     end
 
     def blocks(items = contents, level = 2)
@@ -94,11 +84,11 @@ module Markdown
               link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) })
             ).compact_blank
           else
-            m
+            clear_items(m)
           end
         end.compact_blank
       else
-        items
+        clear_items(items)
       end
     end
 
