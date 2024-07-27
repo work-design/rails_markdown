@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :markdown, defaults: { business: 'markdown' } do
-    resources :assets, only: [:show], constraints: { id: /.+/ }
     scope '(:base_name)' do
+      resources :assets, only: [:show], constraints: { id: /.+/ }
       resources :posts, only: [:index]
       resources :posts, only: [] do
         collection do
