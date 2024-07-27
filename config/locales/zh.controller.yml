@@ -19,6 +19,9 @@ zh:
           title: 分类
     admin:
       title: Markdown
+      home:
+        index:
+          title: Markdown
       gits:
         index:
           title: Git 路径
