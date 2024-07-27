@@ -1,8 +1,8 @@
 <% @post.catalog.ancestors.each do |catalog| %>
   <% if catalog.path.present? %>
-    <li><%= link_to catalog.name, { action: 'show', slug: catalog.path } %></li>
+    <li><%= link_to catalog.name, { action: 'show', base_name: catalog.git.base_name, slug: catalog.path } %></li>
   <% else %>
-    <li><%= link_to catalog.name, { action: 'index' } %></li>
+    <li><%= link_to catalog.name, { action: 'index', base_name: catalog.git.base_name } %></li>
   <% end %>
 <% end %>
 <% if @post.catalog_path.present? %>

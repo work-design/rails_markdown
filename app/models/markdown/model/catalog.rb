@@ -38,9 +38,9 @@ module Markdown
     def deal_path
       r = path.split('/')
       self.parent_path = r[0..-2].join('/')
-      self.name = r[-1]
       self.depth = r.size
       self.home_path = [path, 'README.md'].compact_blank.join('/')
+      self.name = r[-1].presence || home&.title
       self.changes
     end
 
