@@ -81,15 +81,16 @@ module Markdown
     end
 
     def blocks(items = contents, level = 2)
-      if items.find(&->(i){ i.type == :header && i.options[:level] == level })
-        items.slice_before(&->(i){ i.type == :header && i.options[:level] == level }).map do |m|
-          idx = m.index(&->(j){ j.type == :header })
+      proc = ->(i){ i.type == :header && i.options[:level] == level }
+      if items.find(&proc)
+        items.slice_before(&proc).map do |m|
+          idx = m.index(&proc)
           if idx
             arr = {}
             arr.merge! header: m.delete_at(idx)
             arr.merge!(
-              link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) }),
-              items: blocks(m, level + 1)
+              items: blocks(m, level + 1),
+              link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) })
             ).compact_blank
           else
             m
