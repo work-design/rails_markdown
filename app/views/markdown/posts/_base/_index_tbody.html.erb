@@ -2,10 +2,10 @@
 <% if model.ppt %>
   <%= link_to(action: 'ppt', path: model.path) do %>
     <span><%= model.title %></span>
-    <i class="fa-light fa-clapperboard-play color-grey-dark"></i>
+    <i class="fa-light fa-clapperboard-play text-grey-dark"></i>
   <% end %>
 <% else %>
   <%= link_to model.title, { action: 'show', slug: model.slug } %>
 <% end %>
 </td>
-<td class="has-text-right"><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></td>
+<td class="text-right"><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></td>

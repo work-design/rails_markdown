@@ -3,11 +3,11 @@
   <% if model.ppt %>
     <%= link_to(action: 'ppt', slug: model.slug) do %>
       <span><%= model.title %></span>
-      <i class="fa-light fa-clapperboard-play color-grey-dark"></i>
+      <i class="fa-light fa-clapperboard-play text-grey-dark"></i>
     <% end %>
   <% else %>
     <%= link_to model.title, { action: 'show', slug: model.slug } %>
   <% end %>
   </p>
-  <p class="color-grey"><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></p>
+  <p class="text-grey"><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></p>
 </td>
