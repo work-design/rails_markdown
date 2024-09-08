@@ -2,6 +2,6 @@
   <%= link_to({ controller: '/home' }, class: 'px-4') do %>
     <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
   <% end %>
-  <div class="weui-title"><%= @post.title %></div>
+  <div class="weui-title"><%= @post.title if @post %></div>
   <i class="px-5"></i>
 </div>
