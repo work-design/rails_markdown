@@ -26,6 +26,7 @@ module Markdown
       if @post
         render 'show'
       elsif @catalog
+        @post = @catalog.home
         set_catalogs
         @posts = @catalog.posts.page(params[:page])
         render :index

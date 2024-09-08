@@ -1,8 +1,8 @@
-<% if @catalog&.home.present? %>
-  <div data-id="<%= @catalog.home.id %>" class="content p-4">
-    <h1><%= @catalog.home.title %></h1>
-    <%= render partial: 'time', locals: { post: @catalog.home } %>
-    <%= @catalog.home.html.html_safe %>
+<% if @post.present? %>
+  <div data-id="<%= @post.id %>" class="content p-4">
+    <h1><%= @post.title %></h1>
+    <%= render partial: 'time', locals: { post: @post } %>
+    <%= @post.html.html_safe %>
   </div>
 <% else %>
   <%= render layout: 'index_table' do %>
