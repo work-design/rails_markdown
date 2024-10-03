@@ -119,9 +119,13 @@ module Markdown
 
       r = []
       (params['modified'] + params['added']).each do |path|
-        r += sync_files(path).map do |model|
+        synced_posts, synced_assets = sync_files(path)
+        synced_posts.each do |model|
           model.last_commit_at = params['timestamp']
-          model
+          r << model
+        end
+        synced_assets.each do |model|
+          r << model
         end
       end
 
