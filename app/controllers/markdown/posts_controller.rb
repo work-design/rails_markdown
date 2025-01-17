@@ -10,7 +10,11 @@ module Markdown
       q_params.merge! default_params
       q_params.merge! params.permit(:catalog_path)
 
-      @posts = @git.posts.published.default_where(q_params).page(params[:page])
+      if @git
+        @posts = @git.posts.published.default_where(q_params).page(params[:page])
+      else
+        @posts = Post.none.page
+      end
     end
 
     def list
@@ -53,16 +57,21 @@ module Markdown
     def set_catalogs
       if @catalog
         @catalogs = @catalog.siblings
-      else
+      elsif @git
         q_params = {}
         q_params.merge! default_params
 
         @catalogs = @git.catalogs.default_where(q_params).roots
+      else
+        @catalogs = Catalog.none
       end
     end
 
     def set_catalog
-      @catalog = @git.catalogs.default_where(default_params).find_by path: params[:slug].to_s
+      if @git
+        @catalog = @git.catalogs.default_where(default_params).find_by path: params[:slug].to_s
+      else
+      end
     end
 
     def set_post
