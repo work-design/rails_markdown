@@ -1,9 +1,7 @@
-<div class="column is-narrow background-light is-radius" style="width: 260px;">
-  <div class="menu">
-  <% if @post %>
-    <%= render 'post_nav' %>
-  <% else %>
-    <%= render 'catalog_nav' %>
-  <% end %>
-  </div>
+<div class="menu background-light is-fullheight is-radius">
+<% if @post %>
+  <%= render 'post_nav' %>
+<% else %>
+  <%= render 'catalog_nav' %>
+<% end %>
 </div>
