@@ -199,6 +199,10 @@ module Markdown
       markdown.start_with?("---\n")
     end
 
+    def home?
+      catalog.home == self
+    end
+
     def set_title
       h1 = contents.find(&->(i){ i.type == :header && i.options[:level] == 1 })
       if h1
