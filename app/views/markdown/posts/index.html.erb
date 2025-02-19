@@ -5,10 +5,5 @@
     <%= @post.html.html_safe %>
   </div>
 <% else %>
-  <%= render layout: 'index_table' do %>
-    <%= render partial: 'catalog_tbody', layout: 'index_tr', collection: @catalog.children, as: :model if @catalog %>
-    <%= render partial: 'index_tbody', layout: 'index_tr', collection: @posts, as: :model %>
-  <% end %>
 
-  <%= paginate @posts %>
 <% end %>

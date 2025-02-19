@@ -2,7 +2,7 @@ module Markdown
   class PostsController < BaseController
     before_action :set_git
     before_action :set_post, only: [:show, :raw, :ppt, :content]
-    before_action :set_catalog, only: [:index, :show, :list]
+    before_action :set_catalog, only: [:show, :list]
     before_action :set_catalogs, only: [:index, :ppt]
 
     def index
@@ -11,9 +11,7 @@ module Markdown
       q_params.merge! params.permit(:catalog_path)
 
       if @git
-        @posts = @git.posts.published.default_where(q_params).page(params[:page])
-      else
-        @posts = Post.none.page
+        @post = @git.posts.where(catalog_path: '').take
       end
     end
 
@@ -23,7 +21,11 @@ module Markdown
       q_params.merge! params.permit(:catalog_path)
       # q_params.merge! catalog_path: (@catalog.children.pluck(:path) << params[:catalog_path])
 
-      @posts = @git.posts.published.default_where(q_params).page(params[:page])
+      if @git
+        @posts = @git.posts.published.default_where(q_params).page(params[:page])
+      else
+        @posts = Post.none.page
+      end
     end
 
     def show
@@ -70,12 +72,11 @@ module Markdown
     def set_catalog
       if @git
         @catalog = @git.catalogs.default_where(default_params).find_by path: params[:slug].to_s
-      else
       end
     end
 
     def set_post
-      @post = @git.posts.default_where(default_params).find_by(slug: params[:slug])
+      @post = @git.posts.default_where(default_params).where(slug: [params[:slug], "#{params[:slug]}/README"]).take
     end
 
   end
