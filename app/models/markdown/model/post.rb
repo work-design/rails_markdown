@@ -54,7 +54,6 @@ module Markdown
 
     def contents
       return @contents if defined? @contents
-      items_with_deal_links
       @contents = document.root.children
     end
 
