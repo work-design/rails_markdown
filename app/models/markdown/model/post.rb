@@ -52,11 +52,6 @@ module Markdown
       )
     end
 
-    def contents
-      return @contents if defined? @contents
-      @contents = document.root.children
-    end
-
     def converter
       return @converter if defined? @converter
       @converter = Kramdown::Converter::Html.send :new, document.root, document.options
@@ -70,7 +65,12 @@ module Markdown
       end
     end
 
-    def blocks(items = contents, level = 2)
+    def new_contents
+      deal_links_and_images
+      document.root.children
+    end
+
+    def blocks(items = new_contents, level = 2)
       proc = ->(i){ i.type == :header && i.options[:level] == level }
       if items.find(&proc)
         items.slice_before(&proc).map do |m|
@@ -117,7 +117,7 @@ module Markdown
       block_texts(raw_blocks)
     end
 
-    def items_with_deal_links
+    def deal_links_and_images
       links = document.root.group_elements(a: [], img: [])
       links[:a].each do |link|
         convert_link(link)
@@ -185,8 +185,7 @@ module Markdown
     def sync_to_html
       self.ppt = is_ppt?
       self.set_title
-      self.items_with_deal_links
-      self.html = document.to_html
+      self.set_html
       self
     end
 
@@ -202,17 +201,32 @@ module Markdown
       catalog.home == self
     end
 
+    def document_h1
+      document.root.children.find { |i| i.type == :header && i.options[:level] == 1 }
+    end
+
     def set_title
-      h1 = contents.find(&->(i){ i.type == :header && i.options[:level] == 1 })
+      h1 = document_h1
       if h1
         self.title = h1.options[:raw_text]
+      end
+    end
+
+    def set_html
+      self.deal_links_and_images
+      self.deal_h1_and_blank
+      self.html = document.to_html
+    end
+
+    def deal_h1_and_blank
+      h1 = document_h1
+      contents = document.root.children
+      if h1
         contents.delete(h1)
       end
       while contents[0]&.type == :blank do
         contents.delete_at(0)
       end
-
-      title
     end
 
   end
