@@ -130,7 +130,7 @@ module Markdown
 
     def convert_img(link)
       unless link.attr['src'].start_with?('http', '//')
-        link.attr['src'].prepend '/markdown/assets'
+        link.attr['src'].prepend '/markdown/assets/'
       end
     end
 
