@@ -74,13 +74,13 @@ module Markdown
       proc = ->(i){ i.type == :header && i.options[:level] == level }
       if items.find(&proc)
         items.slice_before(&proc).map do |m|
-          idx = m.index(&->(i){ i.type == :header })
+          idx = m.index { |i| i.type == :header }
           if idx
             arr = {}
             arr.merge! header: m.delete_at(idx)
             arr.merge!(
               items: blocks(m, level + 1),
-              link: m.extract!(&->(j){ j.children.present? && j.children.all?(&->(k){ k.type == :a }) })
+              link: m.extract! { |j| j.children.present? && j.children.all?(&->(k){ k.type == :a }) }
             ).compact_blank
           else
             clear_items(m)
@@ -129,7 +129,7 @@ module Markdown
 
     def convert_img(link)
       unless link.attr['src'].start_with?('http', '//')
-        link.attr['src'].prepend '/markdown/assets/'
+        link.attr['src'].prepend based_path('assets')
       end
     end
 
