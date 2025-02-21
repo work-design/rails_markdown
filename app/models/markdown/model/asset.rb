@@ -14,6 +14,11 @@ module Markdown
       after_save_commit :sync_file_later, if: -> { download_url.present? && saved_change_to_download_url? }
     end
 
+    def sync_file!
+      self.file.url_sync(asset.download_url)
+      self.save
+    end
+
     def sync_file_later
       AssetFileJob.perform_later(self)
     end
