@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   namespace :markdown, defaults: { business: 'markdown' } do
     scope '(:base_name)' do
-      resources :assets, only: [] do
-        collection do
-          get '(*path)' => :show
-        end
-      end
+      resources :assets, only: [:show], constraints: { id: /.+/ }
       resources :posts, only: [:index]
       resources :posts, only: [] do
         collection do
