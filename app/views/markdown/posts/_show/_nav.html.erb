@@ -1,5 +1,5 @@
 <div class="menu background-light is-fullheight is-radius">
-<% if @post.home? %>
+<% if @post.blank? || @post&.home? %>
   <%= render 'catalog_nav' %>
 <% else %>
   <%= render 'post_nav' %>
