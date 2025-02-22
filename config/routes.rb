@@ -5,7 +5,6 @@ Rails.application.routes.draw do
       resources :posts, only: [:index]
       resources :posts, only: [] do
         collection do
-          get 'list/*catalog_path' => :list
           get 'ppt/*slug' => :ppt
           get 'raw/*slug' => :raw
           get 'content/*slug' => :content

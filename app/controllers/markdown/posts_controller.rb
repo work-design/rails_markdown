@@ -2,7 +2,7 @@ module Markdown
   class PostsController < BaseController
     before_action :set_git
     before_action :set_post, only: [:show, :raw, :ppt, :content]
-    before_action :set_catalog, only: [:show, :list]
+    before_action :set_catalog, only: [:show]
     before_action :set_catalogs, only: [:index, :ppt]
 
     def index
@@ -12,19 +12,6 @@ module Markdown
 
       if @git
         @post = @git.posts.where(catalog_path: '').take
-      end
-    end
-
-    def list
-      q_params = {}
-      q_params.merge! default_params
-      q_params.merge! params.permit(:catalog_path)
-      # q_params.merge! catalog_path: (@catalog.children.pluck(:path) << params[:catalog_path])
-
-      if @git
-        @posts = @git.posts.published.default_where(q_params).page(params[:page])
-      else
-        @posts = Post.none.page
       end
     end
 
