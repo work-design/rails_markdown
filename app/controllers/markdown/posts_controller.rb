@@ -11,7 +11,7 @@ module Markdown
       q_params.merge! params.permit(:catalog_path)
 
       if @git
-        @post = @git.posts.where(catalog_path: '').take
+        @post = @git.posts.find_by(slug: 'README')
       end
     end
 
