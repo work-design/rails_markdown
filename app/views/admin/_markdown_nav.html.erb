@@ -1,8 +1,10 @@
 <div data-controller="menu" class="<%= role_permit?(business: 'markdown', namespace: 'admin') ? 'menu ex-accordion is-active' : 'display-none' %>">
-  <div class="menu-label">
-    <i class="fa-brands fa-fw fa-markdown"></i>
-    <span><%= t('markdown.admin.title') %></span>
-  </div>
+  <%= link_to({ controller: 'markdown/admin/home' }, text: true, class: 'menu-label') do %>
+    <div>
+      <i class="fa-brands fa-fw fa-markdown"></i>
+      <span><%= t('markdown.admin.title') %></span>
+    </div>
+  <% end %>
   <div class="menu-list">
     <%= link_to t('markdown.admin.gits.index.title'), { controller: 'markdown/admin/gits' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['gits', 'posts', 'catalogs'], active: 'is-active') %>
   </div>
