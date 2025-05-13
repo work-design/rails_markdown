@@ -1,5 +1,5 @@
-<div class="menu ex-accordion">
-  <%= link_to({ controller: 'markdown/panel/home' }, text: true, class: 'menu-label') do %>
+<div class="menu-list">
+  <%= link_to({ controller: 'markdown/panel/home' }, text: true, data: { turbo_frame: 'body', action: 'menu#enter' }, class: 'menu-item') do %>
     <div>
       <i class="fa-brands fa-fw fa-markdown"></i>
       <span><%= t('markdown.panel.title') %></span>
