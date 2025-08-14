@@ -1,7 +1,5 @@
-<div class="fixed-grid has-6-cols">
-  <div class="grid">
-    <%= link_to({ controller: 'markdown/admin/gits' }, class: 'cell button is-fullwidth') do %>
-      <span><%= t('markdown.admin.gits.index.title') %></span>
-    <% end %>
-  </div>
+<div class="grid">
+  <%= link_to({ controller: 'markdown/admin/gits' }, data: { turbo_frame: 'body', action: 'menu-popup#enter' }, class: 'cell button is-fullwidth') do %>
+    <span><%= t('markdown.admin.gits.index.title') %></span>
+  <% end %>
 </div>
