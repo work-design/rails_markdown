@@ -6,7 +6,7 @@ module Markdown
     included do
       attribute :identity, :string
 
-      has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :identity
+      has_one :github_user, class_name: 'Auth::GithubUser', primary_key: :identity, foreign_key: :uid
     end
 
     def sync_files(path = nil, mds: [], files: [], tries: 3)
