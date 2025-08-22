@@ -1,0 +1,37 @@
+<td>
+  <i class="fa-solid fa-fw fa-minus text-danger"></i>
+  <span><%= model.name %></span>
+</td>
+<td>
+  <p><%= model.path %></p>
+  <p class="text-success"><%= model.home_path %></p>
+</td>
+<td>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :nav, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
+</td>
+<td>
+  <div data-show-target="item" class="visibility-hidden">
+    <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'circle-info', class: 'icon text-info' %>
+    <% end %>
+    <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'pencil', class: 'icon text-link' %>
+    <% end %>
+    <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, data: { confirm: t('.destroy.confirm') }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'trash', class: 'icon text-danger' %>
+    <% end %>
+  </div>
+  <div data-show-target="item" class="visibility-hidden">
+    <%= link_to({ controller: 'posts', catalog_path: model.path, git_id: model.git_id }, class: 'button is-small is-borderless') do %>
+      <i class="fa-solid fa-newspaper text-warning-dark"></i>
+      <span class="ml-1"><%= t('.posts.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'assets', catalog_path: model.path, git_id: model.git_id }, class: 'button is-small is-borderless') do %>
+      <i class="fa-solid fa-images text-success"></i>
+      <span class="ml-1"><%= t('.assets.index.title') %></span>
+    <% end %>
+  </div>
+</td>
