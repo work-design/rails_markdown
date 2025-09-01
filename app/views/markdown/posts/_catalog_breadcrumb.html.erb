@@ -3,7 +3,7 @@
     <% if catalog.path.present? %>
       <li><%= link_to catalog.name, { action: 'show', base_name: catalog.git.base_name, slug: catalog.path } %></li>
     <% else %>
-      <li><%= link_to catalog.name, { action: 'index', base_name: catalog.git.base_name } %></li>
+      <li><%= link_to catalog.name.presence || t('.index.title'), { action: 'index', base_name: catalog.git.base_name } %></li>
     <% end %>
   <% end %>
   <li data-id="<%= @catalog.id %>" class="is-active"><%= @catalog.name %></li>
