@@ -6,3 +6,5 @@ light:
   - newspaper
   - pencil
   - trash
+regular:
+  - angle-left
