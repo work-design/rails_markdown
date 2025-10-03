@@ -11,4 +11,3 @@
   <p><%= model.last_commit_message %></p>
   <p class="text-grey"><time data-controller="time" data-format="human"><%= model.last_commit_at&.to_fs(:iso8601) %></time></p>
 </td>
-<td><%= render partial: 'index_tr_actions', locals: { model: model } %></td>
