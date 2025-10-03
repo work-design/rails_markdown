@@ -1,0 +1,8 @@
+<tr
+  id="tr_<%= model.id %>"
+  data-controller="show"
+  data-url="<%= url_for({ action: 'reorder', id: model.id }) %>"
+  data-id="<%= model.id %>"
+>
+  <%= yield %>
+</tr>
